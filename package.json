@@ -8,7 +8,19 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khaznatech/khazna-elements-package.git"
+  },
+  "author": "Khazna tech",
+  "license": "ISC",
+  "bugs": {
+    "url": "https:/github.om/khaznatech/khazna-elements-package/issues"
+  },
+  "homepage": "https://github.com/khaznatech/khazna-elements-package#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/khaznatech"
+  },
   "dependencies": {
     "@angular/animations": "~13.3.0",
     "@angular/common": "~13.3.0",
