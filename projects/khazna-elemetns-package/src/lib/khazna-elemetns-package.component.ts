@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-khazna-elemetns-package',
+  selector: 'lib-khazna-elements-package',
   template: `
     <p>
-      khazna-elemetns-package works!
+      khazna-elements-package works!
     </p>
   `,
   styles: [

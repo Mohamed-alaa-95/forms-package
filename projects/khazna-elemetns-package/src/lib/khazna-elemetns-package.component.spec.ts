@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KhaznaElemetnsPackageComponent } from './khazna-elemetns-package.component';
+import { KhaznaElemetnsPackageComponent } from './khazna-elements-package.component';
 
 describe('KhaznaElemetnsPackageComponent', () => {
   let component: KhaznaElemetnsPackageComponent;

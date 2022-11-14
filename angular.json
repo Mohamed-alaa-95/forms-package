@@ -3,23 +3,23 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "khazna-elemetns-package": {
+    "khazna-elements-package": {
       "projectType": "library",
-      "root": "projects/khazna-elemetns-package",
-      "sourceRoot": "projects/khazna-elemetns-package/src",
+      "root": "projects/khazna-elements-package",
+      "sourceRoot": "projects/khazna-elements-package/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/khazna-elemetns-package/ng-package.json"
+            "project": "projects/khazna-elements-package/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/khazna-elemetns-package/tsconfig.lib.prod.json"
+              "tsConfig": "projects/khazna-elements-package/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/khazna-elemetns-package/tsconfig.lib.json"
+              "tsConfig": "projects/khazna-elements-package/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -27,13 +27,13 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/khazna-elemetns-package/src/test.ts",
-            "tsConfig": "projects/khazna-elemetns-package/tsconfig.spec.json",
-            "karmaConfig": "projects/khazna-elemetns-package/karma.conf.js"
+            "main": "projects/khazna-elements-package/src/test.ts",
+            "tsConfig": "projects/khazna-elements-package/tsconfig.spec.json",
+            "karmaConfig": "projects/khazna-elements-package/karma.conf.js"
           }
         }
       }
     }
   },
-  "defaultProject": "khazna-elemetns-package"
+  "defaultProject": "khazna-elements-package"
 }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { KhaznaElemetnsPackageComponent } from './khazna-elemetns-package.component';
+import { KhaznaElemetnsPackageComponent } from './khazna-elements-package.component';
 
 
 

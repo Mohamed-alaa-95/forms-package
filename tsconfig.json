@@ -9,9 +9,9 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "paths": {
-      "khazna-elemetns-package": [
-        "dist/khazna-elemetns-package/khazna-elemetns-package",
-        "dist/khazna-elemetns-package"
+      "khazna-elements-package": [
+        "dist/khazna-elements-package/khazna-elements-package",
+        "dist/khazna-elements-package"
       ]
     },
     "noImplicitReturns": true,

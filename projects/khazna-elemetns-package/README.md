@@ -4,20 +4,20 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Code scaffolding
 
-Run `ng generate component component-name --project khazna-elemetns-package` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project khazna-elemetns-package`.
-> Note: Don't forget to add `--project khazna-elemetns-package` or else it will be added to the default project in your `angular.json` file. 
+Run `ng generate component component-name --project khazna-elements-package` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project khazna-elements-package`.
+> Note: Don't forget to add `--project khazna-elements-package` or else it will be added to the default project in your `angular.json` file. 
 
 ## Build
 
-Run `ng build khazna-elemetns-package` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build khazna-elements-package` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Publishing
 
-After building your library with `ng build khazna-elemetns-package`, go to the dist folder `cd dist/khazna-elemetns-package` and run `npm publish`.
+After building your library with `ng build khazna-elements-package`, go to the dist folder `cd dist/khazna-elements-package` and run `npm publish`.
 
 ## Running unit tests
 
-Run `ng test khazna-elemetns-package` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test khazna-elements-package` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Further help
 

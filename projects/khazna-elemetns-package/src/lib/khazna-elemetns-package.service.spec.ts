@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { KhaznaElemetnsPackageService } from './khazna-elemetns-package.service';
+import { KhaznaElemetnsPackageService } from './khazna-elements-package.service';
 
 describe('KhaznaElemetnsPackageService', () => {
   let service: KhaznaElemetnsPackageService;

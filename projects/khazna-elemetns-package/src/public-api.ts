@@ -1,7 +1,7 @@
 /*
- * Public API Surface of khazna-elemetns-package
+ * Public API Surface of khazna-elements-package
  */
 
-export * from './lib/khazna-elemetns-package.service';
-export * from './lib/khazna-elemetns-package.component';
-export * from './lib/khazna-elemetns-package.module';
+export * from './lib/khazna-elements-package.service';
+export * from './lib/khazna-elements-package.component';
+export * from './lib/khazna-elements-package.module';
