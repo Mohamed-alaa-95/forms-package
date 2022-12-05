@@ -1,0 +1,20 @@
+::ng-deep .p-datepicker {
+    z-index: 1103 !important;
+}
+
+.halfInput {
+    width: 50%;
+}
+
+::ng-deep .date-time .p-column-filter-row p-columnfilterformelement {
+    width: 15rem !important;
+}
+
+::ng-deep .date-time.p-inputgroup {
+    width: 15rem !important;
+}
+
+
+/* ::ng-deep .p-fluid .p-calendar .p-inputtext {
+    height: 5vh !important;
+} */

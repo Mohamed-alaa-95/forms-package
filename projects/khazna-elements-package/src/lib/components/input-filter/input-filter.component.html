@@ -1,0 +1,16 @@
+<div [formGroup]="inputForm">
+  <p-columnFilter
+    class="filterButton"
+    [field]="columnConfig.control.name"
+    [showMenu]="false"
+  >
+    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+      <input
+        [type]="columnConfig.type"
+        pInputText
+        (input)="onChangeInputValue(columnConfig.control.name, $event)"
+        formControlName="inputField"
+      />
+    </ng-template>
+  </p-columnFilter>
+</div>

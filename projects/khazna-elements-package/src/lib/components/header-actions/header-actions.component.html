@@ -1,0 +1,57 @@
+<ng-container *ngIf="title || (actions | keyvalue).length">
+  <strong class="title" *ngIf="title && title !== 'undefined'">
+    <!-- <i class="pi pi-align-justify"></i> -->
+    {{ title }}
+  </strong>
+  <div
+    class="actionBtns"
+  >
+    <div *ngFor="let action of actions | keyvalue" class="actionBtn">
+      <ng-container *ngIf="getActionsArray(action.key).length; else single">
+        <p-dropdown
+          class="actionList"
+          [options]="getActionsArray(action.key)"
+          [placeholder]="action.key"
+          [showClear]="false"
+          [optionLabel]="action.key"
+        >
+          <ng-template let-action pTemplate="action">
+            <div class="actionsContainer" (click)="clickOnAction(action)">
+              <button
+                pButton
+                pRipple
+                type="button"
+                label="Primary"
+                class="p-button-text p-mr-2 p-mb-2"
+                *ngIf="action.isVisible"
+                [ngClass]="action.class"
+                [label]="action.text"
+                [disabled]="action.isDisabled"
+                icon="{{ action.icon }}"
+              ></button>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </ng-container>
+      <ng-template #single>
+        <button
+          pButton
+          [icon]="getSingleAction(action.key).icon"
+          class="single-action"
+          *ngIf="getSingleAction(action.key).isVisible"
+          [ngClass]="getSingleAction(action.key).class"
+          (click)="clickOnAction(getSingleAction(action.key))"
+          [label]="getSingleAction(action.key).text"
+          [disabled]="getSingleAction(action.key).isDisabled"
+        ></button>
+
+        <div *ngIf="getSingleAction(action.key).isDisabled">
+          <span class="error">*</span
+          ><small class="error errorMsg">
+            {{ getSingleAction(action.key).disabledReason }}
+          </small>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</ng-container>

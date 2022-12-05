@@ -1,0 +1,61 @@
+<ng-container>
+  <ng-container *ngIf="dropDownColumnConfig.multiple; else single">
+    <p-columnFilter
+      [field]="dropDownColumnConfig.name"
+      matchMode="equals"
+      [showMenu]="false"
+    >
+      <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+        <p-multiSelect
+          #dp_multiple
+          pTooltip="{{ value ? getValue(value) : '' }}"
+          [id]="'dropdown_' + '_column_' + dropDownColumnConfig.name"
+          [filter]="dropDownColumnConfig?.filter"
+          [options]="dropDownColumnConfig?.options"
+          optionLabel="value"
+          optionValue="id"
+          (onChange)="updateStatus($event.value, dropDownColumnConfig.name)"
+          [placeholder]="dropDownColumnConfig.label"
+          [showClear]="true"
+          [ngClass]="{ right: dir === 'rtl' }"
+          appendTo="body"
+          [disabled]="
+          columnConfig.control.depends &&
+          !dependValu[columnConfig.control.depends]
+        "
+        >
+        </p-multiSelect>
+      </ng-template>
+    </p-columnFilter>
+  </ng-container>
+
+  <ng-template #single>
+    <p-columnFilter
+      [field]="dropDownColumnConfig.name"
+      matchMode="equals"
+      [showMenu]="false"
+    >
+      <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+        <p-dropdown
+          #dp
+          pTooltip="{{ value ? getSingleDropdownValue(value) : '' }}"
+          [id]="'dropdown_' + '_column_' + dropDownColumnConfig.name"
+          [options]="dropDownColumnConfig?.options"
+          [filter]="dropDownColumnConfig?.filter"
+          [optionLabel]="'value'"
+          (onChange)="updateStatus($event.value, dropDownColumnConfig.name)"
+          optionValue="id"
+          [showClear]="dp.selectedOption"
+          [placeholder]="dropDownColumnConfig.label"
+          [disabled]="
+            columnConfig.control.depends &&
+            !dependValu[columnConfig.control.depends]
+          "
+          [ngClass]="{ right: dir === 'rtl' }"
+          appendTo="body"
+        >
+        </p-dropdown>
+      </ng-template>
+    </p-columnFilter>
+  </ng-template>
+</ng-container>
