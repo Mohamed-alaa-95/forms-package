@@ -140,7 +140,7 @@ export class PrimeWidgetComponent implements OnChanges {
   @Input() globalFilterFields: string[] = [];
   @Input() simpleData: any[] = [];
   @Input() dir: Direction = 'ltr';
-  @Input() data = [];
+  @Input() data :any= [];
   @Input() columns: field[] = [
     {
       type: 'text',
@@ -251,9 +251,10 @@ export class PrimeWidgetComponent implements OnChanges {
     },
   ];
   @Input() title!: string;
-  constructor() {}
+  constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(',,,,,,,,,,,,,,,,,,,',this.data)
     this.onUpdateSelectedRows.next(this.selectedRows);
   }
 

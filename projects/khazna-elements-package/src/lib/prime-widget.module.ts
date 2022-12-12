@@ -1,3 +1,5 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
@@ -15,11 +17,9 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { DialogModule } from 'primeng/dialog';
 import { SliderModule } from 'primeng/slider';
 import { PrimeWidgetComponent } from './prime-widget.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AutocompleteFilterComponent } from './components/autocomplete-filter/autocomplete-filter.component';
 import { DateFilterComponent } from './components/date-filter/date-filter.component';
@@ -73,12 +73,21 @@ const primeModules = [
     ReactiveFormsModule,
     ...primeModules,
   ],
-  providers: [PrimeWidgetComponent, ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService],
   exports: [
-    NumbersOnly,
     FilterTableComponent,
     HeaderActionsComponent,
+    DropdownFilterComponent,
+    DateFilterComponent,
+    AutocompleteFilterComponent,
+    InputFilterComponent,
+    NumbersOnly,
+    PrimeWidgetComponent,
+    NumberFilterComponent,
+    DateTimeComponent,
     primeModules,
   ],
 })
-export class PrimeWidgetModule {}
+export class PrimeWidgetModule {
+  constructor(){console.log('............')}
+}
