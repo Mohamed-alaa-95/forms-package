@@ -155,7 +155,6 @@ export class FilterTableComponent implements OnChanges {
   }
 
   loadData(event: LazyLoadEvent) {
-    console.log('load data>>>')
     this.firstValue = event.first;
     // this.selectedRows = [];
     this.onSelectAction.emit(this.backupSelection);

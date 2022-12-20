@@ -68,7 +68,6 @@ const primeModules = [
   ],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     ...primeModules,
@@ -89,5 +88,5 @@ const primeModules = [
   ],
 })
 export class PrimeWidgetModule {
-  constructor(){console.log('............')}
+  constructor(){}
 }

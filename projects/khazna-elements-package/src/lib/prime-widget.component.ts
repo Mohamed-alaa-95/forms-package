@@ -254,7 +254,6 @@ export class PrimeWidgetComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(',,,,,,,,,,,,,,,,,,,',this.data)
     this.onUpdateSelectedRows.next(this.selectedRows);
   }
 

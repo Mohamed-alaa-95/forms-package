@@ -1,4 +1,4 @@
-<ng-container *ngIf="title || (actions | keyvalue).length">
+<ng-container *ngIf="title || (actions | keyvalue)?.length">
   <strong class="title" *ngIf="title && title !== 'undefined'">
     <!-- <i class="pi pi-align-justify"></i> -->
     {{ title }}
@@ -7,7 +7,7 @@
     class="actionBtns"
   >
     <div *ngFor="let action of actions | keyvalue" class="actionBtn">
-      <ng-container *ngIf="getActionsArray(action.key).length; else single">
+      <ng-container *ngIf="getActionsArray(action.key)?.length; else single">
         <p-dropdown
           class="actionList"
           [options]="getActionsArray(action.key)"
@@ -38,7 +38,7 @@
           pButton
           [icon]="getSingleAction(action.key).icon"
           class="single-action"
-          *ngIf="getSingleAction(action.key).isVisible"
+          *ngIf="getSingleAction(action.key)?.isVisible"
           [ngClass]="getSingleAction(action.key).class"
           (click)="clickOnAction(getSingleAction(action.key))"
           [label]="getSingleAction(action.key).text"

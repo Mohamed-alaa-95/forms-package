@@ -20,17 +20,18 @@ export interface field {
 }
 
 export interface DefaultControlConfig {
-  required: boolean;
+  required?: boolean;
   maxLength?: number;
   minLength?: number;
   name: string;
   label: string;
-  searchable?: boolean; // filter show
-  show?: boolean; // table show
+  searchable?: boolean;
+  show?: boolean;
   sortable?: boolean;
   exactMatch?: boolean;
   depends?: string;
   isStatus?: boolean;
+  filter?: boolean;
   isDateTime?: boolean;
 }
 

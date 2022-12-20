@@ -69,7 +69,6 @@ export class NumberFilterComponent implements OnInit, OnChanges {
     });
   }
   preventNegativeSign(event: any) {
-    console.log(event);
     window.alert(event.charCode);
     return event.charCode == 8 || event.charCode == 0
       ? null
