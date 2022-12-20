@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-package":"npm run build khazna-elements-package",
+    "publish":"cd dist/khazna-elements-package && npm publish",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
