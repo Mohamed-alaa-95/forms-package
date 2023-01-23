@@ -3,20 +3,5 @@
   "dest": "./dist/khazna-elements-package",
   "lib": {
     "entryFile": "src/public-api.ts"
-  },
-  "allowedNonPeerDependencies": [
-    "ng-connection-service",
-    "@angular/compiler-cli",
-    "@angular/cli",
-    "@angular/compiler",
-    "@angular/animations",
-    "@angular/cdk",
-    "@angular/common",
-    "@angular/core",
-    "@angular/forms",
-    "@angular/router",
-    "primeng",
-    "tslib",
-    "typescript"
-  ]
+  }
 }
