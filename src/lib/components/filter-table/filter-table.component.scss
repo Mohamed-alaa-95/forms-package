@@ -1,174 +1,184 @@
 ::ng-deep .tooltip {
-    max-width: 50rem !important;
+  max-width: 50rem !important;
 }
 
 ::ng-deep p-datatable .p-datatable-tbody>tr>td {
-    padding: .3rem .3rem !important;
+  padding: .3rem .3rem !important;
 }
 
 // p-table td {
 //   min-width: 220px;
 // }
-.Inactive,
-.failed {
-    color: #ff251e;
-    background: rgba(255, 37, 30, 0.1);
-    border: 1px solid #ff251e;
+.inactive,
+.failed,.cancelled {
+  color: #ff251e;
+  background: rgba(255, 37, 30, 0.1);
+  border: 1px solid #ff251e;
 }
 
 .normal_col {
-    cursor: auto !important;
+  cursor: auto !important;
 }
 
 .normal_col:focus {
-    box-shadow: unset !important;
-    outline: none !important;
+  box-shadow: unset !important;
+  outline: none !important;
 }
 
-.Active,
+.active,
 .completed {
-    color: #23ae3a;
-    background: rgba(35, 174, 58, 0.1);
-    border: 1px solid #23ae3a;
+  color: #23ae3a;
+  background: rgba(35, 174, 58, 0.1);
+  border: 1px solid #23ae3a;
 }
 
 .validated {
-    color: #839bc8;
-    background: rgba(131, 155, 200, 0.1);
-    border: 1px solid #839bc8;
+  color: #839bc8;
+  background: rgba(131, 155, 200, 0.1);
+  border: 1px solid #839bc8;
 }
 
-.under {
-    color: #ff9d0f;
-    background: rgba(255, 157, 15, 0.1);
-    border: 1px solid #ff9d0f;
+.under,.ready {
+  color: #ff9d0f;
+  background: rgba(255, 157, 15, 0.1);
+  border: 1px solid #ff9d0f;
 }
 
 .finished,
 .created {
-    color: #51e6c4;
-    background: rgba(81, 230, 196, 0.1);
-    border: 1px solid #51e6c4;
+  color: #51e6c4;
+  background: rgba(81, 230, 196, 0.1);
+  border: 1px solid #51e6c4;
 }
 
 .status-column {
-    padding: 4px 8px;
-    border-radius: 15px;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .imageContainer {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 .arabicStyle {
-     ::ng-deep .p-datatable .p-datatable-header {
-        direction: lrt !important;
-    }
-    .filterActions {
-        justify-content: start !important;
-    }
-     ::ng-deep .p-paginator-icon {
-        transform: rotate(180deg);
-    }
+  ::ng-deep .p-datatable .p-datatable-header {
+    direction: lrt !important;
+  }
+
+  .filterActions {
+    justify-content: start !important;
+  }
+
+  ::ng-deep .p-paginator-icon {
+    transform: rotate(180deg);
+  }
 }
 
 .englishStyle {
-     ::ng-deep .p-datatable .p-datatable-header {
-        direction: rtl !important;
-    }
+  ::ng-deep .p-datatable .p-datatable-header {
+    direction: rtl !important;
+  }
 }
 
 .filterActions {
-    display: flex;
-    width: 100%;
-    .filter,
-    .clear {
-        margin: 0 20px;
-    }
+  display: flex;
+  width: 100%;
+
+  .filter,
+  .clear {
+    margin: 0 20px;
+  }
 }
 
 .tableHeaders {
-    width: 100%;
-    .simpleData {
-        display: flex;
-        justify-content: space-between;
-        width: 90%;
-        margin: auto;
-        border-bottom: 1px solid #e4dcdc;
-        padding: 11px;
-        margin-bottom: 20px;
-        label {
-            font-weight: 400;
-        }
-        .value {
-            color: #38bfa7;
-        }
+  width: 100%;
+
+  .simpleData {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+    border-bottom: 1px solid #e4dcdc;
+    padding: 11px;
+    margin-bottom: 20px;
+
+    label {
+      font-weight: 400;
     }
+
+    .value {
+      color: #38bfa7;
+    }
+  }
 }
 
 ::ng-deep .p-calendar .p-datepicker {
-    min-width: 270px !important;
+  min-width: 270px !important;
 }
 
 .selected {
-    border-left: none !important;
-    border-right: none !important;
-    border-color: rgba(92, 158, 237, 0.62) !important;
-    border: 0.5px solid #38bfa7;
-    background: rgba(130, 252, 199, 0.4) !important;
-    border-collapse: separate !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-color: rgba(92, 158, 237, 0.62) !important;
+  border: 0.5px solid #38bfa7;
+  background: rgba(130, 252, 199, 0.4) !important;
+  border-collapse: separate !important;
 }
 
 .tableContainer {
-     ::ng-deep .p-card {
-        box-shadow: 0 2px 10px rgb(111 117 155 / 18%);
-        border-radius: 19px;
-        background-color: #fff;
-        width: 98%;
-        margin: auto;
-        margin-top: 0.5rem;
-    }
-     ::ng-deep .p-datatable .p-datatable-header {
-        background: transparent !important;
-        border: 0px solid #e9ecef !important;
-        border-width: 0px 0 0px 0 !important;
-    }
+  ::ng-deep .p-card {
+    box-shadow: 0 2px 10px rgb(111 117 155 / 18%);
+    border-radius: 19px;
+    background-color: #fff;
+    width: 98%;
+    margin: auto;
+    margin-top: 0.5rem;
+  }
+
+  ::ng-deep .p-datatable .p-datatable-header {
+    background: transparent !important;
+    border: 0px solid #e9ecef !important;
+    border-width: 0px 0 0px 0 !important;
+  }
 }
 
 header-actions {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .tableAction.icon,
 .filter {
-    margin: 0 1rem;
-     ::ng-deep .p-button:enabled:hover {
-        background-color: #38bfa7;
-        border-color: #38bfa7;
-    }
+  margin: 0 0.5rem;
+
+  ::ng-deep .p-button:enabled:hover {
+    background-color: #38bfa7;
+    border-color: #38bfa7;
+  }
 }
 
 .tableColumnCell .action {
-    display: flex;
+  display: flex;
 }
 
 .noRecords {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    .noRecords_icon {
-        font-size: 2rem;
-        color: #38bfa7;
-    }
-    .noRecords_paragraph {
-        font-size: 1.5rem;
-        margin-top: 1rem;
-    }
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .noRecords_icon {
+    font-size: 2rem;
+    color: #38bfa7;
+  }
+
+  .noRecords_paragraph {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
 }

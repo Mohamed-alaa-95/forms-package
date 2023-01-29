@@ -96,7 +96,7 @@
                 >
               </ng-container>
               <ng-template #normal>
-                {{ columnControl(col).view ? (row[col.control.name] | date: "MM/yyyy") : (row[col.control.name] | date: "dd/MM/yyyy")}}
+                {{ columnControl(col).view ? (row[col.control.name] | date: "MM/yyyy":"+0000") : (row[col.control.name] | date: "dd/MM/yyyy":"+0000")}}
               </ng-template>
             </div>
             <ng-container *ngSwitchCase="'number'">
@@ -109,7 +109,7 @@
                         </ng-container>
                         <div *ngSwitchDefault style="line-break: anywhere">
                             <ng-container *ngIf="col.control.isStatus; else normal">
-                                <span class="status-column" [ngClass]="row[col.control.name]">
+                                <span class="status-column" [ngClass]="row[col.control.name].toLowerCase()">
                   {{ getRowData(row[col.control.name]) }}</span
                 >
               </ng-container>

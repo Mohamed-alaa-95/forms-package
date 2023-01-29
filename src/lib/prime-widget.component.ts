@@ -7,10 +7,13 @@ import {
   Output,
   OnChanges,
   SimpleChanges,
+  Optional,
 } from '@angular/core';
 import { field } from './models/form-field.model';
 import { IAction } from './models/IAction.model';
 import { HeaderAction, Title } from './models/table-header.model';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+
 @Component({
   selector: 'lib-prime-widget',
   templateUrl: './prime-widget.component.html',
@@ -140,7 +143,7 @@ export class PrimeWidgetComponent implements OnChanges {
   @Input() globalFilterFields: string[] = [];
   @Input() simpleData: any[] = [];
   @Input() dir: Direction = 'ltr';
-  @Input() data :any= [];
+  @Input() data: any = [];
   @Input() columns: field[] = [
     {
       type: 'text',
@@ -251,7 +254,7 @@ export class PrimeWidgetComponent implements OnChanges {
     },
   ];
   @Input() title!: string;
-  constructor() { }
+  constructor(@Optional() public config: DynamicDialogConfig) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.onUpdateSelectedRows.next(this.selectedRows);
