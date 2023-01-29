@@ -13,6 +13,7 @@
     "@angular/cli": "^14.2.10",
     "@angular/compiler": "^14.2.12",
     "@angular/animations": "^14.2.12",
+    "@angular/cdk": "^13.3.0",
     "@angular/common": "^14.2.12",
     "@angular/core": "^14.2.12",
     "@angular/forms": "^14.2.12",
@@ -20,9 +21,7 @@
     "primeng": "^13.3.0",
     "ng-connection-service": "^1.0.4"
   },
-  "dependencies": {
-    "@angular/cdk": "^13.3.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.10",
     "ng-packagr": "^14.2.2"
