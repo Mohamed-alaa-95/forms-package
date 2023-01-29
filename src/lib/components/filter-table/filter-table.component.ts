@@ -132,8 +132,8 @@ export class FilterTableComponent implements OnChanges {
     private messagerService: MessageService,
     private connectionService: ConnectionService
   ) {
-    this.connectionService.monitor().subscribe((isConnected) => {
-      this.isConnected = isConnected;
+    this.connectionService.monitor().subscribe((connection) => {
+      this.isConnected = connection.hasInternetAccess && connection.hasNetworkConnection;
     });
   }
 

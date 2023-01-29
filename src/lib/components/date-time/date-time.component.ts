@@ -29,7 +29,7 @@ export class DateTimeComponent implements OnInit {
     from: new FormControl(''),
     to: new FormControl(''),
   });
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.dateControlConfig = this.columnConfig.control as DateControlConfig;
@@ -55,10 +55,10 @@ export class DateTimeComponent implements OnInit {
 
   onSelectRangeValue(key: any) {
     const fromValue = this.dateForm.get('from')?.value
-      ? this.dateForm.get('from')?.value.getTime()
+      ? new Date(this.dateForm.get('from')?.value).getTime()
       : -1;
     const toValue = this.dateForm.get('to')?.value
-      ? this.dateForm.get('to')?.value.getTime()
+      ? new Date(this.dateForm.get('to')?.value).getTime()
       : -1;
     this.onSelect.emit({
       [key]: [fromValue, toValue],

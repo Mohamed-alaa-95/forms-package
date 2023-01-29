@@ -29,8 +29,8 @@ export class AutocompleteFilterComponent implements OnInit, OnChanges {
     multiSelectAutoComplete: new FormControl(''),
   });
   autoCompleteColumnConfig: AutoCompleteConfig | any;
-  multipleResult = [];
-  autoCompleteResult = [];
+  multipleResult: any = [];
+  autoCompleteResult: any = [];
   @ViewChild('autoCompleteDp') autoCompleteDp: AutoComplete | any;
 
   constructor() {}

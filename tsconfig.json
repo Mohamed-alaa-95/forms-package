@@ -6,6 +6,8 @@
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "strictNullChecks": false,
+    "suppressImplicitAnyIndexErrors": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "paths": {
