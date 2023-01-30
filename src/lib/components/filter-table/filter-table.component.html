@@ -1,7 +1,7 @@
 <p-card class="p-p-2 tableContainer" *ngIf="isTableAccessible">
     <header-actions (onClickAction)="handleActionClick($event)" [actions]="actions" [title]="title" [dir]="dir" [ngClass]="{ hasTableActions: actions.length > 0 }"></header-actions>
 
-    <p-table [filterDelay]="100000" [sortField]="sortField" [sortOrder]="sortOrder" [value]="data" [lazy]="isConnected" (onLazyLoad)="isConnected ? loadData($event) : getConnectionError()" dataKey="id" [selection]="selectedRows" (selectionChange)="onSelectionChange($event)"
+    <p-table [filterDelay]="100000" [sortField]="sortField" [sortOrder]="sortOrder" [defaultSortOrder]="sortOrder" [value]="data" [lazy]="isConnected" (onLazyLoad)="isConnected ? loadData($event) : getConnectionError()" dataKey="id" [selection]="selectedRows" (selectionChange)="onSelectionChange($event)"
         [paginator]="hasData" [rows]="10" [totalRecords]="totalRecords ? totalRecords : 0" [rowsPerPageOptions]="[10, 50, 100, 500]" [globalFilterFields]="globalFilterFields" [autoLayout]="true" [ngClass]="{
       englishStyle: dir === 'ltr',
       arabicStyle: dir === 'rtl'

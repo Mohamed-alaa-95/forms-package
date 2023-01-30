@@ -239,22 +239,25 @@ export class FilterTableComponent implements OnChanges {
     this.onActionClicked.emit(ev);
   }
 
-  clear(table: Table | any) {
-    const filters = { ...table.filters };
-    for (let key in filters) {
-      filters[key]['value'] = null;
+  clear(table: Table) {
+    for (let key in table.filters) {
+      table.filters[key]['value'] = null;
     }
     this.firstValue = table.first = 0;
-    this.loadData({
-      filters: { filters },
-      first: this.firstValue,
-      globalFilter: null,
-      multiSortMeta: undefined,
-      rows: 10,
-      sortField: this.sortField,
-      sortOrder: this.sortOrder,
-    });
     table.rows = 10;
+    table.defaultSortOrder = -1;
+    table.sortField = 'id';
+    table.reset();
+    // this.loadData({
+    //   filters: { filters },
+    //   first: this.firstValue,
+    //   globalFilter: null,
+    //   multiSortMeta: undefined,
+    //   rows: 10,
+    //   sortField: this.sortField,
+    //   sortOrder: this.sortOrder,
+    // });
+
     this.dependValu = {};
     this.onClear.emit({ key: 'clear all' });
   }
@@ -282,12 +285,12 @@ export class FilterTableComponent implements OnChanges {
     if (action.rowValidations) {
       Object.keys(action.rowValidations).forEach(
         (key) =>
-          (valid =
-            valid &&
-            action.rowValidations[key].some((validateValue: any) => {
-              if (!validateValue && !row[key]) return false;
-              return validateValue ? validateValue == row[key] : true;
-            }))
+        (valid =
+          valid &&
+          action.rowValidations[key].some((validateValue: any) => {
+            if (!validateValue && !row[key]) return false;
+            return validateValue ? validateValue == row[key] : true;
+          }))
       );
     }
     return valid;
@@ -305,7 +308,7 @@ export class FilterTableComponent implements OnChanges {
       dt.filters[key].value = ev[key];
     });
   }
-    columnControl(col:field) {
+  columnControl(col: field) {
     return col.control as DateControlConfig
   }
 }
