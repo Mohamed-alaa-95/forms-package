@@ -209,7 +209,7 @@ export class FilterTableComponent implements OnChanges {
       });
     }
     this.updateSelectionOnSelect();
-    // this.onSelectAction.emit(this.selectedRows);
+    this.onSelectAction.emit(this.backupSelection);
   }
 
   updateSelectionOnSelect() {
