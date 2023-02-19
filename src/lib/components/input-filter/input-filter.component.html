@@ -10,6 +10,8 @@
         pInputText
         (input)="onChangeInputValue(columnConfig.control.name, $event)"
         formControlName="inputField"
+        [pattern]="columnConfig.control.pattern"
+
       />
     </ng-template>
   </p-columnFilter>
