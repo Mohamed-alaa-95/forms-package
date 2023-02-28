@@ -1,0 +1,25 @@
+::ng-deep .p-inputnumber-buttons-stacked .p-inputnumber-button-group {
+    display: none;
+}
+
+.right ::ng-deep .p-dropdown .p-dropdown-clear-icon {
+    right: unset;
+}
+
+::ng-deep .p-multiselect-panel {
+    z-index: 1103 !important;
+}
+
+::ng-deep .p-dropdown-panel {
+    z-index: 1103 !important;
+}
+
+::ng-deep {
+    .p-multiselect-clear-icon {
+        display: none;
+    }
+}
+
+::ng-deep .p-multiselect {
+    max-width: 8rem;
+}

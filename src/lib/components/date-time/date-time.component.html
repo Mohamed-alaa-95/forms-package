@@ -1,0 +1,23 @@
+<div [formGroup]="dateForm" class="date-time">
+    <ng-container *ngIf="dateControlConfig.range; else single">
+        <p-columnFilter type="date" [showMenu]="false" [showClearButton]="false" [showApplyButton]="false" [showOperator]="false" [showMatchModes]="false" [field]="dateControlConfig.name">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <div class="date-time p-inputgroup">
+                    <p-calendar class="halfInput" (onClearClick)="onClearRange(columnConfig.control.name, 'from')" placeholder="From" [showTime]="true" #rangeCalendar (onSelect)="onSelectRangeValue(columnConfig.control.name)" [showButtonBar]="true" class="calenderRange"
+                        formControlName="from" [readonlyInput]="true" inputId="range" dateFormat="dd/mm" appendTo="body"></p-calendar>
+
+                    <p-calendar class="halfInput" (onClearClick)="onClearRange(columnConfig.control.name, 'to')" placeholder="To" [showTime]="true" #rangeCalendar [showButtonBar]="true" (onSelect)="onSelectRangeValue(columnConfig.control.name)" class="calenderRange" formControlName="to"
+                        [readonlyInput]="true" inputId="range" dateFormat="dd/mm" appendTo="body"></p-calendar>
+                </div>
+            </ng-template>
+        </p-columnFilter>
+    </ng-container>
+
+    <ng-template #single>
+        <p-columnFilter type="date" [showMenu]="false" [showClearButton]="false" [showApplyButton]="false" [showOperator]="false" [showMatchModes]="false" [field]="dateControlConfig.name">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-calendar #calendar [showTime]="true" appendTo="body" (onSelect)="onSelectValue(columnConfig.control.name, calendar.value)" dateFormat="dd/mm" formControlName="date"></p-calendar>
+            </ng-template>
+        </p-columnFilter>
+    </ng-template>
+</div>

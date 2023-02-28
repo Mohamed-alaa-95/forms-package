@@ -1,0 +1,184 @@
+<p-card class="p-p-2 tableContainer" *ngIf="isTableAccessible">
+    <header-actions (onClickAction)="handleActionClick($event)" [actions]="actions" [title]="title" [dir]="dir" [ngClass]="{ hasTableActions: actions.length > 0 }"></header-actions>
+
+    <p-table [filterDelay]="100000" [sortField]="sortField" [sortOrder]="sortOrder" [defaultSortOrder]="sortOrder" [value]="data" [lazy]="isConnected" (onLazyLoad)="isConnected ? loadData($event) : getConnectionError()" dataKey="id" [selection]="selectedRows" (selectionChange)="onSelectionChange($event)"
+        [paginator]="hasData" [rows]="10" [totalRecords]="totalRecords ? totalRecords : 0" [rowsPerPageOptions]="[10, 50, 100, 500]" [globalFilterFields]="globalFilterFields" [autoLayout]="true" [ngClass]="{
+      englishStyle: dir === 'ltr',
+      arabicStyle: dir === 'rtl'
+    }" [resizableColumns]="true" responsiveLayout="scroll" columnResizeMode="expand" [lazyLoadOnInit]="false" (keyup.enter)="isConnected ? dt._filter() : getConnectionError()" #dt>
+        <ng-template pTemplate="caption">
+            <div class="tableHeaders">
+                <div class="simpleData" *ngIf="simpleData.length">
+                    <span *ngFor="let simple of simpleData">
+            <label>
+              {{ simple.text }}
+              <span class="value">
+                {{ simple.value }}
+              </span>
+                    </label>
+                    </span>
+                </div>
+                <div *ngIf="allowFilter" class="filterActions">
+                    <button pButton [label]="dir === 'ltr' ? 'Clear' : 'مسح'" class="p-button-outlined p-button-secondary clear" (click)="isConnected ? clear(dt) : getConnectionError()"></button>
+                    <button pButton [label]="dir === 'ltr' ? 'Filter' : 'بحث'" class="p-button-primary filter" (click)="isConnected ? dt._filter() : getConnectionError()"></button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem" *ngIf="allowSelection" class="headerCell">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th *ngFor="let col of columns" class="headerCell" [ngClass]="{ normal_col: !col.control.sortable }" [pSortableColumn]="col.control.sortable ? col.control.name : ''">
+                    {{ col.control.label }}
+                    <p-sortIcon *ngIf="col.control.sortable" field="{{ col.control.name }}"></p-sortIcon>
+                </th>
+                <th *ngIf="tableActions && isTableActionsAccessible" class="headerCell">
+                </th>
+            </tr>
+            <tr *ngIf="allowFilter">
+                <th style="width: 3rem" *ngIf="allowSelection" class="headerCell noBorder"></th>
+                <th *ngFor="let col of columns" class="headerCell noBorder">
+                    <ng-container [ngSwitch]="col.type" *ngIf="col.control.searchable">
+                        <ng-container *ngSwitchCase="'dropdown'">
+                            <app-dropdown-filter [columnConfig]="col" [dependValu]="dependValu" (onSelect)="onSelectChange($event, dt)" [onClear]="onClear">
+                            </app-dropdown-filter>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'date'">
+                            <app-date-filter [columnConfig]="col" (onSelect)="onSelectDateChange($event, dt)" [onClear]="onClear"></app-date-filter>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'date_time'">
+                            <lib-date-time [columnConfig]="col" (onSelect)="onSelectDateChange($event, dt)" [onClear]="onClear">
+                            </lib-date-time>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'auto_complete'">
+                            <app-autocomplete-filter [columnConfig]="col" [dependValu]="dependValu" (onSelect)="onSelectChange($event, dt)" [onClear]="onClear">
+                            </app-autocomplete-filter>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'number'">
+                            <app-number-filter [columnConfig]="col" [dependValu]="dependValu" (onChange)="onInputChange($event, dt)" [onClear]="onClear" [queryParams]="queryParams">
+                            </app-number-filter>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                            <app-input-filter [columnConfig]="col" (onChange)="onInputChange($event, dt)" [onClear]="onClear" [queryParams]="queryParams"></app-input-filter>
+                        </ng-container>
+                    </ng-container>
+                </th>
+                <th *ngIf="tableActions && isTableActionsAccessible" class="headerCell noBorder"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr>
+                <td [style]="{ width: '5%' }" [ngClass]="{ selected: row.selected }" *ngIf="allowSelection" class="tableColumnCell">
+                    <p-tableCheckbox [value]="row"></p-tableCheckbox>
+                </td>
+                <td [ngClass]="{ selected: row.selected }" *ngFor="let col of columns" class="tableColumnCell" pTooltip="{{
+            checkLength(col, row[col.control.name])
+              ? row[col.control.name]
+              : null
+          }}" tooltipPosition="left" tooltipStyleClass="tooltip">
+                    <ng-container [ngSwitch]="col.type">
+                        <ng-container *ngSwitchCase="'image'">
+                            <img [src]="row[col.control.name]" class="imageContainer" /></ng-container>
+                        <ng-container *ngSwitchCase="'date_time'">
+                            <span>
+                {{
+                  row[col.control.name] | date: "dd-MM-yyyy, h:mm a":"+0000"
+                }}</span
+              ></ng-container
+            >
+            <div *ngSwitchCase="'date'">
+              <ng-container *ngIf="col.control.isDateTime; else normal">
+                <span>
+                  {{
+                    row[col.control.name] | date: "dd-MM-yyyy, h:mm a":"+0000"
+                  }}</span
+                >
+              </ng-container>
+              <ng-template #normal>
+                {{ columnControl(col).view ? (row[col.control.name] | date: "MM/yyyy":"+0000") : (row[col.control.name] | date: "dd/MM/yyyy":"+0000")}}
+              </ng-template>
+            </div>
+            <ng-container *ngSwitchCase="'number'">
+              <span *ngIf="!col.control.name.toLowerCase().includes('id')">
+                {{ getNumberOfColumn(row[col.control.name]) | number: "1.2-2" }}
+              </span>
+                            <span *ngIf="col.control.name.toLowerCase().includes('id')">
+                {{ row[col.control.name] }}
+              </span>
+                        </ng-container>
+                        <div *ngSwitchDefault style="line-break: anywhere">
+                            <ng-container *ngIf="col.control.isStatus; else normal">
+                                <span class="status-column" [ngClass]="row[col.control.name].toLowerCase()">
+                  {{ getRowData(row[col.control.name]) }}</span
+                >
+              </ng-container>
+              <ng-template #normal>
+                {{ getRowData(row[col.control.name]) }}
+              </ng-template>
+            </div>
+          </ng-container>
+        </td>
+        <td
+          [ngClass]="{ selected: row.selected }"
+          *ngIf="tableActions && isTableActionsAccessible"
+          class="tableColumnCell"
+        >
+          <div class="action">
+            <ng-container *ngFor="let tableAction of tableActions">
+              <div
+                [style.visibility]="
+                  !(tableAction.isVisible && rowActionCheck(tableAction, row))
+                    ? 'hidden'
+                    : 'visible'
+                "
+                *ngIf="tableAction.isIcon; else link"
+                (click)="clickTableAction(tableAction, row)"
+                class="tableAction icon p-mr-1 p-mt-1"
+                [pTooltip]="tableAction.text"
+                tooltipPosition="left"
+              >
+                <button
+                  pButton
+                  [icon]="tableAction.icon"
+                  [ngClass]="tableAction.class"
+                ></button>
+              </div>
+
+              <ng-template #link>
+                <div
+                  [style.visibility]="
+                    !(tableAction.isVisible && rowActionCheck(tableAction, row))
+                      ? 'hidden'
+                      : 'visible'
+                  "
+                  (click)="clickTableAction(tableAction, row)"
+                  class="tableAction p-mr-1 p-mt-1"
+                  [ngClass]="tableAction.class"
+                >
+                  <p-button
+                    [label]="tableAction.text"
+                    [icon]="tableAction.icon"
+                    styleClass="p-button-link p-mr-2"
+                  ></p-button>
+                </div>
+              </ng-template>
+            </ng-container>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td [colSpan]="getMiddle()">
+          <div class="noRecords">
+            <i class="pi pi-database noRecords_icon"></i>
+
+            <p class="noRecords_paragraph">No Records Found</p>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+<p-toast position="bottom-center" [preventOpenDuplicates]="true"></p-toast>

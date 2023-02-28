@@ -1,0 +1,65 @@
+<ng-container>
+  <div [formGroup]="dateForm">
+    <ng-container *ngIf="dateControlConfig.range; else single">
+      <p-columnFilter
+        type="date"
+        [showMenu]="false"
+        [showClearButton]="false"
+        [showApplyButton]="false"
+        [showOperator]="false"
+        [showMatchModes]="false"
+        [field]="dateControlConfig.name"
+      >
+        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+          <p-calendar
+            #rangeCalendar
+            [showButtonBar]="dateControlConfig.view== 'month' ? false : true"
+            [showClear]="dateControlConfig.view== 'month' ? true : false"
+            (onClearClick)="
+              onClearRange(columnConfig.control.name, rangeCalendar.value)
+            "
+            (onClear)="onClearRange(columnConfig.control.name, rangeCalendar.value)"
+            (onSelect)="
+              onSelectRangeValue(columnConfig.control.name, rangeCalendar.value)
+            "
+            [view]="dateControlConfig.view ? dateControlConfig.view : 'date'"
+            class="calenderRange"
+            formControlName="date"
+            selectionMode="range"
+            [readonlyInput]="true"
+            inputId="range"
+            [dateFormat]="dateControlConfig.view ? 'mm/yy' : 'dd/mm'"
+            appendTo="body"
+          ></p-calendar>
+        </ng-template>
+      </p-columnFilter>
+    </ng-container>
+
+    <ng-template #single>
+      <p-columnFilter
+        type="date"
+        [showMenu]="false"
+        [showClearButton]="false"
+        [showApplyButton]="false"
+        [showOperator]="false"
+        [showMatchModes]="false"
+        [field]="dateControlConfig.name"
+      >
+        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+          <p-calendar
+            #calendar
+            appendTo="body"
+            (onSelect)="
+              onSelectValue(columnConfig.control.name, calendar.value)
+            "
+            dateFormat="dd/mm"
+            [view]="dateControlConfig.view ? dateControlConfig.view : 'date'"
+            formControlName="date"
+          ></p-calendar>
+        </ng-template>
+      </p-columnFilter>
+    </ng-template>
+  </div>
+</ng-container>
+
+
