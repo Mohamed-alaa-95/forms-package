@@ -1,6 +1,6 @@
 {
   "name": "@khaznatech/khazna-elements-package",
-  "version": "1.0.0",
+  "version": "2.0.7",
   "scripts": {
     "build": "ng build",
     "pack": "cd dist/khazna-elements-package && npm pack",
