@@ -29,7 +29,8 @@ import { InputFilterComponent } from './components/input-filter/input-filter.com
 import { NumbersOnly } from './directives/number-only.directive';
 import { NumberFilterComponent } from './components/number-filter/number-filter.component';
 import { DateTimeComponent } from './components/date-time/date-time.component';
-
+import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
+import { NumberAndDecimalOnly } from './directives/number.directive'
 const primeModules = [
   SliderModule,
   DialogModule,
@@ -64,6 +65,8 @@ const primeModules = [
     PrimeWidgetComponent,
     NumberFilterComponent,
     DateTimeComponent,
+    DynamicFormComponent,
+    NumberAndDecimalOnly
   ],
   imports: [
     CommonModule,
@@ -84,8 +87,10 @@ const primeModules = [
     NumberFilterComponent,
     DateTimeComponent,
     primeModules,
+    DynamicFormComponent,
+    NumberAndDecimalOnly
   ],
 })
 export class PrimeWidgetModule {
-  constructor(){}
+  constructor() { }
 }
