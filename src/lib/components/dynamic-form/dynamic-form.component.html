@@ -4,8 +4,9 @@
         <ng-container *ngSwitchCase="'number'">
             <div class="p-field p-fluid custom-input">
                 <span class=" p-float-label">
-                    <input [type]=" configuration?.type" pInputText [formControlName]="configuration?.name"
-                        NumberAndDecimalOnly [allowDecimals]="configuration.allowDecimals"
+                    <input (ngModelChange)="onChange(configuration)" [type]=" configuration?.type" pInputText
+                        [formControlName]="configuration?.name" NumberAndDecimalOnly
+                        [allowDecimals]="configuration.allowDecimals"
                         [ngClass]="form?.controls[configuration?.name]?.invalid && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)  ? 'ng-invalid ng-dirty' : ''" />
                     <label class="label-label">{{configuration?.label }} <span class="error"
                             *ngIf="configuration?.required">*</span></label>
@@ -17,7 +18,12 @@
                     </small>
                     <small class="error"
                         *ngIf="form?.controls[configuration?.name]?.hasError('max') && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)">
-                        {{configuration?.label }} max value {{configuration?.maxValue}}
+                        {{ configuration?.label }} max value is {{configuration?.errors?.max}}
+                    </small>
+
+                    <small class="error"
+                        *ngIf="form?.controls[configuration?.name]?.hasError('min') && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)">
+                        {{ configuration?.label }} min value is {{configuration?.errors?.min}}
                     </small>
 
                     <small class="error"
@@ -31,7 +37,8 @@
         <ng-container *ngSwitchDefault>
             <div class="p-field p-fluid custom-input">
                 <span class=" p-float-label">
-                    <input [type]="configuration.type" pInputText [formControlName]="configuration?.name"
+                    <input (ngModelChange)="onChange(configuration)" [type]="configuration.type" pInputText
+                        [formControlName]="configuration?.name"
                         [ngClass]="form?.controls[configuration?.name]?.invalid && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)  ? 'ng-invalid ng-dirty' : ''" />
                     <label class="label-label">{{configuration?.label }}<span class="error"
                             *ngIf="configuration?.required">*</span></label>
