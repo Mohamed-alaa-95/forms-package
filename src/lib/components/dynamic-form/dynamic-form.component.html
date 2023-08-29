@@ -12,8 +12,8 @@
                         <label class="label-label">{{configuration?.label }} <span class="error"
                                 *ngIf="configuration?.required">*</span></label>
                     </span>
-                    <span *ngIf="configuration?.isPercentage" class="p-inputgroup-addon custom-font">%</span>
-                    <span *ngIf="configuration?.isCurrency" class="p-inputgroup-addon custom-font">EGP</span>
+                    <span *ngIf="configuration?.addOn"
+                        class="p-inputgroup-addon custom-font">{{configuration?.addOn}}</span>
                 </div>
                 <div class="flex flex-column">
                     <small class="error"
