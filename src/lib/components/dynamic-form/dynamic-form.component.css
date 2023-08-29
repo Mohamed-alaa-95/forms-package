@@ -9,6 +9,10 @@
 }
 
 .custom-input {
-    width: 21rem;
-    height: 5rem;
+    min-width: 21rem;
+    min-height: 5rem;
+}
+
+.custom-font {
+    font-size: 11px;
 }

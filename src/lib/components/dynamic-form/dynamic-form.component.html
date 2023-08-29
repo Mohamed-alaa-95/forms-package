@@ -3,14 +3,18 @@
     <ng-container [ngSwitch]="configuration.type">
         <ng-container *ngSwitchCase="'number'">
             <div class="p-field p-fluid custom-input">
-                <span class=" p-float-label">
-                    <input (ngModelChange)="onChange(configuration)" [type]=" configuration?.type" pInputText
-                        [formControlName]="configuration?.name" NumberAndDecimalOnly
-                        [allowDecimals]="configuration.allowDecimals"
-                        [ngClass]="form?.controls[configuration?.name]?.invalid && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)  ? 'ng-invalid ng-dirty' : ''" />
-                    <label class="label-label">{{configuration?.label }} <span class="error"
-                            *ngIf="configuration?.required">*</span></label>
-                </span>
+                <div class="flex flex-row">
+                    <span class=" p-float-label">
+                        <input (ngModelChange)="onChange(configuration)" [type]=" configuration?.type" pInputText
+                            [formControlName]="configuration?.name" NumberAndDecimalOnly
+                            [allowDecimals]="configuration.allowDecimals"
+                            [ngClass]="form?.controls[configuration?.name]?.invalid && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)  ? 'ng-invalid ng-dirty' : ''" />
+                        <label class="label-label">{{configuration?.label }} <span class="error"
+                                *ngIf="configuration?.required">*</span></label>
+                    </span>
+                    <span *ngIf="configuration?.isPercentage" class="p-inputgroup-addon custom-font">%</span>
+                    <span *ngIf="configuration?.isCurrency" class="p-inputgroup-addon custom-font">EGP</span>
+                </div>
                 <div class="flex flex-column">
                     <small class="error"
                         *ngIf="form?.controls[configuration?.name]?.hasError('required') && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)">
