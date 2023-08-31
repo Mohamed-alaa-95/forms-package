@@ -33,6 +33,7 @@ export interface DefaultControlConfig {
   isStatus?: boolean;
   isDateTime?: boolean;
   pattern?: string;
+  editable?: boolean
 }
 
 export interface ImageControlConfig extends DefaultControlConfig {

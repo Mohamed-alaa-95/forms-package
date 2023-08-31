@@ -127,6 +127,7 @@ export class FilterTableComponent implements OnChanges {
   globalFilterFields!: any;
   firstValue: number | undefined;
   @ViewChild('dt') table: Table | undefined;
+  @Input() first: number = 0;
   isConnected = true;
   constructor(
     private messagerService: MessageService,
@@ -271,6 +272,8 @@ export class FilterTableComponent implements OnChanges {
   }
 
   ngOnChanges(): void {
+    console.log('fiiiiiirst', this.first);
+
     this.onUpdateSelectedRows.subscribe((rows) => {
       this.selectedRows = rows;
       this.backupSelection = rows;
