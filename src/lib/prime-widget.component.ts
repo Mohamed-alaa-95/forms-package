@@ -33,6 +33,7 @@ export class PrimeWidgetComponent implements OnChanges {
   @Input() sortOrder: number = -1;
   @Input() isTableActionsAccessible = false;
   @Input() first: number = 0;
+  @Input() rows = 10;
   @Input() tableActions: Array<IAction> = [
     {
       text: 'Edit Merchant',

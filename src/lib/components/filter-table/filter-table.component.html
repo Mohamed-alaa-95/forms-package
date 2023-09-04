@@ -2,7 +2,7 @@
   <header-actions (onClickAction)="handleActionClick($event)" [actions]="actions" [title]="title" [dir]="dir"
     [ngClass]="{ hasTableActions: actions.length > 0 }"></header-actions>
 
-  <p-table [(first)]="first" [filterDelay]="100000" [sortField]="sortField" [sortOrder]="sortOrder"
+  <p-table [rows]="rows" [first]="first" [filterDelay]="100000" [sortField]="sortField" [sortOrder]="sortOrder"
     [defaultSortOrder]="sortOrder" [value]="data" [lazy]="isConnected"
     (onLazyLoad)="isConnected ? loadData($event) : getConnectionError()" dataKey="id" [selection]="selectedRows"
     (selectionChange)="onSelectionChange($event)" [paginator]="hasData" [rows]="10"
@@ -113,10 +113,24 @@
               </ng-template>
             </div>
             <ng-container *ngSwitchCase="'number'">
-              <span *ngIf="!col.control.name.toLowerCase().includes('id')">
+              <span
+                *ngIf="(!col.control.name.toLowerCase().includes('id') && !col.control.name.toLowerCase().includes('order')) &&  !col.control.editable">
                 {{ getNumberOfColumn(row[col.control.name]) | number: "1.2-2" }}
               </span>
-              <span *ngIf="col.control.name.toLowerCase().includes('id')">
+              <span *ngIf="col.control.editable">
+                <div class="flex flex-row" style="gap: 1rem;width: 10rem !important;">
+                  <input style="width: 10rem;" type="text" id="inputtext-left" NumberAndDecimalOnly
+                    [allowDecimals]="col?.control?.allowDecimals" [allowSign]="col?.control?.allowSign"
+                    [maxlength]="col.control.maxLength" [min]="col?.control?.minValue" pInputText
+                    [(ngModel)]="row[col.control.name]">
+                  <span class="error" *ngIf="row[col.control.name]===''">This field is required. You must enter a
+                    value</span>
+                  <span class="error" *ngIf="row[col?.control?.name]===col?.control?.minValue">minimum value is
+                    {{col?.control?.minValue}}</span>
+                </div>
+              </span>
+              <span
+                *ngIf="(col.control.name.toLowerCase().includes('id') || col.control.name.toLowerCase().includes('order')) && !col.control.editable">
                 {{ row[col.control.name] }}
               </span>
             </ng-container>
@@ -126,9 +140,6 @@
                   {{ getRowData(row[col.control.name]) }}</span>
               </ng-container>
               <ng-template #normal>
-                <ng-container *ngIf="col.control.editable">
-                  
-                </ng-container>
                 {{ getRowData(row[col.control.name]) }}
               </ng-template>
             </div>

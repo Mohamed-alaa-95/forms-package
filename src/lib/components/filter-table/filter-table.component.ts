@@ -38,6 +38,7 @@ export class FilterTableComponent implements OnChanges {
   @Input() hasData = true;
   @Input() queryParams!: { [key: string]: any };
   @Input() title!: string;
+  @Input() rows = 10;
   @Input() actions: HeaderAction | any = {
     Actions: [
       {
@@ -272,8 +273,6 @@ export class FilterTableComponent implements OnChanges {
   }
 
   ngOnChanges(): void {
-    console.log('fiiiiiirst', this.first);
-
     this.onUpdateSelectedRows.subscribe((rows) => {
       this.selectedRows = rows;
       this.backupSelection = rows;
