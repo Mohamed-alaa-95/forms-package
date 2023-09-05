@@ -113,28 +113,29 @@
               </ng-template>
             </div>
             <ng-container *ngSwitchCase="'number'">
-              <span
-                *ngIf="(!col.control.name.toLowerCase().includes('id') && !col.control.name.toLowerCase().includes('order')) &&  !col.control.editable">
-                {{ getNumberOfColumn(row[col.control.name]) | number: "1.2-2" }}
-              </span>
-              <span *ngIf="col.control.editable">
+              <ng-container *ngIf="col.control.editable;else notEditable">
                 <div class="flex flex-row error-container">
-                  <input style="width: 10rem;" type="text" id="inputtext-left" NumberAndDecimalOnly
+                  <input type="text" id="inputtext-left" NumberAndDecimalOnly
                     [allowDecimals]="col?.control?.allowDecimals" [allowSign]="col?.control?.allowSign"
                     [maxlength]="col.control.maxLength" [min]="col?.control?.minValue" pInputText
                     [(ngModel)]="row[col.control.name]">
                   <div class="flex flex-column">
-                    <span class="error" *ngIf="row[col.control.name]===''">This field is required. You must enter a
-                      value</span>
-                    <span class="error" *ngIf="+row[col?.control?.name] < +col?.control?.minValue">minimum value is
-                      {{col?.control?.minValue}}</span>
+                    <span class="error" *ngIf="row[col.control.name]===''">This field is required.</span>
+                    <span class="error" *ngIf="+row[col?.control?.name] < +col?.control?.minValue">Minimum value is
+                      {{col?.control?.minValue}}.</span>
                   </div>
                 </div>
-              </span>
-              <span
-                *ngIf="(col.control.name.toLowerCase().includes('id') || col.control.name.toLowerCase().includes('order')) && !col.control.editable">
-                {{ row[col.control.name] }}
-              </span>
+              </ng-container>
+              <ng-template #notEditable>
+                <div
+                  *ngIf="(col.control.name.toLowerCase().includes('id') || col.control.name.toLowerCase().includes('order'));else pipeNumbers">
+                  {{ row[col.control.name] }}
+                </div>
+                <ng-template #pipeNumbers>
+                  <div> {{ getNumberOfColumn(row[col.control.name]) | number: "1.2-2" }}</div>
+                </ng-template>
+              </ng-template>
+
             </ng-container>
             <div *ngSwitchDefault style="line-break: anywhere">
               <ng-container *ngIf="col.control.isStatus; else normal">
@@ -142,7 +143,9 @@
                   {{ getRowData(row[col.control.name]) }}</span>
               </ng-container>
               <ng-template #normal>
-                {{ getRowData(row[col.control.name]) }}
+                <div>
+                  {{ getRowData(row[col.control.name]) }}
+                </div>
               </ng-template>
             </div>
           </ng-container>
