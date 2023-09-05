@@ -32,6 +32,7 @@ export class FilterTableComponent implements OnChanges {
   @Input() simpleData: any[] = [];
   @Input() sortOrder: number = -1;
   @Input() sortField: string = '';
+  @Input() defaultSortOrder = -1;
   @Input() isTableActionsAccessible = false;
   @Input() onUpdateSelectedRows = new EventEmitter();
   @Input() dir: Direction = 'ltr';
@@ -247,19 +248,9 @@ export class FilterTableComponent implements OnChanges {
     }
     this.firstValue = table.first = 0;
     table.rows = 10;
-    table.defaultSortOrder = -1;
+    table.defaultSortOrder = this.defaultSortOrder;
     table.sortField = 'id';
     table.reset();
-    // this.loadData({
-    //   filters: { filters },
-    //   first: this.firstValue,
-    //   globalFilter: null,
-    //   multiSortMeta: undefined,
-    //   rows: 10,
-    //   sortField: this.sortField,
-    //   sortOrder: this.sortOrder,
-    // });
-
     this.dependValu = {};
     this.onClear.emit({ key: 'clear all' });
   }
