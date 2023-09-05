@@ -118,15 +118,17 @@
                 {{ getNumberOfColumn(row[col.control.name]) | number: "1.2-2" }}
               </span>
               <span *ngIf="col.control.editable">
-                <div class="flex flex-row" style="gap: 1rem;width: 10rem !important;align-items: center;">
+                <div class="flex flex-row error-container">
                   <input style="width: 10rem;" type="text" id="inputtext-left" NumberAndDecimalOnly
                     [allowDecimals]="col?.control?.allowDecimals" [allowSign]="col?.control?.allowSign"
                     [maxlength]="col.control.maxLength" [min]="col?.control?.minValue" pInputText
                     [(ngModel)]="row[col.control.name]">
-                  <span class="error" *ngIf="row[col.control.name]===''">This field is required. You must enter a
-                    value</span>
-                  <span class="error" *ngIf="+row[col?.control?.name] < +col?.control?.minValue">minimum value is
-                    {{col?.control?.minValue}}</span>
+                  <div class="flex flex-column">
+                    <span class="error" *ngIf="row[col.control.name]===''">This field is required. You must enter a
+                      value</span>
+                    <span class="error" *ngIf="+row[col?.control?.name] < +col?.control?.minValue">minimum value is
+                      {{col?.control?.minValue}}</span>
+                  </div>
                 </div>
               </span>
               <span
