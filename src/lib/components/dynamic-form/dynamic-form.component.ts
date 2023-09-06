@@ -7,8 +7,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./dynamic-form.component.css']
 })
 export class DynamicFormComponent implements OnInit {
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
   @Input() form: FormGroup;
   @Input() configuration: any;
 
