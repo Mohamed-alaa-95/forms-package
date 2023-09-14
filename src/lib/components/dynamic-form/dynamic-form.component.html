@@ -4,16 +4,21 @@
         <ng-container *ngSwitchCase="'number'">
             <div class="p-field p-fluid custom-input">
                 <div class="flex flex-row">
-                    <span class=" p-float-label">
-                        <input (ngModelChange)="onChange(configuration)" [type]=" configuration?.type" pInputText
-                            [formControlName]="configuration?.name" NumberAndDecimalOnly
-                            [allowDecimals]="configuration.allowDecimals"
-                            [ngClass]="form?.controls[configuration?.name]?.invalid && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)  ? 'ng-invalid ng-dirty' : ''" />
-                        <label class="label-label">{{configuration?.label }} <span class="error"
-                                *ngIf="configuration?.required && !form.disabled">*</span></label>
+                    <span [ngClass]="configuration.floatLabel ? 'p-float-label' : ''">
+                        <label *ngIf="!configuration.floatLabel" class="label-label">{{configuration?.label }} <span
+                                class="error" *ngIf="configuration?.required && !form.disabled">*</span></label>
+                        <div class="flex flex-row">
+                            <input (ngModelChange)="onChange(configuration)" [type]=" configuration?.type" pInputText
+                                [formControlName]="configuration?.name" NumberAndDecimalOnly
+                                [allowDecimals]="configuration.allowDecimals"
+                                [ngClass]="form?.controls[configuration?.name]?.invalid && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)  ? 'ng-invalid ng-dirty' : ''" />
+                            <span *ngIf="configuration?.addOn"
+                                class="p-inputgroup-addon custom-font">{{configuration?.addOn}}</span>
+                        </div>
+                        <label *ngIf="configuration.floatLabel" class="label-label">{{configuration?.label }} <span
+                                class="error" *ngIf="configuration?.required && !form.disabled">*</span> </label>
                     </span>
-                    <span *ngIf="configuration?.addOn"
-                        class="p-inputgroup-addon custom-font">{{configuration?.addOn}}</span>
+
                 </div>
                 <div class="flex flex-column">
                     <small class="error"
@@ -40,12 +45,18 @@
 
         <ng-container *ngSwitchDefault>
             <div class="p-field p-fluid custom-input">
-                <span class=" p-float-label">
-                    <input (ngModelChange)="onChange(configuration)" [type]="configuration.type" pInputText
-                        [formControlName]="configuration?.name"
-                        [ngClass]="form?.controls[configuration?.name]?.invalid && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)  ? 'ng-invalid ng-dirty' : ''" />
-                    <label class="label-label">{{configuration?.label }}<span class="error"
-                            *ngIf="configuration?.required && !form.disabled">*</span></label>
+                <span [ngClass]="configuration.floatLabel ? 'p-float-label' : ''">
+                    <label *ngIf="!configuration.floatLabel" class="label-label">{{configuration?.label }} <span
+                            class="error" *ngIf="configuration?.required && !form.disabled">*</span></label>
+                    <div class="flex flex-row">
+                        <input (ngModelChange)="onChange(configuration)" [type]="configuration.type" pInputText
+                            [formControlName]="configuration?.name"
+                            [ngClass]="form?.controls[configuration?.name]?.invalid && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)  ? 'ng-invalid ng-dirty' : ''" />
+                        <span *ngIf="configuration?.addOn"
+                            class="p-inputgroup-addon custom-font">{{configuration?.addOn}}</span>
+                    </div>
+                    <label *ngIf="configuration.floatLabel" class="label-label">{{configuration?.label }} <span
+                            class="error" *ngIf="configuration?.required && !form.disabled">*</span> </label>
                 </span>
                 <small class="error"
                     *ngIf="form?.controls[configuration?.name]?.hasError('required') && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)">
