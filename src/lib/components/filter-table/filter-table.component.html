@@ -120,7 +120,8 @@
                     [maxlength]="col.control.maxLength" [min]="col?.control?.minValue" pInputText
                     [(ngModel)]="row[col.control.name]">
                   <div class="flex flex-column">
-                    <span class="error" *ngIf="row[col.control.name]===''">This field is required.</span>
+                    <span class="error" *ngIf="col.control.required && row[col.control.name]===''">This field is
+                      required.</span>
                     <span class="error" *ngIf="+row[col?.control?.name] < +col?.control?.minValue">Minimum value is
                       {{col?.control?.minValue}}.</span>
                   </div>
