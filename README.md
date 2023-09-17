@@ -1,6 +1,6 @@
 # KhaznaElemetnsPackage
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.12.
 
 ## Code scaffolding
 
@@ -9,11 +9,11 @@ Run `ng generate component component-name --project khazna-elements-package` to 
 
 ## Build
 
-Run `ng build khazna-elements-package` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Publishing
 
-After building your library with `ng build khazna-elements-package`, go to the dist folder `cd dist/khazna-elements-package` and run `npm publish`.
+After building your library with `ng build khazna-elements-package`, go to the dist folder `cd dist/khazna-elements-package` and run `npm run publish`.
 
 ## Running unit tests
 

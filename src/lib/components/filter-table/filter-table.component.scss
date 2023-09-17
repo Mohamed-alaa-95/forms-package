@@ -10,7 +10,8 @@
 //   min-width: 220px;
 // }
 .inactive,
-.failed,.cancelled {
+.failed,
+.cancelled {
   color: #ff251e;
   background: rgba(255, 37, 30, 0.1);
   border: 1px solid #ff251e;
@@ -38,7 +39,8 @@
   border: 1px solid #839bc8;
 }
 
-.under,.ready {
+.under,
+.ready {
   color: #ff9d0f;
   background: rgba(255, 157, 15, 0.1);
   border: 1px solid #ff9d0f;
@@ -181,4 +183,15 @@ header-actions {
     font-size: 1.5rem;
     margin-top: 1rem;
   }
+}
+
+.error {
+  color: #b32020;
+  font-size: 13px;
+}
+
+.error-container {
+  gap: 1rem;
+  width: 10rem !important;
+  align-items: center;
 }

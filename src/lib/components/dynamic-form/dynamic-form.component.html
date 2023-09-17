@@ -1,0 +1,72 @@
+<div [formGroup]="form">
+
+    <ng-container [ngSwitch]="configuration.type">
+        <ng-container *ngSwitchCase="'number'">
+            <div class="p-field p-fluid custom-input">
+                <div class="flex flex-row">
+                    <span [ngClass]="configuration.floatLabel ? 'p-float-label' : ''">
+                        <label *ngIf="!configuration.floatLabel" class="label-label">{{configuration?.label }} <span
+                                class="error" *ngIf="configuration?.required && !form.disabled">*</span></label>
+                        <div class="flex flex-row">
+                            <input (ngModelChange)="onChange(configuration)" [type]=" configuration?.type" pInputText
+                                [formControlName]="configuration?.name" NumberAndDecimalOnly
+                                [allowDecimals]="configuration.allowDecimals"
+                                [ngClass]="form?.controls[configuration?.name]?.invalid && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)  ? 'ng-invalid ng-dirty' : ''" />
+                            <span *ngIf="configuration?.addOn"
+                                class="p-inputgroup-addon custom-font">{{configuration?.addOn}}</span>
+                        </div>
+                        <label *ngIf="configuration.floatLabel" class="label-label">{{configuration?.label }} <span
+                                class="error" *ngIf="configuration?.required && !form.disabled">*</span> </label>
+                    </span>
+
+                </div>
+                <div class="flex flex-column">
+                    <small class="error"
+                        *ngIf="form?.controls[configuration?.name]?.hasError('required') && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)">
+                        {{configuration?.label }} is required
+                    </small>
+                    <small class="error"
+                        *ngIf="form?.controls[configuration?.name]?.hasError('max') && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)">
+                        {{ configuration?.label }} max value is {{configuration?.errors?.max}}
+                    </small>
+
+                    <small class="error"
+                        *ngIf="form?.controls[configuration?.name]?.hasError('min') && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)">
+                        {{ configuration?.label }} min value is {{configuration?.errors?.min}}
+                    </small>
+
+                    <small class="error"
+                        *ngIf="form?.controls[configuration?.name]?.hasError('pattern') && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)">
+                        {{configuration?.label }} is invalid
+                    </small>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngSwitchDefault>
+            <div class="p-field p-fluid custom-input">
+                <span [ngClass]="configuration.floatLabel ? 'p-float-label' : ''">
+                    <label *ngIf="!configuration.floatLabel" class="label-label">{{configuration?.label }} <span
+                            class="error" *ngIf="configuration?.required && !form.disabled">*</span></label>
+                    <div class="flex flex-row">
+                        <input (ngModelChange)="onChange(configuration)" [type]="configuration.type" pInputText
+                            [formControlName]="configuration?.name"
+                            [ngClass]="form?.controls[configuration?.name]?.invalid && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)  ? 'ng-invalid ng-dirty' : ''" />
+                        <span *ngIf="configuration?.addOn"
+                            class="p-inputgroup-addon custom-font">{{configuration?.addOn}}</span>
+                    </div>
+                    <label *ngIf="configuration.floatLabel" class="label-label">{{configuration?.label }} <span
+                            class="error" *ngIf="configuration?.required && !form.disabled">*</span> </label>
+                </span>
+                <small class="error"
+                    *ngIf="form?.controls[configuration?.name]?.hasError('required') && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)">
+                    {{configuration?.label }} is required
+                </small>
+                <small class="error"
+                    *ngIf="form?.controls[configuration?.name]?.hasError('max') && (form?.controls[configuration?.name]?.touched || form?.controls[configuration?.name]?.dirty)">
+                    {{configuration?.label }} is invalid
+                </small>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>
