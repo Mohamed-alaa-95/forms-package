@@ -140,6 +140,18 @@ export class FilterTableComponent implements OnChanges {
     });
   }
 
+  isEmptyString(value: any) {
+    return value === ''
+  }
+
+  isColumnRequired(col: any) {
+    return col?.control?.required
+  }
+
+  hasMinValueError(row: any, col: any) {
+    return +row[col?.control?.name] < +col?.control?.minValue
+  }
+
   getMiddle() {
     if (this.columns) return this.columns?.length + 5;
 
