@@ -141,7 +141,7 @@ export class FilterTableComponent implements OnChanges {
   }
 
   isEmptyString(value: any) {
-    return value === ''
+    return value === '' || value === null
   }
 
   isColumnRequired(col: any) {
