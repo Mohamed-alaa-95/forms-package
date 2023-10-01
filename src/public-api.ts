@@ -14,5 +14,7 @@ export * from './lib/components/header-actions/header-actions.component';
 export * from './lib/components/input-filter/input-filter.component';
 export * from './lib/components/number-filter/number-filter.component';
 export * from './lib/components/date-time/date-time.component';
+export * from './lib/components/dynamic-form/dynamic-form.component';
 
 export * from './lib/directives/number-only.directive';
+export * from './lib/directives/number.directive';

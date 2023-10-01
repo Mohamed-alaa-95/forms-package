@@ -32,12 +32,14 @@ export class FilterTableComponent implements OnChanges {
   @Input() simpleData: any[] = [];
   @Input() sortOrder: number = -1;
   @Input() sortField: string = '';
+  @Input() defaultSortOrder = -1;
   @Input() isTableActionsAccessible = false;
   @Input() onUpdateSelectedRows = new EventEmitter();
   @Input() dir: Direction = 'ltr';
   @Input() hasData = true;
   @Input() queryParams!: { [key: string]: any };
   @Input() title!: string;
+  @Input() rows = 10;
   @Input() actions: HeaderAction | any = {
     Actions: [
       {
@@ -127,6 +129,7 @@ export class FilterTableComponent implements OnChanges {
   globalFilterFields!: any;
   firstValue: number | undefined;
   @ViewChild('dt') table: Table | undefined;
+  @Input() first: number = 0;
   isConnected = true;
   constructor(
     private messagerService: MessageService,
@@ -135,6 +138,18 @@ export class FilterTableComponent implements OnChanges {
     this.connectionService.monitor().subscribe((connection) => {
       this.isConnected = connection.hasInternetAccess && connection.hasNetworkConnection;
     });
+  }
+
+  isEmptyString(value: any) {
+    return value === '' || value === null
+  }
+
+  isColumnRequired(col: any) {
+    return col?.control?.required
+  }
+
+  hasMinValueError(row: any, col: any) {
+    return +row[col?.control?.name] < +col?.control?.minValue
   }
 
   getMiddle() {
@@ -245,19 +260,9 @@ export class FilterTableComponent implements OnChanges {
     }
     this.firstValue = table.first = 0;
     table.rows = 10;
-    table.defaultSortOrder = -1;
+    table.defaultSortOrder = this.defaultSortOrder;
     table.sortField = 'id';
     table.reset();
-    // this.loadData({
-    //   filters: { filters },
-    //   first: this.firstValue,
-    //   globalFilter: null,
-    //   multiSortMeta: undefined,
-    //   rows: 10,
-    //   sortField: this.sortField,
-    //   sortOrder: this.sortOrder,
-    // });
-
     this.dependValu = {};
     this.onClear.emit({ key: 'clear all' });
   }
