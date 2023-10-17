@@ -50,7 +50,7 @@
         <th *ngFor="let col of columns" class="headerCell noBorder">
           <ng-container [ngSwitch]="col.type" *ngIf="col.control.searchable">
             <ng-container *ngSwitchCase="'dropdown'">
-              <app-dropdown-filter [columnConfig]="col" [dependValu]="dependValu"
+              <app-dropdown-filter [queryParams]="queryParams" [columnConfig]="col" [dependValu]="dependValu"
                 (onSelect)="onSelectChange($event, dt)" [onClear]="onClear">
               </app-dropdown-filter>
             </ng-container>
