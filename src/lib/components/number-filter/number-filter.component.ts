@@ -41,7 +41,7 @@ export class NumberFilterComponent implements OnInit, OnChanges {
         this.inputForm.reset();
       }
     });
-    if (this.queryParams && Object.keys(this.queryParams).length) {
+    if (this.queryParams && this.queryParams[this.columnConfig.control.name]) {
       this.inputForm.patchValue({
         from: this.queryParams[this.columnConfig.control.name],
         to: this.queryParams[this.columnConfig.control.name],
