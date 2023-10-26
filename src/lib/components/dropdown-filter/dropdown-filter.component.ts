@@ -112,7 +112,7 @@ export class DropdownFilterComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.dropDownColumnConfig = this.columnConfig
       .control as SelectControlConfig;
-    if (this.queryParams && Object.keys(this.queryParams).length) {
+    if (this.queryParams && this.queryParams[this.columnConfig.control.name]) {
       if (this.columnConfig.control.multiple)
         this.setMultipleDropDown()
       else
