@@ -25,6 +25,7 @@ export class DropdownFilterComponent implements OnInit, OnChanges {
   @Input() dependValu: { [key: string]: any } = {};
   @Input() dir: Direction = 'ltr';
   @Input() onClear = new EventEmitter();
+  @Input() queryParams!: { [key: string]: any };
   @Output() onSelect = new EventEmitter<any>();
   @ViewChild('dp') dropdown!: Dropdown;
   @ViewChildren('dp_multiple')
@@ -34,8 +35,10 @@ export class DropdownFilterComponent implements OnInit, OnChanges {
   private areDropdownItemsLoading = false;
   private areDropdownItemsHaveError = false;
   query: Array<any> = [];
+  selectedItems: Array<any> = [];
+  selectedItem!: any
 
-  constructor() {}
+  constructor() { }
 
   getDropdownMessage(): string {
     if (this.areDropdownItemsLoading) {
@@ -79,6 +82,15 @@ export class DropdownFilterComponent implements OnInit, OnChanges {
 
       }
     });
+
+  }
+
+  setSingleDropDown() {
+    this.selectedItem = this.queryParams[this.columnConfig.control.name]?.value
+  }
+
+  setMultipleDropDown() {
+    this.selectedItems = [...this.queryParams[this.columnConfig.control.name]?.value]
   }
 
   getValue(selectedValues: any) {
@@ -96,9 +108,16 @@ export class DropdownFilterComponent implements OnInit, OnChanges {
     );
     if (i > -1) return this.dropDownColumnConfig.options[i].value;
   }
+
   ngOnInit(): void {
     this.dropDownColumnConfig = this.columnConfig
       .control as SelectControlConfig;
+    if (this.queryParams && this.queryParams[this.columnConfig.control.name]) {
+      if (this.columnConfig.control.multiple)
+        this.setMultipleDropDown()
+      else
+        this.setSingleDropDown()
+    }
   }
 
   updateStatus(value: any, key: any) {

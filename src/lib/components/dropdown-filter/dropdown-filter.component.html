@@ -7,6 +7,7 @@
     >
       <ng-template pTemplate="filter" let-value let-filter="filterCallback">
         <p-multiSelect
+        [(ngModel)]="selectedItems"
           #dp_multiple
           pTooltip="{{ value ? getValue(value) : '' }}"
           [id]="'dropdown_' + '_column_' + dropDownColumnConfig.name"
@@ -38,6 +39,7 @@
       <ng-template pTemplate="filter" let-value let-filter="filterCallback">
         <p-dropdown
           #dp
+          [(ngModel)]="selectedItem"
           pTooltip="{{ value ? getSingleDropdownValue(value) : '' }}"
           [id]="'dropdown_' + '_column_' + dropDownColumnConfig.name"
           [options]="dropDownColumnConfig?.options"

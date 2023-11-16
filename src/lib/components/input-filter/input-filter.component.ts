@@ -32,7 +32,7 @@ export class InputFilterComponent implements OnChanges {
         this.inputForm.reset();
       }
     });
-    if (this.queryParams && Object.keys(this.queryParams).length)
+    if (this.queryParams && this.queryParams[this.columnConfig.control.name])
       this.inputForm.patchValue({
         inputField: this.queryParams[this.columnConfig.control.name],
       });
