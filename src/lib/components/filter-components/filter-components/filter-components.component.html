@@ -1,0 +1,26 @@
+<div class="flex flex-wrap custom-flex gap-6">
+    <ng-container *ngFor="let record of data">
+        <ng-Container *ngIf="!record.control.depends || record.control.parentValue">
+            <div [ngClass]="flexDirectionColumn ? 'custom-class': ''">
+                <ng-container [ngSwitch]="record.type">
+                    <ng-container *ngSwitchCase="'number'">
+                        <app-number-input [query]="query" [columnConfig]="record"></app-number-input>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'text'">
+                        <app-input-field [query]="query" [columnConfig]="record"></app-input-field>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'date'">
+                        <app-date-field [query]="query" [columnConfig]="record"></app-date-field>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'dropdown'">
+                        <app-drop-down [query]="query" [columnConfig]="record"></app-drop-down>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'auto_complete'">
+                        <app-auto-complete [query]="query" [columnConfig]="record"></app-auto-complete>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </ng-Container>
+    </ng-container>
+    <p-button (onClick)="filter()">Filter</p-button>
+</div>

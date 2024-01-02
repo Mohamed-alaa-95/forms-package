@@ -1,0 +1,19 @@
+<div class="h-3rem w-21rem">
+    <ng-container *ngIf="numberColumnConfig.range; else single">
+        <div class="p-field p-fluid">
+            <label class="font-bold text-base text-black-alpha-80">{{numberColumnConfig.label}}</label>
+            <input type="number" [(ngModel)]="numberRangeValues.from" step="1" (ngModelChange)="ngModelChange()"
+                pInputText placeholder="From" />
+            <input type="number" [(ngModel)]="numberRangeValues.to" (ngModelChange)="ngModelChange()" step="1"
+                pInputText placeholder="To" />
+        </div>
+    </ng-container>
+    <ng-template #single>
+        <div class="p-field p-fluid">
+            <span class="p-float-label">
+                <input type="number" pInputText [(ngModel)]="query[columnConfig.control.name]" />
+                <label>{{columnConfig?.control?.label }}</label>
+            </span>
+        </div>
+    </ng-template>
+</div>

@@ -1,0 +1,28 @@
+<div class="h-3rem">
+    <ng-container *ngIf="!autoCompleteColumnConfig.chips && autoCompleteColumnConfig.multiple;else autoComplete">
+        <div class="p-field p-fluid">
+            <label class="font-bold text-base text-black-alpha-80">{{autoCompleteColumnConfig?.label}}
+            </label>
+            <p-multiSelect [pTooltip]="getAutocompleteValue(columnConfig.name)"
+                [id]="'autoComplete_' + '_column_' + autoCompleteColumnConfig.name" [filter]="true"
+                (onFilter)="autoCompleteSearch($event)" [options]="autoCompleteColumnConfig?.options"
+                optionLabel="value" (onChange)="onSelectAutoComplete($event)
+              " [placeholder]="autoCompleteColumnConfig.label" [showClear]="true" appendTo="body"
+                [disabled]="autoCompleteColumnConfig.depends && !dependValue[autoCompleteColumnConfig.depends]">
+            </p-multiSelect>
+        </div>
+    </ng-container>
+    <ng-template #autoComplete>
+        <div class="p-field p-fluid">
+            <label class="font-bold text-base text-black-alpha-80">{{autoCompleteColumnConfig?.label}} </label>
+            <p-autoComplete #autoCompleteDp [suggestions]="autoCompleteResult"
+                (completeMethod)="autoCompleteSearch($event)" field="value" (onUnselect)="onSelectAutoComplete( $event)"
+                (onSelect)="onSelectAutoComplete($event)" (onClear)="onSelectAutoComplete($event)"
+                [disabled]="autoCompleteColumnConfig.depends && !dependValue[autoCompleteColumnConfig.depends]"
+                appendTo="body" [multiple]="autoCompleteColumnConfig.multiple"
+                [pTooltip]="getAutocompleteValue(columnConfig.name)" [showEmptyMessage]="true" [optionLabel]="'value'"
+                [optionValue]="'id'">
+            </p-autoComplete>
+        </div>
+    </ng-template>
+</div>
