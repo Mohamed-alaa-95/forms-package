@@ -1,0 +1,6 @@
+<div class="flex flex-column">
+    <h5>{{columnConfig.control.label}}</h5>
+    <p-fileUpload accept=".csv" mode="basic" (onSelect)="onSelectFile($event)" chooseLabel="Browse"></p-fileUpload>
+    <a (click)="downloadSample(columnConfig.file_config)" class="download-sample">Download
+        Sample</a>
+</div>

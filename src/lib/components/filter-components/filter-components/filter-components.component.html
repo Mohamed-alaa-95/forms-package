@@ -1,26 +1,32 @@
-<div class="flex flex-wrap custom-flex gap-6">
-    <ng-container *ngFor="let record of data">
-        <ng-Container *ngIf="!record.control.depends || record.control.parentValue">
-            <div [ngClass]="flexDirectionColumn ? 'custom-class': ''">
-                <ng-container [ngSwitch]="record.type">
+<div class="flex flex-wrap p-6 custom-flex gap-2">
+    <ng-container *ngFor="let column of columns">
+        <ng-Container *ngIf="!column.control.searchable">
+            <div class="pt-4" [ngClass]="flexDirectionColumn ? 'custom-class': ''">
+                <ng-container [ngSwitch]="column.type">
                     <ng-container *ngSwitchCase="'number'">
-                        <app-number-input [query]="query" [columnConfig]="record"></app-number-input>
+                        <app-number-input [query]="query" [columnConfig]="column"></app-number-input>
                     </ng-container>
                     <ng-container *ngSwitchCase="'text'">
-                        <app-input-field [query]="query" [columnConfig]="record"></app-input-field>
+                        <app-input-field [query]="query" [columnConfig]="column"></app-input-field>
                     </ng-container>
                     <ng-container *ngSwitchCase="'date'">
-                        <app-date-field [query]="query" [columnConfig]="record"></app-date-field>
+                        <app-date-field [query]="query" [columnConfig]="column"></app-date-field>
                     </ng-container>
                     <ng-container *ngSwitchCase="'dropdown'">
-                        <app-drop-down [query]="query" [columnConfig]="record"></app-drop-down>
+                        <app-drop-down [query]="query" [columnConfig]="column"></app-drop-down>
                     </ng-container>
                     <ng-container *ngSwitchCase="'auto_complete'">
-                        <app-auto-complete [query]="query" [columnConfig]="record"></app-auto-complete>
+                        <app-auto-complete [query]="query" [columnConfig]="column"></app-auto-complete>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'file'">
+                        <app-file-filter [query]="query" [columnConfig]="column"></app-file-filter>
                     </ng-container>
                 </ng-container>
             </div>
         </ng-Container>
     </ng-container>
+</div>
+<div class="flex flex-row-reverse gap-2 pr-6">
     <p-button (onClick)="filter()">Filter</p-button>
+    <p-button (onClick)="clear()">Clear</p-button>
 </div>

@@ -1,23 +1,24 @@
-import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { SelectControlConfig } from '@khaznatech/export-package/lib/column.model';
-import { field } from '@khaznatech/khazna-elements-package/lib/models/form-field.model';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { Dropdown } from 'primeng/dropdown';
 import { MultiSelect } from 'primeng/multiselect';
+import { SelectControlConfig } from 'src/lib/models/form-field.model';
 
 @Component({
   selector: 'app-drop-down',
   templateUrl: './drop-down.component.html',
   styleUrls: ['./drop-down.component.css']
 })
-export class DropDownComponent implements OnInit {
+export class DropDownComponent implements OnInit, OnChanges {
+  value: any;
+  selectedItem: any;
 
   constructor() { }
-  @Input() columnConfig: field | any;
+  @Input() columnConfig:  any;
   @Input() dependValue: { [key: string]: any } = {};
-  @Input() query;
+  @Input() query: any;
   @ViewChild('dp') dropdown!: Dropdown;
-  @ViewChildren('dp_multiple')
-  dropdownMultipleComponents: QueryList<MultiSelect> | any;
+  @Output() onClearSelection = new EventEmitter<any>();
+  @ViewChildren('dp_multiple') dropdownMultipleComponents: QueryList<MultiSelect> | any;
 
   dropDownColumnConfig: SelectControlConfig | any;
 
@@ -25,21 +26,28 @@ export class DropDownComponent implements OnInit {
     this.dropDownColumnConfig = this.columnConfig.control as SelectControlConfig;
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['query'].currentValue[this.columnConfig.control.name] == undefined) {
+      this.clearSingleDropDown();
+      this.clearMultipleDropDown();
+    }
+  }
+
   clearSingleDropDown() {
-    this.dropdown.updateSelectedOption(null);
+    this.dropdown?.updateSelectedOption(null);
     this.query[this.columnConfig.control.name] = ''
   }
 
   clearMultipleDropDown() {
-    this.dropdownMultipleComponents.toArray().forEach((el: any) => {
+    this.dropdownMultipleComponents?.toArray()?.forEach((el: any) => {
       el.value = [];
       el.updateLabel();
-      el.hide();
+      el?.hide();
     });
     this.query[this.columnConfig.control.name] = '';
   }
 
-  onChangeDropdownSelectedValue(event) {
+  onChangeDropdownSelectedValue(event: { value: any; }) {
     this.query[this.columnConfig.control.name] = event.value;
   }
 
@@ -51,5 +59,17 @@ export class DropDownComponent implements OnInit {
       .map((el: any) => el.value)
       .join(',');
   }
+
+  updateStatus(value: any, key: any) {
+    this.query[key] = value;
+  }
+
+  getSingleDropdownValue(value: any) {
+    let i = this.dropDownColumnConfig.options.findIndex(
+      (v: any) => value == v.id
+    );
+    if (i > -1) return this.dropDownColumnConfig.options[i].value;
+  }
+
 
 }

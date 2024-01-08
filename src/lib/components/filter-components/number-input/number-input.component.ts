@@ -1,21 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NumberControlConfig } from '@khaznatech/export-package/lib/column.model';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { field } from '@khaznatech/khazna-elements-package/lib/models/form-field.model';
+import { NumberControlConfig } from 'src/lib/models/form-field.model';
 
 @Component({
   selector: 'app-number-input',
   templateUrl: './number-input.component.html',
   styleUrls: ['./number-input.component.css']
 })
-export class NumberInputComponent implements OnInit {
-  @Input() columnConfig: field | any;
-  @Input() query;
+export class NumberInputComponent implements OnInit, OnChanges {
+  @Input() columnConfig: any;
+  @Input() query: any;
   numberColumnConfig: NumberControlConfig | any;
   numberRangeValues = { from: '', to: '' };
   ngOnInit(): void {
     this.numberColumnConfig = this.columnConfig.control as NumberControlConfig;
   }
   constructor() { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['query'].currentValue[this.columnConfig.control.name] == undefined) {
+      if (this.columnConfig.control.range) {
+        this.numberRangeValues.from = null;
+        this.numberRangeValues.to = null;
+      } else this.query[this.columnConfig.control.name] = null;
+    }
+  }
 
   ngModelChange() {
     this.query[this.columnConfig.control.name] = `${this.numberRangeValues.from

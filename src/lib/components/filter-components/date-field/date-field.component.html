@@ -1,7 +1,8 @@
 <div class="w-21rem h-3rem">
     <ng-container *ngIf="dateControlConfig.range; else single">
         <div class="p-fluid">
-            <label class="font-bold text-base text-black-alpha-80">{{columnConfig?.control?.label }}</label>
+            <label class="text-base text-black-alpha-80">{{columnConfig?.control?.label }}</label>
+
             <p-calendar #rangeCalendar [showButtonBar]="dateControlConfig.view== 'month' ? false : true"
                 [showClear]="dateControlConfig.view== 'month' ? true : false"
                 (onClearClick)="onClearRange(columnConfig.control.name, rangeCalendar.value)"
@@ -14,15 +15,14 @@
     </ng-container>
     <ng-template #single>
         <div class="p-fluid">
-            <span class="p-float-label">
-                <p-calendar #calendar appendTo="body" [readonlyInput]="true" [(ngModel)]="dateValues"
-                    [minDate]="dateControlConfig?.minDate" [disabled]="dateControlConfig.disabled"
-                    (onSelect)=" onSelectValue(columnConfig?.control?.name, calendar?.value)"
-                    [dateFormat]="dateControlConfig.dateFormate ? dateControlConfig.dateFormate : 'dd/mm/yy' "
-                    [view]="dateControlConfig?.view ? dateControlConfig?.view : 'date'">
-                </p-calendar>
-                <label>{{columnConfig?.control?.label }}</label>
-            </span>
+            <label>{{columnConfig?.control?.label }}</label>
+            <p-calendar #calendar appendTo="body" [readonlyInput]="true" [(ngModel)]="dateValues"
+                [minDate]="dateControlConfig?.minDate" [disabled]="dateControlConfig.disabled"
+                (onSelect)=" onSelectValue(columnConfig?.control?.name, calendar?.value)"
+                [dateFormat]="dateControlConfig.dateFormate ? dateControlConfig.dateFormate : 'dd/mm/yy' "
+                [view]="dateControlConfig?.view ? dateControlConfig?.view : 'date'"
+                [showTime]="columnConfig.control.type === 'date_time' ? true : false">
+            </p-calendar>
         </div>
     </ng-template>
 </div>

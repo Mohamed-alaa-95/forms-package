@@ -16,7 +16,7 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { DialogModule } from 'primeng/dialog';
 import { SliderModule } from 'primeng/slider';
 import { PrimeWidgetComponent } from './prime-widget.component';
-import { NgModule } from '@angular/core';
+import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CommonModule } from '@angular/common';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -31,6 +31,14 @@ import { NumberFilterComponent } from './components/number-filter/number-filter.
 import { DateTimeComponent } from './components/date-time/date-time.component';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { NumberAndDecimalOnly } from './directives/number.directive'
+import { AutoCompleteComponent } from './components/filter-components/auto-complete/auto-complete.component';
+import { DateFieldComponent } from './components/filter-components/date-field/date-field.component';
+import { DropDownComponent } from './components/filter-components/drop-down/drop-down.component';
+import { FileFilterComponent } from './components/filter-components/file-filter/file-filter.component';
+import { FilterComponentsComponent } from './components/filter-components/filter-components/filter-components.component';
+import { InputFieldComponent } from './components/filter-components/input-field/input-field.component';
+import { NumberInputComponent } from './components/filter-components/number-input/number-input.component';
+// import { ExportPackageModule } from '@khaznatech/export-package'
 const primeModules = [
   SliderModule,
   DialogModule,
@@ -66,13 +74,20 @@ const primeModules = [
     NumberFilterComponent,
     DateTimeComponent,
     DynamicFormComponent,
-    NumberAndDecimalOnly
+    NumberAndDecimalOnly,
+    AutoCompleteComponent,
+    DateFieldComponent,
+    DropDownComponent,
+    FileFilterComponent,
+    FilterComponentsComponent,
+    InputFieldComponent,
+    NumberInputComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ...primeModules,
+    ...primeModules
   ],
   providers: [ConfirmationService, MessageService],
   exports: [
@@ -88,8 +103,16 @@ const primeModules = [
     DateTimeComponent,
     primeModules,
     DynamicFormComponent,
-    NumberAndDecimalOnly
+    NumberAndDecimalOnly,
+    AutoCompleteComponent,
+    DateFieldComponent,
+    DropDownComponent,
+    FileFilterComponent,
+    FilterComponentsComponent,
+    InputFieldComponent,
+    NumberInputComponent
   ],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class PrimeWidgetModule {
   constructor() { }

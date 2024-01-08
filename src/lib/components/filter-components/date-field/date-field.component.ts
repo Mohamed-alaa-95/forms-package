@@ -1,24 +1,28 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { DateControlConfig } from '@khaznatech/export-package/lib/column.model';
-import { field } from '@khaznatech/khazna-elements-package/lib/models/form-field.model';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { DateControlConfig } from 'src/lib/models/form-field.model';
 
 @Component({
   selector: 'app-date-field',
   templateUrl: './date-field.component.html',
   styleUrls: ['./date-field.component.css']
 })
-export class DateFieldComponent implements OnInit {
+export class DateFieldComponent implements OnInit, OnChanges {
 
-  @Input() columnConfig: field | any;
+  @Input() columnConfig: any;
   @ViewChild('rangeCalendar') public rangeCalendar: any;
-  @Input() query;
-  dateValues;
+  @Input() query: any;
+  dateValues: any;
   dateControlConfig: DateControlConfig | any;
   ngOnInit(): void {
     this.dateControlConfig = this.columnConfig.control as DateControlConfig;
-    console.log(this.dateControlConfig);
+  }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['query'].currentValue[this.columnConfig.control.name] == undefined) {
+      this.dateValues = null;
+      if (this.columnConfig.control.range)
+        this.onSelectRangeValue(this.columnConfig.control.name, null)
+    }
   }
 
   onSelectValue(key: string, value: any) {
@@ -41,8 +45,6 @@ export class DateFieldComponent implements OnInit {
         -1,
         -1,
       ]
-      console.log(date);
-
       this.query[key] = date;
     }
   }
@@ -50,7 +52,6 @@ export class DateFieldComponent implements OnInit {
   onClearRange(key: any, value: any) {
     this.dateValues = null;
     this.onSelectRangeValue(key, value)
-
   }
 
 

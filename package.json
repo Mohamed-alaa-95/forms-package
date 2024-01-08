@@ -1,6 +1,6 @@
 {
   "name": "@khaznatech/khazna-elements-package",
-  "version": "1.1.0",
+  "version": "0.0.9010",
   "scripts": {
     "build": "ng build",
     "pack": "cd dist/khazna-elements-package && npm pack",
@@ -19,7 +19,9 @@
     "ng-connection-service": "^9.0.3",
     "primeng": "^14.2.2",
     "tslib": "^2.3.0",
-    "typescript": "~4.6.2"
+    "typescript": "~4.6.2",
+    "papaparse": "^5.3.1",
+    "@khaznatech/export-package": "^2.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.10",

@@ -7,8 +7,8 @@ import { field } from '@khaznatech/khazna-elements-package/lib/models/form-field
   styleUrls: ['./input-field.component.css']
 })
 export class InputFieldComponent implements OnInit {
-  @Input() columnConfig: field;
-  @Input() query;
+  @Input() columnConfig: any;
+  @Input() query: any;
   constructor() { }
 
   ngOnInit(): void {
