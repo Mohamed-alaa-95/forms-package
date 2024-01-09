@@ -30,14 +30,8 @@ import { NumbersOnly } from './directives/number-only.directive';
 import { NumberFilterComponent } from './components/number-filter/number-filter.component';
 import { DateTimeComponent } from './components/date-time/date-time.component';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
-import { NumberAndDecimalOnly } from './directives/number.directive'
-import { AutoCompleteComponent } from './components/filter-components/auto-complete/auto-complete.component';
-import { DateFieldComponent } from './components/filter-components/date-field/date-field.component';
-import { DropDownComponent } from './components/filter-components/drop-down/drop-down.component';
-import { FileFilterComponent } from './components/filter-components/file-filter/file-filter.component';
-import { FilterComponentsComponent } from './components/filter-components/filter-components/filter-components.component';
-import { InputFieldComponent } from './components/filter-components/input-field/input-field.component';
-import { NumberInputComponent } from './components/filter-components/number-input/number-input.component';
+import { NumberAndDecimalOnly } from './directives/number.directive';
+import { AutoCompleteFieldComponent } from './components/auto-complete-field/auto-complete-field.component';
 // import { ExportPackageModule } from '@khaznatech/export-package'
 const primeModules = [
   SliderModule,
@@ -75,14 +69,7 @@ const primeModules = [
     DateTimeComponent,
     DynamicFormComponent,
     NumberAndDecimalOnly,
-    AutoCompleteComponent,
-    DateFieldComponent,
-    DropDownComponent,
-    FileFilterComponent,
-    FilterComponentsComponent,
-    InputFieldComponent,
-    NumberInputComponent
-  ],
+    AutoCompleteFieldComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -104,13 +91,7 @@ const primeModules = [
     primeModules,
     DynamicFormComponent,
     NumberAndDecimalOnly,
-    AutoCompleteComponent,
-    DateFieldComponent,
-    DropDownComponent,
-    FileFilterComponent,
-    FilterComponentsComponent,
-    InputFieldComponent,
-    NumberInputComponent
+    AutoCompleteFieldComponent
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })
