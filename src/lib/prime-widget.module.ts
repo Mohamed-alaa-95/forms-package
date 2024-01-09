@@ -31,8 +31,14 @@ import { NumberFilterComponent } from './components/number-filter/number-filter.
 import { DateTimeComponent } from './components/date-time/date-time.component';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { NumberAndDecimalOnly } from './directives/number.directive';
-import { AutoCompleteFieldComponent } from './components/auto-complete-field/auto-complete-field.component';
-// import { ExportPackageModule } from '@khaznatech/export-package'
+import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
+import { DropDownComponent } from './components/drop-down/drop-down.component';
+import { FileFilterComponent } from './components/file-filter/file-filter.component';
+import { FilterComponentsComponent } from './components/filter-components/filter-components.component';
+import { InputFieldComponent } from './components/input-field/input-field.component';
+import { NumberInputComponent } from './components/number-input/number-input.component';
+import { DateFieldComponent } from './components/date-field/date-field.component';
+import { ExportPackageModule, ExportPackageService } from '@khaznatech/export-package';
 const primeModules = [
   SliderModule,
   DialogModule,
@@ -69,14 +75,22 @@ const primeModules = [
     DateTimeComponent,
     DynamicFormComponent,
     NumberAndDecimalOnly,
-    AutoCompleteFieldComponent],
+    NumberInputComponent,
+    AutoCompleteComponent,
+    DropDownComponent,
+    FileFilterComponent,
+    FilterComponentsComponent,
+    InputFieldComponent,
+    DateFieldComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ...primeModules
+    ...primeModules,
+    ExportPackageModule
   ],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService, ExportPackageService],
   exports: [
     FilterTableComponent,
     HeaderActionsComponent,
@@ -91,7 +105,13 @@ const primeModules = [
     primeModules,
     DynamicFormComponent,
     NumberAndDecimalOnly,
-    AutoCompleteFieldComponent
+    NumberInputComponent,
+    AutoCompleteComponent,
+    DropDownComponent,
+    FileFilterComponent,
+    FilterComponentsComponent,
+    InputFieldComponent,
+    DateFieldComponent
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

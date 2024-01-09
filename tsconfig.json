@@ -13,10 +13,10 @@
     "paths": {
       "@khaznatech/khazna-elements-package": [
         "dist/khazna-elements-package"
-     ],
-     "@khaznatech/khazna-elements-package/*":[
-      "dist/khazna-elements-package/*"
-     ]
+      ],
+      "@khaznatech/khazna-elements-package/*": [
+        "dist/khazna-elements-package/*"
+      ]
     },
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
@@ -37,7 +37,7 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "skipLibCheck": true
   },
-
 }

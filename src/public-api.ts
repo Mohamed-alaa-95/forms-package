@@ -17,4 +17,11 @@ export * from './lib/components/date-time/date-time.component';
 export * from './lib/components/dynamic-form/dynamic-form.component';
 export * from './lib/directives/number-only.directive';
 export * from './lib/directives/number.directive';
+export * from './lib/components/auto-complete/auto-complete.component';
+export * from './lib/components/date-field/date-field.component';
+export * from './lib/components/drop-down/drop-down.component';
+export * from './lib/components/file-filter/file-filter.component';
+export * from './lib/components/filter-components/filter-components.component';
+export * from './lib/components/input-field/input-field.component';
+export * from './lib/components/number-input/number-input.component';
 

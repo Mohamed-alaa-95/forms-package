@@ -1,0 +1,16 @@
+.download-sample {
+    text-decoration: underline;
+    font-size: 13px;
+    cursor: pointer;
+    color: blue;
+    margin-top: 0.5rem;
+}
+
+input[type="file"]::-webkit-file-upload-button,
+button {
+    border-radius: 39px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 0.5rem;
+    cursor: pointer;
+}

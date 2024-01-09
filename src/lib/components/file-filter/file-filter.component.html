@@ -1,0 +1,7 @@
+<div class="flex flex-column">
+    <h5>{{columnConfig.control.label}}</h5>
+    <input [formControl]="selectedFile" aria-label="Upload" type="file" accept=".csv" id="inputFile"
+        (change)="onSelectFile($event)" />
+    <a (click)="downloadSample(columnConfig)" class="download-sample">Download
+        Sample</a>
+</div>

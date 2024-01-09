@@ -1,0 +1,63 @@
+<div class="w-21rem h-3rem">
+    <ng-container *ngIf="dateControlConfig.range; else single">
+        <ng-container *ngIf="dateControlConfig.divided; else rangedDate">
+            <div class="flex flex-column">
+                <label class="text-base text-black-alpha-80">{{columnConfig?.control?.label }}</label>
+                <div class="flex flex-row gap-2">
+                    <div class="p-fluid">
+                        <p-calendar #calendarFrom [readonlyInput]="true" placeholder="From"
+                            [showButtonBar]="dateControlConfig.view== 'month' ? false : true"
+                            [showClear]="dateControlConfig.view== 'month' ? true : false"
+                            (onClearClick)="onClearRange(columnConfig.control.name, calendarFrom.value)"
+                            (onClear)="onClearRange(columnConfig.control.name, calendarFrom.value)"
+                            [(ngModel)]="dividedRangedValues.from"
+                            (onSelect)="onSelectDividedFields('from', calendarFrom.value ,calendarFrom)"
+                            [dateFormat]="dateControlConfig.dateFormate ? dateControlConfig.dateFormate : 'dd/mm/yy' "
+                            [view]="dateControlConfig.view ? dateControlConfig.view : 'date'"
+                            appendTo="body"></p-calendar>
+                    </div>
+                    <div class="p-fluid">
+                        <p-calendar #calendarTo [readonlyInput]="true" placeholder="To"
+                            [showButtonBar]="dateControlConfig.view== 'month' ? false : true"
+                            [showClear]="dateControlConfig.view== 'month' ? true : false"
+                            (onClearClick)="onClearRange('to', calendarTo.value)"
+                            (onClear)="onClearRange(columnConfig.control.name, calendarTo.value)"
+                            [(ngModel)]="dividedRangedValues.to"
+                            (onSelect)="onSelectDividedFields('to', calendarTo.value , calendarTo)"
+                            [dateFormat]="dateControlConfig.dateFormate ? dateControlConfig.dateFormate : 'dd/mm/yy' "
+                            [view]="dateControlConfig.view ? dateControlConfig.view : 'date'" appendTo="body"
+                            [minDate]="dividedRangedValues.from"></p-calendar>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #rangedDate>
+            <div class="p-fluid">
+
+                <label class="text-base text-black-alpha-80">{{columnConfig?.control?.label }}</label>
+                <p-calendar #rangeCalendar [readonlyInput]="true"
+                    [showButtonBar]="dateControlConfig.view== 'month' ? false : true"
+                    [showClear]="dateControlConfig.view== 'month' ? true : false"
+                    (onClearClick)="onClearRange(columnConfig.control.name, rangeCalendar.value)"
+                    (onClear)="onClearRange(columnConfig.control.name, rangeCalendar.value)" [(ngModel)]="dateValues"
+                    (onSelect)="onSelectRangeValue(columnConfig.control.name, rangeCalendar.value)"
+                    [dateFormat]="dateControlConfig.dateFormate ? dateControlConfig.dateFormate : 'dd/mm/yy' "
+                    [view]="dateControlConfig.view ? dateControlConfig.view : 'date'" selectionMode="range"
+                    appendTo="body"></p-calendar>
+            </div>
+
+        </ng-template>
+    </ng-container>
+    <ng-template #single>
+        <div class="p-fluid">
+            <label>{{columnConfig?.control?.label }}</label>
+            <p-calendar #calendar appendTo="body" [readonlyInput]="true" [(ngModel)]="dateValues"
+                [minDate]="dateControlConfig?.minDate" [disabled]="dateControlConfig.disabled"
+                (onSelect)=" onSelectValue(columnConfig?.control?.name, calendar?.value)"
+                [dateFormat]="dateControlConfig.dateFormate ? dateControlConfig.dateFormate : 'dd/mm/yy' "
+                [view]="dateControlConfig?.view ? dateControlConfig?.view : 'date'"
+                [showTime]="columnConfig.control.type === 'date_time' ? true : false">
+            </p-calendar>
+        </div>
+    </ng-template>
+</div>
