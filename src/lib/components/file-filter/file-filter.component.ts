@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ExportPackageService } from '@khaznatech/export-package';
+import { Papa } from 'ngx-papaparse';
 @Component({
   selector: 'app-file-filter',
   templateUrl: './file-filter.component.html',
@@ -8,7 +9,7 @@ import { ExportPackageService } from '@khaznatech/export-package';
 })
 export class FileFilterComponent implements OnInit {
 
-  constructor(private exportPackage: ExportPackageService) { }
+  constructor(private papa: Papa, private exportPackage: ExportPackageService) { }
   @Input() columnConfig: any;
   @Input() query: any;
   selectedFile = new FormControl('');
@@ -32,18 +33,18 @@ export class FileFilterComponent implements OnInit {
     }
 
     const toUploadedFile = event.target.files[0];
-    // Papa.parse(toUploadedFile, {
-    //   header: false,
-    //   skipEmptyLines: true,
-    //   complete: (result: any) => {
-    //     if (result.data.flat()[0] === this.columnConfig.control.file_config[0].label) {
-    //       const csvData = result.data.slice(1).flatMap((el: any) => el[0]).filter((el: any) => el.match(/^[0-9]{14}$/gm))
-    //       this.query[this.columnConfig.control.name] = csvData;
-    //     } else this.query[this.columnConfig.control.name] = [];
-    //     this.selectedFile.setValue(null);
-    //     //invalid data
-    //   }
-    // })
+    this.papa.parse(toUploadedFile, {
+      header: false,
+      skipEmptyLines: true,
+      complete: (result: any) => {
+        if (result.data.flat()[0] === this.columnConfig.control.file_config[0].label) {
+          const csvData = result.data.slice(1).flatMap((el: any) => el[0]).filter((el: any) => el.match(/^[0-9]{14}$/gm))
+          this.query[this.columnConfig.control.name] = csvData;
+        } else this.query[this.columnConfig.control.name] = [];
+        this.selectedFile.setValue(null);
+        //invalid data
+      }
+    })
   }
 
   downloadSample(columnConfig: any) {
