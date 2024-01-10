@@ -29,6 +29,7 @@ export class DropDownComponent implements OnInit, OnChanges {
     if (changes['query'].currentValue[this.columnConfig.control.name] == undefined) {
       this.clearSingleDropDown();
       this.clearMultipleDropDown();
+      this.selectedItem = null;
     }
   }
 
@@ -53,9 +54,9 @@ export class DropDownComponent implements OnInit, OnChanges {
   getValue(selectedValues: any) {
     return this.dropDownColumnConfig.options
       .filter((v: any) => {
-        return selectedValues.indexOf(v.id) > -1;
+        return selectedValues.indexOf(v[this.columnConfig.control.optionValue]) > -1;
       })
-      .map((el: any) => el.value)
+      .map((el: any) => el[this.columnConfig.control.optionLabel])
       .join(',');
   }
 
@@ -65,9 +66,9 @@ export class DropDownComponent implements OnInit, OnChanges {
 
   getSingleDropdownValue(value: any) {
     let i = this.dropDownColumnConfig.options.findIndex(
-      (v: any) => value == v.id
+      (v: any) => value == v[this.columnConfig.control.optionValue]
     );
-    if (i > -1) return this.dropDownColumnConfig.options[i].value;
+    if (i > -1) return this.dropDownColumnConfig.options[i][this.columnConfig.control.optionValue]
   }
 
 

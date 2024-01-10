@@ -8,8 +8,9 @@
                 <p-multiSelect [(ngModel)]="selectedItem" (onChange)="onChangeDropdownSelectedValue($event)"
                     #dp_multiple pTooltip="{{ selectedItem ? getValue(selectedItem) : '' }}"
                     [id]="'dropdown_' + '_column_' + dropDownColumnConfig?.name" [filter]="dropDownColumnConfig?.filter"
-                    [options]="dropDownColumnConfig?.options" optionLabel="value"
-                    [placeholder]="dropDownColumnConfig?.label" appendTo="body" optionValue="id"
+                    [options]="dropDownColumnConfig?.options" [optionLabel]="'label'"
+                    [optionValue]="dropDownColumnConfig.optionValue" appendTo="body"
+                    [placeholder]="dropDownColumnConfig.name"
                     [disabled]="columnConfig?.control?.depends && !dependValue[columnConfig?.control?.depends]">
                 </p-multiSelect>
             </div>
@@ -18,20 +19,15 @@
             <div class="p-field p-fluid">
                 <label>{{dropDownColumnConfig?.label }}
                 </label>
-                <p-dropdown #dp [(ngModel)]="selectedItem"
+                <p-dropdown #dp [(ngModel)]="selectedItem" [placeholder]="dropDownColumnConfig.name"
                     pTooltip="{{ selectedItem ? getSingleDropdownValue(selectedItem) : '' }}"
                     [id]="'dropdown_' + '_column_' + dropDownColumnConfig.name"
                     [options]="dropDownColumnConfig?.options" [filter]="dropDownColumnConfig?.filter"
-                    [optionLabel]="'value'" (onChange)="updateStatus($event.value, dropDownColumnConfig.name)"
-                    optionValue="id" [showClear]="dp.selectedOption" [placeholder]="dropDownColumnConfig.label"
-                    [disabled]="
-                      columnConfig.control.depends &&
-                      !dependValue[columnConfig.control.depends]
+                    [optionLabel]="dropDownColumnConfig?.optionLabel"
+                    (onChange)="updateStatus($event.value, dropDownColumnConfig.name)"
+                    [optionValue]="dropDownColumnConfig.optionValue" [showClear]="false" [disabled]="columnConfig.control.depends &&!dependValue[columnConfig.control.depends]
                     " appendTo="body">
                 </p-dropdown>
-
-
-
             </div>
         </ng-template>
     </div>

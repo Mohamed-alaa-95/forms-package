@@ -1,15 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-filter-components',
+  selector: 'lib-filter-components',
   templateUrl: './filter-components.component.html',
   styleUrls: ['./filter-components.component.css']
 })
 export class FilterComponentsComponent implements OnInit {
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit(): void {
     this.columns.forEach((col: any) => {
@@ -17,31 +15,12 @@ export class FilterComponentsComponent implements OnInit {
     })
   }
   @Input() flexDirectionColumn: any;
-  @Input() columns: any = [{
-    "type": "date",
-    "control": {
-      "name": "id",
-      "label": "ID",
-      "state": "private",
-      "range": true,
-      "note": false,
-      "required": false,
-      "negative": false,
-      "multiple": false,
-      "searchable": true,
-      "show": true,
-      "sortable": true,
-      "exactMatch": false,
-      "fileTitle": 'national_id_number',
-      divided: true
-
-    }
-  }];
-
+  @Input() columns: any;
+  @Output() onFilter: EventEmitter<any> = new EventEmitter<any>();
   query = {};
 
   filter() {
-    console.log(this.query);
+    this.onFilter.emit(this.query);
   }
 
   clear() {

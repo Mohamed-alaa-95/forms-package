@@ -15,6 +15,8 @@ export class FileFilterComponent implements OnInit {
   selectedFile = new FormControl('');
 
   ngOnInit(): void {
+    console.log('hereeee');
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -24,7 +26,6 @@ export class FileFilterComponent implements OnInit {
   }
 
   onSelectFile(event: any) {
-    console.log(event.target.files[0]);
     if (event.target.files[0].type !== 'text/csv') {
       return;
     }
