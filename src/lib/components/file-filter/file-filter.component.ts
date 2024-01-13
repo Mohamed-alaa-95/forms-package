@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { ExportPackageService } from '@khaznatech/export-package';
 import { Papa } from 'ngx-papaparse';
@@ -11,19 +12,9 @@ export class FileFilterComponent implements OnInit {
 
   constructor(private papa: Papa, private exportPackage: ExportPackageService) { }
   @Input() columnConfig: any;
-  @Input() query: any;
-  selectedFile = new FormControl('');
+  @Input() form: FormGroup = new FormGroup({});;
 
-  ngOnInit(): void {
-    console.log('hereeee');
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['query'].currentValue[this.columnConfig.control.name] == undefined) {
-      this.selectedFile.setValue(null);
-    }
-  }
+  ngOnInit(): void { }
 
   onSelectFile(event: any) {
     if (event.target.files[0].type !== 'text/csv') {
@@ -40,9 +31,8 @@ export class FileFilterComponent implements OnInit {
       complete: (result: any) => {
         if (result.data.flat()[0] === this.columnConfig.control.file_config[0].label) {
           const csvData = result.data.slice(1).flatMap((el: any) => el[0]).filter((el: any) => el.match(/^[0-9]{14}$/gm))
-          this.query[this.columnConfig.control.name] = csvData;
-        } else this.query[this.columnConfig.control.name] = [];
-        this.selectedFile.setValue(null);
+          this.form.controls[this.columnConfig.control.name].setValue(csvData);
+        } else this.form.controls[this.columnConfig.control.name].setValue(null);
         //invalid data
       }
     })

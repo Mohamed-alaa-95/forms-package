@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Dropdown } from 'primeng/dropdown';
 import { MultiSelect } from 'primeng/multiselect';
 import { SelectControlConfig } from 'src/lib/models/form-field.model';
@@ -8,47 +9,24 @@ import { SelectControlConfig } from 'src/lib/models/form-field.model';
   templateUrl: './drop-down.component.html',
   styleUrls: ['./drop-down.component.css']
 })
-export class DropDownComponent implements OnInit, OnChanges {
+export class DropDownComponent implements OnInit {
 
   constructor() { }
   @Input() columnConfig: any;
   @Input() dependValue: { [key: string]: any } = {};
-  @Input() query: any;
   @ViewChild('dp') dropdown!: Dropdown;
   @Output() onClearSelection = new EventEmitter<any>();
   @ViewChildren('dp_multiple') dropdownMultipleComponents: QueryList<MultiSelect> | any;
+  @Input() form: FormGroup = new FormGroup({});;
   selectedItem: any
-
   dropDownColumnConfig: any;
 
   ngOnInit(): void {
     this.dropDownColumnConfig = this.columnConfig.control as SelectControlConfig;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['query'].currentValue[this.columnConfig.control.name] == undefined) {
-      this.clearSingleDropDown();
-      this.clearMultipleDropDown();
-      this.selectedItem = null;
-    }
-  }
-
-  clearSingleDropDown() {
-    this.dropdown?.updateSelectedOption(null);
-    this.query[this.columnConfig.control.name] = ''
-  }
-
-  clearMultipleDropDown() {
-    this.dropdownMultipleComponents?.toArray()?.forEach((el: any) => {
-      el.value = [];
-      el.updateLabel();
-      el?.hide();
-    });
-    this.query[this.columnConfig.control.name] = '';
-  }
-
   onChangeDropdownSelectedValue(event: any) {
-    this.query[this.columnConfig.control.name] = event.value;
+    this.form.controls[this.columnConfig.control.name].setValue(event.value);
   }
 
   getValue(selectedValues: any) {
@@ -61,7 +39,7 @@ export class DropDownComponent implements OnInit, OnChanges {
   }
 
   updateStatus(value: any, key: any) {
-    this.query[key] = value;
+    this.form.controls[this.columnConfig.control.name].setValue(value);
   }
 
   getSingleDropdownValue(value: any) {

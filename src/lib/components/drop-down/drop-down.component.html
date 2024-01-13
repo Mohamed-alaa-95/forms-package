@@ -1,32 +1,30 @@
 <div class="w-21rem">
     <div class="h-3rem">
         <ng-container *ngIf="dropDownColumnConfig?.multiple; else single">
-            <div class="p-field p-fluid">
+            <div [formGroup]="form" class="p-field p-fluid">
                 <label class="text-base text-black-alpha-80 mr-3">
                     {{dropDownColumnConfig?.label }}
                 </label>
-                <p-multiSelect [(ngModel)]="selectedItem" (onChange)="onChangeDropdownSelectedValue($event)"
-                    #dp_multiple pTooltip="{{ selectedItem ? getValue(selectedItem) : '' }}"
+                <p-multiSelect (onChange)="onChangeDropdownSelectedValue($event)" #dp_multiple
+                    pTooltip="{{ selectedItem ? getValue(selectedItem) : '' }}"
                     [id]="'dropdown_' + '_column_' + dropDownColumnConfig?.name" [filter]="dropDownColumnConfig?.filter"
-                    [options]="dropDownColumnConfig?.options" [optionLabel]="'label'"
-                    [optionValue]="dropDownColumnConfig.optionValue" appendTo="body"
-                    [placeholder]="dropDownColumnConfig.name"
-                    [disabled]="columnConfig?.control?.depends && !dependValue[columnConfig?.control?.depends]">
+                    [options]="dropDownColumnConfig?.options" [optionValue]="dropDownColumnConfig.optionValue"
+                    appendTo="body" [placeholder]="dropDownColumnConfig.placeholder"
+                    [optionLabel]="dropDownColumnConfig?.optionLabel" [formControlName]="columnConfig.control.name">
                 </p-multiSelect>
             </div>
         </ng-container>
         <ng-template #single>
-            <div class="p-field p-fluid">
+            <div [formGroup]="form" class="p-field p-fluid">
                 <label>{{dropDownColumnConfig?.label }}
                 </label>
-                <p-dropdown #dp [(ngModel)]="selectedItem" [placeholder]="dropDownColumnConfig.name"
+                <p-dropdown #dp [placeholder]="dropDownColumnConfig.placeholder"
                     pTooltip="{{ selectedItem ? getSingleDropdownValue(selectedItem) : '' }}"
                     [id]="'dropdown_' + '_column_' + dropDownColumnConfig.name"
                     [options]="dropDownColumnConfig?.options" [filter]="dropDownColumnConfig?.filter"
-                    [optionLabel]="dropDownColumnConfig?.optionLabel"
+                    [optionLabel]="dropDownColumnConfig?.optionLabel" [formControlName]="columnConfig.control.name"
                     (onChange)="updateStatus($event.value, dropDownColumnConfig.name)"
-                    [optionValue]="dropDownColumnConfig.optionValue" [showClear]="false" [disabled]="columnConfig.control.depends &&!dependValue[columnConfig.control.depends]
-                    " appendTo="body">
+                    [optionValue]="dropDownColumnConfig.optionValue" [showClear]="false" appendTo="body">
                 </p-dropdown>
             </div>
         </ng-template>

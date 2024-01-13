@@ -1,76 +1,37 @@
 <div [formGroup]="autocompleteForm">
-  <ng-container
-    *ngIf="
+  <ng-container *ngIf="
       !autoCompleteColumnConfig.chips && autoCompleteColumnConfig.multiple;
       else autoComplete
-    "
-  >
-    <p-columnFilter
-      [field]="autoCompleteColumnConfig.name"
-      matchMode="equals"
-      [showMenu]="false"
-    >
+    ">
+    <p-columnFilter [field]="autoCompleteColumnConfig.name" matchMode="equals" [showMenu]="false">
       <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-        <p-multiSelect
-          [pTooltip]="getAutocompleteValue('multiSelectAutoComplete')"
-          formControlName="multiSelectAutoComplete"
-          [id]="'autoComplete_' + '_column_' + autoCompleteColumnConfig.name"
-          [filter]="true"
-          (onFilter)="autoCompleteSearch($event)"
-          [options]="autoCompleteColumnConfig?.options"
-          optionLabel="value"
-          (onChange)="
+        <p-multiSelect [pTooltip]="getAutocompleteValue('multiSelectAutoComplete')"
+          formControlName="multiSelectAutoComplete" [id]="'autoComplete_' + '_column_' + autoCompleteColumnConfig.name"
+          [filter]="true" (onFilter)="autoCompleteSearch($event)" [options]="autoCompleteColumnConfig?.options"
+          optionLabel="value" (onChange)="
             onSelectAutoComplete(
               autoCompleteColumnConfig.name,
               'multiSelectAutoComplete'
             )
-          "
-          [placeholder]="autoCompleteColumnConfig.label"
-          [showClear]="true"
-          [ngClass]="{ right: dir === 'rtl' }"
-          appendTo="body"
-          [disabled]="
-            autoCompleteColumnConfig.depends &&
-            !dependValu[autoCompleteColumnConfig.depends]
-          "
-        >
+          " [placeholder]="autoCompleteColumnConfig.label" [showClear]="true" [ngClass]="{ right: dir === 'rtl' }"
+          appendTo="body">
         </p-multiSelect>
       </ng-template>
     </p-columnFilter>
   </ng-container>
   <ng-template #autoComplete>
-    <p-columnFilter
-      [field]="autoCompleteColumnConfig.name"
-      matchMode="equals"
-      [showMenu]="false"
-    >
+    <p-columnFilter [field]="autoCompleteColumnConfig.name" matchMode="equals" [showMenu]="false">
       <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-        <p-autoComplete
-          #autoCompleteDp
-          formControlName="autoComplete"
-          [suggestions]="autoCompleteResult"
-          (completeMethod)="autoCompleteSearch($event)"
-          [ngClass]="{ right: dir === 'rtl' }"
-          field="value"
-          [id]="'autoComplete_' + '_column_' + autoCompleteColumnConfig.name"
-          (onUnselect)="
+        <p-autoComplete #autoCompleteDp formControlName="autoComplete" [suggestions]="autoCompleteResult"
+          (completeMethod)="autoCompleteSearch($event)" [ngClass]="{ right: dir === 'rtl' }" field="value"
+          [id]="'autoComplete_' + '_column_' + autoCompleteColumnConfig.name" (onUnselect)="
             onSelectAutoComplete(autoCompleteColumnConfig.name, 'autoComplete')
-          "
-          (onSelect)="
+          " (onSelect)="
             onSelectAutoComplete(autoCompleteColumnConfig.name, 'autoComplete')
-          "
-          (onClear)="
+          " (onClear)="
             onSelectAutoComplete(autoCompleteColumnConfig.name, 'autoComplete')
-          "
-          [disabled]="
-            autoCompleteColumnConfig.depends &&
-            !dependValu[autoCompleteColumnConfig.depends]
-          "
-          appendTo="body"
-          [multiple]="autoCompleteColumnConfig.multiple"
-          [pTooltip]="getAutocompleteValue('autoComplete')"
-        >
+          " appendTo="body" [multiple]="autoCompleteColumnConfig.multiple"
+          [pTooltip]="getAutocompleteValue('autoComplete')">
         </p-autoComplete>
-      </ng-template> </p-columnFilter
-  ></ng-template>
+      </ng-template> </p-columnFilter></ng-template>
 </div>

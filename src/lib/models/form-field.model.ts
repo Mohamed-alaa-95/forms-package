@@ -37,6 +37,7 @@ export interface DefaultControlConfig {
   minValue?: string;
   allowDecimals?: boolean;
   allowSign?: boolean;
+  placeholder?: string;
 }
 
 export interface ImageControlConfig extends DefaultControlConfig {

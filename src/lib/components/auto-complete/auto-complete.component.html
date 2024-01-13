@@ -1,21 +1,24 @@
 <div class="h-3rem">
     <ng-container *ngIf="!autoCompleteColumnConfig.chips && autoCompleteColumnConfig.multiple;else autoComplete">
-        <div class="p-field p-fluid">
+        <div [formGroup]="form" style="width: 20rem;" class="p-field p-fluid">
             <label class="text-base text-black-alpha-80">{{autoCompleteColumnConfig?.label}}
             </label>
-            <p-multiSelect [pTooltip]="getAutocompleteValue(columnConfig.name)"
+            <p-multiSelect [formControlName]="autoCompleteColumnConfig.name"
+                [pTooltip]="getAutocompleteValue(columnConfig.name)"
                 [id]="'autoComplete_' + '_column_' + autoCompleteColumnConfig.name" [filter]="true"
-                (onFilter)="autoCompleteSearch($event)" [options]="autoCompleteColumnConfig?.options"
-                [optionLabel]="'label'" (onChange)="onSelectAutoComplete($event)
-              " [showClear]="true" appendTo="body" [optionValue]="'value'"
+                (onFilter)="autoCompleteSearch($event)" [options]="autoCompleteColumnConfig?.options" (onChange)="onSelectAutoComplete($event)
+              " [showClear]="true" appendTo="body" [optionLabel]="autoCompleteColumnConfig.optionLabel"
+                [optionValue]="autoCompleteColumnConfig.optionValue"
+                [placeholder]="autoCompleteColumnConfig.placeholder"
                 [disabled]="autoCompleteColumnConfig.depends && !dependValue[autoCompleteColumnConfig.depends]">
             </p-multiSelect>
         </div>
     </ng-container>
     <ng-template #autoComplete>
-        <div class="p-field p-fluid">
+        <div [formGroup]="form" style="width: 20rem;" class="p-field p-fluid">
             <label class="text-base text-black-alpha-80">{{autoCompleteColumnConfig?.label}} </label>
-            <p-autoComplete #autoCompleteDp [suggestions]="autoCompleteResult"
+            <p-autoComplete #autoCompleteDp [formControlName]="autoCompleteColumnConfig.name"
+                [placeholder]="autoCompleteColumnConfig.placeholder" [suggestions]="autoCompleteResult"
                 (completeMethod)="autoCompleteSearch($event)" field="value" (onUnselect)="onSelectAutoComplete( $event)"
                 (onSelect)="onSelectAutoComplete($event)" (onClear)="onSelectAutoComplete($event)"
                 [options]="autoCompleteColumnConfig?.options"

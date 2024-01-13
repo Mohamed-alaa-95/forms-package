@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { field } from 'src/lib/models/form-field.model';
 
 @Component({
@@ -8,7 +9,8 @@ import { field } from 'src/lib/models/form-field.model';
 })
 export class InputFieldComponent implements OnInit {
   @Input() columnConfig: field;
-  @Input() query: any;
+  @Input() form: FormGroup;
+
   constructor() { }
 
   ngOnInit(): void {

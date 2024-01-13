@@ -11,9 +11,10 @@
         </div>
     </ng-container>
     <ng-template #single>
-        <div class="p-field p-fluid">
+        <div [formGroup]="form" class="p-field p-fluid">
             <label>{{columnConfig?.control?.label }}</label>
-            <input type="number" pInputText [(ngModel)]="query[columnConfig.control.name]" />
+            <input [placeholder]="columnConfig.control.placeholder" type="number" pInputText
+                [formControlName]="columnConfig?.control?.name" />
         </div>
     </ng-template>
 </div>
