@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -15,7 +15,6 @@ export class FilterComponentsComponent implements OnInit {
       this.form.addControl(col.control.name, new FormControl(null, [...this.prepareValidations(col)]))
     })
   }
-  @Input() flexDirectionColumn: any;
   @Input() columns: any;
   @Input() cashedQuery: any;
   @Output() onFilter: EventEmitter<any> = new EventEmitter<any>();

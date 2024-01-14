@@ -1,6 +1,6 @@
-<div class="h-3rem">
+<div class="w-21rem h-3rem">
     <ng-container *ngIf="!autoCompleteColumnConfig.chips && autoCompleteColumnConfig.multiple;else autoComplete">
-        <div [formGroup]="form" style="width: 20rem;" class="p-field p-fluid">
+        <div [formGroup]="form" class="p-field p-fluid">
             <label class="text-base text-black-alpha-80">{{autoCompleteColumnConfig?.label}}
             </label>
             <p-multiSelect [formControlName]="autoCompleteColumnConfig.name"
@@ -15,7 +15,7 @@
         </div>
     </ng-container>
     <ng-template #autoComplete>
-        <div [formGroup]="form" style="width: 20rem;" class="p-field p-fluid">
+        <div [formGroup]="form" class="p-field p-fluid">
             <label class="text-base text-black-alpha-80">{{autoCompleteColumnConfig?.label}} </label>
             <p-autoComplete #autoCompleteDp [formControlName]="autoCompleteColumnConfig.name"
                 [placeholder]="autoCompleteColumnConfig.placeholder" [suggestions]="autoCompleteResult"

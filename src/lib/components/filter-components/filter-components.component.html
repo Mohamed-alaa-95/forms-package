@@ -1,7 +1,7 @@
 <div class="flex flex-wrap custom-flex gap-2">
     <ng-container *ngFor="let column of columns">
         <ng-Container *ngIf="!column.control.depends || column.control.parentValue">
-            <div class="pt-4" [ngClass]="flexDirectionColumn ? 'custom-class': ''">
+            <div class="pt-4">
                 <ng-container [ngSwitch]="column.type">
                     <ng-container *ngSwitchCase="'number'">
                         <app-number-input [form]="form" [columnConfig]="column"></app-number-input>
@@ -26,7 +26,7 @@
         </ng-Container>
     </ng-container>
 </div>
-<div class="flex flex-row-reverse gap-2 pr-6">
-    <p-button (onClick)="filter()">Filter</p-button>
-    <p-button (onClick)="clear()">Clear</p-button>
+<div class="flex flex-row-reverse pt-3 gap-2 pr-6 pb-3">
+    <button pButton class="p-button-primary" (onClick)="filter()">Filter</button>
+    <button pButton pRipple class="p-button-outlined p-button-secondary" (onClick)="clear()">Clear</button>
 </div>

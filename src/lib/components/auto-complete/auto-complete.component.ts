@@ -57,10 +57,10 @@ export class AutoCompleteComponent implements OnInit {
   onSelectAutoComplete(event: any) {
     if (this.autoCompleteColumnConfig.multiple) {
       const value = event.value?.map((val: any) => val);
-      this.form[this.columnConfig.control.name].setValue(value);
+      this.form.controls[this.columnConfig.control.name].setValue(value);
     } else {
       const value = event.id;
-      this.form[this.columnConfig.control.name].setValue(value);
+      this.form.controls[this.columnConfig.control.name].setValue(value);
     }
   }
 
