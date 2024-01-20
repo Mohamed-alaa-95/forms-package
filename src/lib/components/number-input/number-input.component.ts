@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NumberControlConfig, field } from 'src/lib/models/form-field.model';
 
 @Component({
@@ -7,23 +7,50 @@ import { NumberControlConfig, field } from 'src/lib/models/form-field.model';
   templateUrl: './number-input.component.html',
   styleUrls: ['./number-input.component.css']
 })
-export class NumberInputComponent implements OnInit {
+export class NumberInputComponent implements OnInit, OnChanges {
   @Input() columnConfig: field | any;
   @Input() form: FormGroup;
   numberColumnConfig: NumberControlConfig | any;
-  numberRangeValues = { from: '', to: '' };
+  @Input() onClearFilter = new EventEmitter();
+  numberRangeValuesForm: FormGroup = new FormGroup({
+    from: new FormControl(null),
+    to: new FormControl(null)
+  });
+
   ngOnInit(): void {
     this.numberColumnConfig = this.columnConfig.control as NumberControlConfig;
+    if (this.form?.controls[this.numberColumnConfig?.name]?.value && this.numberColumnConfig.range) {
+      const rangeValues = this.form?.controls[this.numberColumnConfig?.name]?.value.split(',')
+      if (rangeValues[0] != Number.MIN_VALUE)
+        this.numberRangeValuesForm.controls['from'].patchValue(rangeValues[0]);
+      if (rangeValues[1] != Number.MAX_VALUE)
+        this.numberRangeValuesForm.controls['to'].patchValue(rangeValues[1]);
+    }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.onClearFilter.subscribe((res) => {
+      if (res['key'] == 'clear all') {
+        this.form?.controls[this.numberColumnConfig?.name].setValue(null);
+        this.numberRangeValuesForm.controls['from'].patchValue(null);
+        this.numberRangeValuesForm.controls['to'].patchValue(null);
+      }
+    });
+  }
 
   ngModelChange() {
-    this.form.controls[this.numberColumnConfig.name].setValue(`${this.numberRangeValues.from
-      ? this.numberRangeValues.from
-      : Number.MIN_VALUE
-      },${this.numberRangeValues.to
-        ? this.numberRangeValues.to
-        : Number.MAX_VALUE
-      }`);
+    if ((this.numberRangeValuesForm.controls['from'].value && this.numberRangeValuesForm.controls['to'].value) && this.numberRangeValuesForm.controls['from'].value > this.numberRangeValuesForm.controls['to'].value) {
+      this.numberRangeValuesForm.setErrors({ invalidValues: 'Invalid values' });
+      this.form.controls[this.numberColumnConfig.name].setErrors({ invalidValues: 'Invalid values' })
+    } else {
+      this.form.controls[this.numberColumnConfig.name].setErrors(null)
+      this.form.controls[this.numberColumnConfig.name].setValue(`${(this.numberRangeValuesForm.controls['from'].value != null || this.numberRangeValuesForm.controls['from'].value === 0)
+        ? this.numberRangeValuesForm.controls['from'].value
+        : Number.MIN_VALUE
+        },${(this.numberRangeValuesForm.controls['to'].value !== null || this.numberRangeValuesForm.controls['to'].value === 0)
+          ? this.numberRangeValuesForm.controls['to'].value
+          : Number.MAX_VALUE
+        }`);
+    }
   }
 }

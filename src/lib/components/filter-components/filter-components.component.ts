@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -6,19 +6,36 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './filter-components.component.html',
   styleUrls: ['./filter-components.component.css']
 })
-export class FilterComponentsComponent implements OnInit {
+export class FilterComponentsComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.columns.forEach((col: any) => {
-      this.form.addControl(col.control.name, new FormControl(null, [...this.prepareValidations(col)]))
-    })
-  }
+
   @Input() columns: any;
   @Input() cashedQuery: any;
   @Output() onFilter: EventEmitter<any> = new EventEmitter<any>();
   form: FormGroup = new FormGroup({});
+  @Output() onClear = new EventEmitter();
+
+  ngOnInit(): void {
+    this.initColumns();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['cashedQuery'].currentValue)
+      this.initColumns();
+    Object.keys(changes['cashedQuery'].currentValue).forEach(key => {
+      this.form.controls[key].setValue(changes['cashedQuery'].currentValue[key])
+    })
+  }
+
+  initColumns() {
+    this.columns.forEach((col: any) => {
+      this.form.addControl(col.control.name, new FormControl(null, [...this.prepareValidations(col)]));
+      if (col.control.disabled) this.form.controls[col.control.name].disable()
+
+    })
+  }
 
   prepareValidations(column: any) {
     let validations = [];
@@ -41,6 +58,7 @@ export class FilterComponentsComponent implements OnInit {
 
   clear() {
     this.onFilter.emit({});
+    this.onClear.emit({ key: 'clear all' });
     this.form.reset();
   }
 }

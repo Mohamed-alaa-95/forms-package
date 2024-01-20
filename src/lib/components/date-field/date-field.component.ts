@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { DateControlConfig } from 'src/lib/models/form-field.model';
@@ -7,17 +7,45 @@ import { DateControlConfig } from 'src/lib/models/form-field.model';
   templateUrl: './date-field.component.html',
   styleUrls: ['./date-field.component.css']
 })
-export class DateFieldComponent implements OnInit {
+export class DateFieldComponent implements OnInit, OnChanges {
   @Input() columnConfig: any;
   @ViewChild('rangeCalendar') public rangeCalendar: any;
   @Input() form: FormGroup = new FormGroup({});
+  @Input() onClearFilter = new EventEmitter();
+
   dateForm: FormGroup = new FormGroup({
     date: new FormControl(null)
   })
   dateControlConfig: DateControlConfig | any;
   dividedRangedValues: any = {};
+
   ngOnInit(): void {
     this.dateControlConfig = this.columnConfig.control as DateControlConfig;
+
+    if (this.form?.controls[this.dateControlConfig?.name]?.value) {
+      if (this.dateControlConfig.divided) {
+        const dividedValues = this.form?.controls[this.dateControlConfig?.name]?.value.split(',')
+        if (+dividedValues[0] != -1)
+          this.dividedRangedValues.from = new Date(+dividedValues[0]);
+        if (+dividedValues[1] != -1)
+          this.dividedRangedValues.to = new Date(+dividedValues[1]);
+      }
+      if (this.dateControlConfig.range) {
+        const dividedValues = this.form?.controls[this.dateControlConfig?.name]?.value.split(',')
+        this.dateForm.controls['date'].setValue([dividedValues[0] ? new Date(+dividedValues[0]) : null, dividedValues[1] ? new Date(+dividedValues[1]) : null])
+      } else this.dateForm.controls['date'].setValue(this.form?.controls[this.dateControlConfig?.name]?.value ? new Date(+this.form?.controls[this.dateControlConfig?.name]?.value) : null)
+    }
+
+  }
+
+  ngOnChanges(): void {
+
+    this.onClearFilter.subscribe((res) => {
+      if (res['key'] == 'clear all') {
+        this.dateForm.get('date')?.setValue(null);
+        this.dividedRangedValues = {};
+      }
+    });
   }
 
   onSelectValue(key: string, value: any) {
@@ -44,22 +72,16 @@ export class DateFieldComponent implements OnInit {
     }
   }
 
-  onSelectDividedFields(key: any, value: any, calendar: any) {
-    this.dividedRangedValues[key] = value;
-    if (value) {
-      calendar.overlayVisible = false;
-    }
+  onSelectDividedFields() {
     const date = [
       this.dividedRangedValues['from'] ? new Date(this.dividedRangedValues['from'])?.getTime() : -1,
       this.dividedRangedValues['to'] ? new Date(this.dividedRangedValues['to'])?.getTime() : -1,
     ]
-    this.form.controls[key].setValue(`${date}`);
+    this.form.controls[this.columnConfig.control.name].setValue(`${date}`);
   }
 
   onClearRange(key: any, value: any) {
     this.dateForm.reset();
     this.onSelectRangeValue(key, value)
   }
-
-
 }

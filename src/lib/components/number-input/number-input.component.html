@@ -1,20 +1,26 @@
 <div class="h-3rem w-21rem">
     <ng-container *ngIf="numberColumnConfig.range; else single">
-        <div class="p-field p-fluid">
-            <label>{{columnConfig?.control?.label }}</label>
-            <div style="display: flex;flex-direction: row;">
-                <input type="number" [(ngModel)]="numberRangeValues.from" step="1" (ngModelChange)="ngModelChange()"
-                    pInputText placeholder="From" />
-                <input type="number" [(ngModel)]="numberRangeValues.to" (ngModelChange)="ngModelChange()" step="1"
-                    pInputText placeholder="To" />
+        <div [formGroup]="numberRangeValuesForm" class="p-field p-fluid">
+            <label class="font-bold	text-base text-black-alpha-80 mr-3">{{columnConfig?.control?.label }}
+            </label>
+            <div class="flex flex-row gap-3">
+                <p-inputNumber [useGrouping]="false" formControlName="from" [min]="numberColumnConfig.min"
+                    [max]="numberColumnConfig.max" (ngModelChange)="ngModelChange()" placeholder="From"></p-inputNumber>
+                <p-inputNumber [useGrouping]="false" formControlName="to" [min]="numberColumnConfig.min"
+                    [max]="numberColumnConfig.max" (ngModelChange)="ngModelChange()" placeholder="To"></p-inputNumber>
             </div>
+            <label *ngIf="numberRangeValuesForm.hasError('invalidValues')" class="text-xs error">Invalid
+                Values
+            </label>
         </div>
     </ng-container>
     <ng-template #single>
         <div [formGroup]="form" class="p-field p-fluid">
-            <label>{{columnConfig?.control?.label }}</label>
-            <input [placeholder]="columnConfig.control.placeholder" type="number" pInputText
-                [formControlName]="columnConfig?.control?.name" />
+            <label class="font-bold	text-base text-black-alpha-80 mr-3">{{columnConfig?.control?.label }}
+            </label>
+            <p-inputNumber [useGrouping]="false" [min]="numberColumnConfig.min" [max]="numberColumnConfig.max"
+                [placeholder]="columnConfig.control.placeholder"
+                [formControlName]="columnConfig?.control?.name"></p-inputNumber>
         </div>
     </ng-template>
 </div>

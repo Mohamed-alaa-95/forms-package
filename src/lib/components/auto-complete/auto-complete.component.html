@@ -1,7 +1,7 @@
 <div class="w-21rem h-3rem">
     <ng-container *ngIf="!autoCompleteColumnConfig.chips && autoCompleteColumnConfig.multiple;else autoComplete">
         <div [formGroup]="form" class="p-field p-fluid">
-            <label class="text-base text-black-alpha-80">{{autoCompleteColumnConfig?.label}}
+            <label class="font-bold	text-base text-black-alpha-80">{{autoCompleteColumnConfig?.label}}
             </label>
             <p-multiSelect [formControlName]="autoCompleteColumnConfig.name"
                 [pTooltip]="getAutocompleteValue(columnConfig.name)"
@@ -9,23 +9,20 @@
                 (onFilter)="autoCompleteSearch($event)" [options]="autoCompleteColumnConfig?.options" (onChange)="onSelectAutoComplete($event)
               " [showClear]="true" appendTo="body" [optionLabel]="autoCompleteColumnConfig.optionLabel"
                 [optionValue]="autoCompleteColumnConfig.optionValue"
-                [placeholder]="autoCompleteColumnConfig.placeholder"
-                [disabled]="autoCompleteColumnConfig.depends && !dependValue[autoCompleteColumnConfig.depends]">
+                [placeholder]="autoCompleteColumnConfig.placeholder">
             </p-multiSelect>
         </div>
     </ng-container>
     <ng-template #autoComplete>
         <div [formGroup]="form" class="p-field p-fluid">
-            <label class="text-base text-black-alpha-80">{{autoCompleteColumnConfig?.label}} </label>
+            <label class="font-bold	text-base text-black-alpha-80">{{autoCompleteColumnConfig?.label}} </label>
             <p-autoComplete #autoCompleteDp [formControlName]="autoCompleteColumnConfig.name"
                 [placeholder]="autoCompleteColumnConfig.placeholder" [suggestions]="autoCompleteResult"
                 (completeMethod)="autoCompleteSearch($event)" field="value" (onUnselect)="onSelectAutoComplete( $event)"
                 (onSelect)="onSelectAutoComplete($event)" (onClear)="onSelectAutoComplete($event)"
-                [options]="autoCompleteColumnConfig?.options"
-                [disabled]="autoCompleteColumnConfig.depends && !dependValue[autoCompleteColumnConfig.depends]"
-                appendTo="body" [multiple]="autoCompleteColumnConfig.multiple"
-                [pTooltip]="getAutocompleteValue(columnConfig.name)" [showEmptyMessage]="true"
-                [optionLabel]="autoCompleteColumnConfig.optionLabel"
+                [options]="autoCompleteColumnConfig?.options" appendTo="body"
+                [multiple]="autoCompleteColumnConfig.multiple" [pTooltip]="getAutocompleteValue(columnConfig.name)"
+                [showEmptyMessage]="true" [optionLabel]="autoCompleteColumnConfig.optionLabel"
                 [optionValue]="autoCompleteColumnConfig.optionValue">
             </p-autoComplete>
         </div>
