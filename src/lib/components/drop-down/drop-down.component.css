@@ -1,5 +1,4 @@
-/* .dropdown {
-    ::ng-deep .p-inputtext {
-        border: none !important;
-    }
-} */
+.error {
+    color: #f44336;
+    font-size: 13px;
+}

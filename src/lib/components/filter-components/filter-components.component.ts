@@ -7,33 +7,60 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./filter-components.component.css']
 })
 export class FilterComponentsComponent implements OnInit, OnChanges {
+  dependValue: any = {};
 
   constructor() { }
 
 
   @Input() columns: any;
-  @Input() cashedQuery: any;
-  @Output() onFilter: EventEmitter<any> = new EventEmitter<any>();
+  @Input() cashedQuery: { [key: string]: any };
+  @Output() onFilter: EventEmitter<any> = new EventEmitter<{ [key: string]: any }>();
   form: FormGroup = new FormGroup({});
   @Output() onClear = new EventEmitter();
+  @Output() onChangeDependValue: EventEmitter<any> = new EventEmitter<any>();
+  @Input() filterButtonText = 'Filter';
+  @Input() ClearButtonText = 'Clear';
 
   ngOnInit(): void {
     this.initColumns();
   }
 
+  onChangeDropdown(ev: any) {
+    Object.keys(ev).forEach((key) => {
+      this.form.controls[key].setValue(ev[key]);
+      this.columns?.filter((col: any) => col.control.depends === key).forEach((col: any) => {
+        if (col.control.depends) {
+          this.dependValue[col.control.depends] = ev[key];
+          if (ev[key]?.length) {
+            this.onChangeDependValue.emit({
+              column: col,
+              value: ev ? ev[col.control.depends] : null,
+            });
+          } else {
+            this.onClear.emit({ key: col.control.name });
+            this.form.controls[col.control.name].setValue([]);
+            this.form.controls[col.control.depends].setValue([]);
+            this.dependValue[col.control.depends] = null;
+            this.dependValue[col.control.name] = null;
+          }
+        }
+      });
+    });
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['cashedQuery'].currentValue)
+    if (changes['cashedQuery']?.currentValue) {
       this.initColumns();
-    Object.keys(changes['cashedQuery'].currentValue).forEach(key => {
-      this.form.controls[key].setValue(changes['cashedQuery'].currentValue[key])
-    })
+      Object.keys(changes['cashedQuery']?.currentValue)?.forEach(key => {
+        this.form.controls[key].setValue(changes['cashedQuery'].currentValue[key])
+      })
+    }
   }
 
   initColumns() {
     this.columns.forEach((col: any) => {
       this.form.addControl(col.control.name, new FormControl(null, [...this.prepareValidations(col)]));
       if (col.control.disabled) this.form.controls[col.control.name].disable()
-
     })
   }
 
@@ -59,6 +86,7 @@ export class FilterComponentsComponent implements OnInit, OnChanges {
   clear() {
     this.onFilter.emit({});
     this.onClear.emit({ key: 'clear all' });
+    this.dependValue = {};
     this.form.reset();
   }
 }

@@ -4,5 +4,8 @@
         </label>
         <input [formControlName]="columnConfig.control.name" [placeholder]="columnConfig.control.placeholder"
             [type]="columnConfig?.type" pInputText />
+        <label
+            *ngIf="form.controls[columnConfig.control.name].hasError('required') && form.controls[columnConfig.control.name].touched"
+            class="text-xs error"> This field is required </label>
     </div>
 </div>

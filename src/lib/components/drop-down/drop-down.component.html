@@ -6,27 +6,32 @@
                     {{dropDownColumnConfig?.label }}
                 </label>
                 <p-multiSelect (onChange)="onChangeDropdownSelectedValue($event)" #dp_multiple
-                    pTooltip="{{ selectedItem ? getValue(selectedItem) : '' }}"
                     [id]="'dropdown_' + '_column_' + dropDownColumnConfig?.name" [filter]="dropDownColumnConfig?.filter"
-                    [options]="dropDownColumnConfig?.options" [optionValue]="dropDownColumnConfig.optionValue"
+                    [options]="dropDownColumnConfig?.options"
+                    [optionValue]="dropDownColumnConfig.optionValue ? dropDownColumnConfig.optionValue : 'name'"
                     appendTo="body" [placeholder]="dropDownColumnConfig.placeholder" [showClear]="true"
-                    [optionLabel]="dropDownColumnConfig?.optionLabel" [formControlName]="columnConfig.control.name">
+                    [optionLabel]="dropDownColumnConfig.optionLabel ?dropDownColumnConfig.optionLabel : 'name'"
+                    [formControlName]="columnConfig.control.name" (onClear)="onChangeDropdownSelectedValue($event)"
+                    [disabled]="columnConfig?.control?.depends && !dependValue[columnConfig?.control?.depends]">
                 </p-multiSelect>
             </div>
         </ng-container>
+
         <ng-template #single>
             <div [formGroup]="form" class="p-field p-fluid">
                 <label class="font-bold	text-base text-black-alpha-80 mr-3">{{dropDownColumnConfig?.label }}
                 </label>
                 <p-dropdown #dp [placeholder]="dropDownColumnConfig.placeholder"
-                    pTooltip="{{ selectedItem ? getSingleDropdownValue(selectedItem) : '' }}"
                     [id]="'dropdown_' + '_column_' + dropDownColumnConfig.name"
                     [options]="dropDownColumnConfig?.options" [filter]="dropDownColumnConfig?.filter"
-                    [optionLabel]="dropDownColumnConfig?.optionLabel" [formControlName]="columnConfig.control.name"
-                    (onChange)="updateStatus($event.value, dropDownColumnConfig.name)"
-                    [optionValue]="dropDownColumnConfig.optionValue" [showClear]="false" [showClear]="dp.selectedOption"
-                    appendTo="body">
+                    [optionLabel]="dropDownColumnConfig.optionLabel ?dropDownColumnConfig.optionLabel : 'name'" [formControlName]="columnConfig.control.name"
+                    (onChange)="updateStatus($event.value)"
+                    [optionValue]="dropDownColumnConfig.optionValue ? dropDownColumnConfig.optionValue : 'name'"
+                    [showClear]="false" [showClear]="dp.selectedOption" appendTo="body"
+                    [disabled]="columnConfig?.control?.depends && !dependValue[columnConfig?.control?.depends]">
                 </p-dropdown>
+                <label *ngIf="form.controls[columnConfig.control.name].hasError('required')" class="text-xs error"> This
+                    field is required </label>
             </div>
         </ng-template>
     </div>

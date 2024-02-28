@@ -12,13 +12,12 @@ export class DateFieldComponent implements OnInit, OnChanges {
   @ViewChild('rangeCalendar') public rangeCalendar: any;
   @Input() form: FormGroup = new FormGroup({});
   @Input() onClearFilter = new EventEmitter();
-
+  defaultDate: Date = new Date(new Date().setHours(0, 0, 0, 0))
   dateForm: FormGroup = new FormGroup({
     date: new FormControl(null)
   })
   dateControlConfig: DateControlConfig | any;
   dividedRangedValues: any = {};
-
   ngOnInit(): void {
     this.dateControlConfig = this.columnConfig.control as DateControlConfig;
 
@@ -32,14 +31,12 @@ export class DateFieldComponent implements OnInit, OnChanges {
       }
       if (this.dateControlConfig.range) {
         const dividedValues = this.form?.controls[this.dateControlConfig?.name]?.value.split(',')
-        this.dateForm.controls['date'].setValue([dividedValues[0] ? new Date(+dividedValues[0]) : null, dividedValues[1] ? new Date(+dividedValues[1]) : null])
+        this.dateForm.controls['date'].setValue([+dividedValues[0] != -1 ? new Date(+dividedValues[0]) : null, dividedValues[1] != -1 ? new Date(+dividedValues[1]) : null])
       } else this.dateForm.controls['date'].setValue(this.form?.controls[this.dateControlConfig?.name]?.value ? new Date(+this.form?.controls[this.dateControlConfig?.name]?.value) : null)
     }
-
   }
 
   ngOnChanges(): void {
-
     this.onClearFilter.subscribe((res) => {
       if (res['key'] == 'clear all') {
         this.dateForm.get('date')?.setValue(null);
@@ -60,23 +57,22 @@ export class DateFieldComponent implements OnInit, OnChanges {
       }
       const date = [
         value[0] ? new Date(value[0])?.getTime() : -1,
-        value[1] ? new Date(value[1])?.getTime() : -1,
+        value[1] ? value[0]?.getTime() === value[1]?.getTime() ? new Date(new Date(value[1])?.setHours(23, 59, 59))?.getTime() + 86399000 : new Date(value[1])?.getTime() : -1,
       ]
       this.form.controls[key].setValue(`${date}`);
     } else {
-      const date = [
-        -1,
-        -1,
-      ]
-      this.form.controls[key].setValue(`${date}`);
+      this.form.controls[key].setValue(null);
     }
   }
 
   onSelectDividedFields() {
-    const date = [
+    let date: any = [
       this.dividedRangedValues['from'] ? new Date(this.dividedRangedValues['from'])?.getTime() : -1,
-      this.dividedRangedValues['to'] ? new Date(this.dividedRangedValues['to'])?.getTime() : -1,
+      this.dividedRangedValues['to'] ? this.dividedRangedValues['to']?.getTime() === this.dividedRangedValues['from']?.getTime() && !this.dateControlConfig.view ? new Date(this.dividedRangedValues['to'])?.getTime() + 59000 : new Date(this.dividedRangedValues['to'])?.getTime() : -1,
     ]
+    if (this.dividedRangedValues['from']?.getMinutes() == 0 && this.dividedRangedValues['to']?.getMinutes() == 0
+      && this.dividedRangedValues['from']?.getHours() == 0 && this.dividedRangedValues['to']?.getHours() == 0 && !this.dateControlConfig.view)
+      date[1] = new Date(this.dividedRangedValues['to'])?.getTime() + 86399000
     this.form.controls[this.columnConfig.control.name].setValue(`${date}`);
   }
 

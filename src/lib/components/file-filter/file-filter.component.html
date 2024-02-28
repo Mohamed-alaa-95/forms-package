@@ -2,7 +2,7 @@
     <label class="font-bold	text-base text-black-alpha-80 mr-3">{{columnConfig?.control?.label }}
     </label>
     <div class="flex flex-row align-items-center gap-2">
-        <button onclick="inputFile.click()" pButton pRipple class="p-button-outlined p-button-primary">
+        <button onclick="inputFile.click()" pButton pRipple class="p-button-outlined p-button-primary border-round-2xl">
             Upload
         </button>
         <span class="text-xs">{{fileName}}</span>
@@ -13,3 +13,5 @@
     <a (click)="downloadSample(columnConfig)" class="download-sample">Download
         Sample</a>
 </div>
+
+<p-toast position="bottom-center" key="bc"></p-toast>

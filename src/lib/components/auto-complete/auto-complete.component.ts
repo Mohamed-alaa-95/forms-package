@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AutoComplete } from 'primeng/autocomplete';
+import { MultiSelect } from 'primeng/multiselect';
 import { AutoCompleteConfig } from 'src/lib/models/form-field.model';
 
 @Component({
@@ -8,7 +9,7 @@ import { AutoCompleteConfig } from 'src/lib/models/form-field.model';
   templateUrl: './auto-complete.component.html',
   styleUrls: ['./auto-complete.component.css']
 })
-export class AutoCompleteComponent implements OnInit {
+export class AutoCompleteComponent implements OnInit, OnChanges {
 
   constructor() { }
   @Input() columnConfig: any;
@@ -18,45 +19,63 @@ export class AutoCompleteComponent implements OnInit {
   multipleResult: any = [];
   autoCompleteResult: any = [];
   selectedItems: any;
-  @ViewChild('autoCompleteDp') autoCompleteDp: AutoComplete | any;
-
+  @ViewChild('autoCompleteDp') autoCompleteDp: AutoComplete;
+  @ViewChild('autoCompleteDpMultiple') autoCompleteDpMultiple: MultiSelect;
+  @Input() onClear = new EventEmitter();
+  oldOptions: any = []
   ngOnInit(): void {
     this.autoCompleteColumnConfig = this.columnConfig.control as AutoCompleteConfig;
+    this.oldOptions = JSON.parse(JSON.stringify(this.autoCompleteColumnConfig?.options));
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.onClear.subscribe((res) => {
+      if (res['key'] == 'clear all') {
+        this.sortOptions()
+      }
+    });
   }
 
   autoCompleteSearch(event: any) {
     const query = this.autoCompleteColumnConfig.multiple ? event.filter : event.query;
     this.autoCompleteResult = this.autoCompleteColumnConfig.options.filter(
       (option: any) =>
-        option[this.autoCompleteColumnConfig.optionLabel].toLowerCase().indexOf(query?.toLowerCase()) == 0
+        option[this.autoCompleteColumnConfig.optionLabel ? this.autoCompleteColumnConfig.optionLabel : 'name'].toLowerCase().indexOf(query?.toLowerCase()) == 0
     );
   }
 
   getMultipleAutocompleteValue(value: any) {
-    return value.map((res: any) => res.value).join(',');
+    return value?.map((res: any) => res?.value).join(',');
   }
 
-  getAutocompleteValue(name: string) {
-    const value = this.form.value[name];
-    if (value) {
-      if (this.autoCompleteColumnConfig.multiple) {
-        const toolTipString = this.getMultipleAutocompleteValue(value);
-        return toolTipString.length > 15 ? toolTipString : null;
-      } else {
-        const i = this.autoCompleteColumnConfig.options.findIndex(
-          (v: any) => value == v[this.autoCompleteColumnConfig.optionValue]
-        );
-        if (i > -1)
-          return this.autoCompleteColumnConfig.options[i].value.length > 15
-            ? this.autoCompleteColumnConfig.options[i][this.autoCompleteColumnConfig.optionValue]
-            : null;
-      }
-    }
+  onPanelHide() {
+    this.sortSelectedValue();
+    this.autoCompleteDpMultiple._filterValue = '';
+    this.autoCompleteDpMultiple._filteredOptions = [...this.columnConfig.control.options];
+  }
+
+  sortSelectedValue() {
+    const selected: any[] = this.autoCompleteColumnConfig.options.filter((r: any) => r.selected == true);
+    const oldDropDown = this.oldOptions.filter((rec: any) => {
+      const x = selected.findIndex((ob: any) => ob[this.autoCompleteColumnConfig['optionValue'] ? this.autoCompleteColumnConfig['optionValue'] : 'name'] === rec[this.autoCompleteColumnConfig['optionValue'] ? this.autoCompleteColumnConfig['optionValue'] : 'name']);
+      return x === -1
+    })
+    this.autoCompleteColumnConfig.options = [...selected, ...oldDropDown];
+    this.autoCompleteDpMultiple.options = [...selected, ...oldDropDown];
+
+  }
+
+  sortOptions() {
+    this.autoCompleteColumnConfig.options.forEach((r: any) => r.selected = false);
+    this.autoCompleteColumnConfig.options = [...this.oldOptions];
+    this.autoCompleteDpMultiple.options = [...this.oldOptions];
+    this.autoCompleteDpMultiple.resetFilter();
   }
 
   onSelectAutoComplete(event: any) {
     if (this.autoCompleteColumnConfig.multiple) {
       const value = event.value?.map((val: any) => val);
+      this.autoCompleteColumnConfig.options.find((obj: any) => obj[this.autoCompleteColumnConfig.optionValue ? this.autoCompleteColumnConfig.optionValue : 'name'] === event?.itemValue)['selected'] = !this.autoCompleteColumnConfig.options?.find((obj: any) => obj[this.autoCompleteColumnConfig.optionValue ? this.autoCompleteColumnConfig.optionValue : 'name'] === event?.itemValue)['selected'];
       this.form.controls[this.columnConfig.control.name].setValue(value);
     } else {
       const value = event.id;

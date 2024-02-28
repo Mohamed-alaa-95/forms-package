@@ -4,28 +4,24 @@
             <label class="font-bold text-base text-black-alpha-80">{{columnConfig?.control?.label }}</label>
             <div class="flex flex-row gap-6">
                 <div class="p-fluid w-21rem h-3rem">
-                    <p-calendar #calendarFrom [readonlyInput]="true" placeholder="From"
-                        [showButtonBar]="dateControlConfig.view== 'month' ? false : true"
-                        [showClear]="dateControlConfig.view== 'month' ? true : false"
-                        (onClearClick)="onClearRange(columnConfig.control.name, calendarFrom.value)"
-                        (onClear)="onClearRange(columnConfig.control.name, calendarFrom.value)"
+                    <p-calendar #calendarFrom [readonlyInput]="true" placeholder="From" [showButtonBar]="true"
+                        (onClearClick)="onSelectDividedFields()" (onClear)="onSelectDividedFields()"
                         [(ngModel)]="dividedRangedValues.from" (onSelect)="onSelectDividedFields()"
                         [dateFormat]="dateControlConfig.dateFormate ? dateControlConfig.dateFormate : 'dd/mm/yy' "
                         [view]="dateControlConfig.view ? dateControlConfig.view : 'date'" appendTo="body"
-                        [showTime]="columnConfig.control.showTime" [showIcon]="true"
-                        [maxDate]="dividedRangedValues.to"></p-calendar>
+                        [showTime]="columnConfig.control.showTime" [showIcon]="true" [maxDate]="dividedRangedValues.to"
+                        [defaultDate]="defaultDate" [hourFormat]="columnConfig.control.hourFormat"
+                        todayButtonStyleClass="hidden"></p-calendar>
                 </div>
                 <div class="p-fluid h-3rem w-21rem">
-                    <p-calendar #calendarTo [readonlyInput]="true" placeholder="To"
-                        [showButtonBar]="dateControlConfig.view== 'month' ? false : true"
-                        [showClear]="dateControlConfig.view== 'month' ? true : false"
-                        (onClearClick)="onClearRange(columnConfig.control.name, calendarTo.value)"
-                        (onClear)="onClearRange(columnConfig.control.name, calendarTo.value)"
-                        [(ngModel)]="dividedRangedValues.to" (onSelect)="onSelectDividedFields( )"
+                    <p-calendar #calendarTo [hourFormat]="columnConfig.control.hourFormat" [readonlyInput]="true"
+                        placeholder="To" [showButtonBar]="true" (onClearClick)="onSelectDividedFields()"
+                        (onClear)="onSelectDividedFields()" [(ngModel)]="dividedRangedValues.to"
+                        (onSelect)="onSelectDividedFields( )"
                         [dateFormat]="dateControlConfig.dateFormate ? dateControlConfig.dateFormate : 'dd/mm/yy' "
                         [view]="dateControlConfig.view ? dateControlConfig.view : 'date'" appendTo="body"
                         [minDate]="dividedRangedValues.from" [showTime]="columnConfig.control.showTime"
-                        [showIcon]="true"></p-calendar>
+                        [showIcon]="true" [defaultDate]="defaultDate" todayButtonStyleClass="hidden"></p-calendar>
                 </div>
             </div>
         </div>
@@ -34,16 +30,14 @@
         <div [formGroup]="dateForm" class="p-fluid">
 
             <label class="font-bold text-base text-black-alpha-80">{{columnConfig?.control?.label }}</label>
-            <p-calendar #rangeCalendar [readonlyInput]="true"
-                [showButtonBar]="dateControlConfig.view== 'month' ? false : true"
-                [showClear]="dateControlConfig.view== 'month' ? true : false"
-                (onClearClick)="onClearRange(columnConfig.control.name, rangeCalendar.value)"
+            <p-calendar #rangeCalendar [readonlyInput]="true" [hourFormat]="columnConfig.control.hourFormat"
+                [showButtonBar]="true" (onClearClick)="onClearRange(columnConfig.control.name, rangeCalendar.value)"
                 (onClear)="onClearRange(columnConfig.control.name, rangeCalendar.value)" formControlName="date"
                 (onSelect)="onSelectRangeValue(columnConfig.control.name, rangeCalendar.value)"
                 [dateFormat]="dateControlConfig.dateFormate ? dateControlConfig.dateFormate : 'dd/mm/yy' "
                 [view]="dateControlConfig.view ? dateControlConfig.view : 'date'" selectionMode="range"
                 [placeholder]="dateControlConfig.placeholder" appendTo="body" [showTime]="columnConfig.control.showTime"
-                [showIcon]="true"></p-calendar>
+                [showIcon]="true" [defaultDate]="defaultDate" todayButtonStyleClass="hidden"></p-calendar>
         </div>
 
     </ng-template>

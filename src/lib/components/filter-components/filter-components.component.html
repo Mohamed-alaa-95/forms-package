@@ -1,6 +1,6 @@
 <div (keyup.enter)="filter()" class="flex flex-wrap custom-flex gap-6">
     <ng-container *ngFor="let column of columns">
-        <ng-Container *ngIf="!column.control.depends || column.control.parentValue">
+        <ng-Container>
             <div class="pt-4">
                 <ng-container [ngSwitch]="column.type">
                     <ng-container *ngSwitchCase="'number'">
@@ -15,21 +15,25 @@
                             [columnConfig]="column"></app-date-field>
                     </ng-container>
                     <ng-container *ngSwitchCase="'dropdown'">
-                        <app-drop-down [form]="form" [columnConfig]="column"></app-drop-down>
+                        <app-drop-down (onSelect)="onChangeDropdown($event)" [form]="form" [onClear]="onClear"
+                            [dependValue]="dependValue" [columnConfig]="column"></app-drop-down>
                     </ng-container>
                     <ng-container *ngSwitchCase="'auto_complete'">
-                        <app-auto-complete [form]="form" [columnConfig]="column"></app-auto-complete>
+                        <app-auto-complete [form]="form" [onClear]="onClear" [columnConfig]="column"></app-auto-complete>
                     </ng-container>
                     <ng-container *ngSwitchCase="'file'">
                         <app-file-filter [onClearFilter]="onClear" [form]="form"
                             [columnConfig]="column"></app-file-filter>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'checkbox'">
+                        <app-checkbox [form]="form" [columnConfig]="column" [onClear]="onClear"></app-checkbox>
                     </ng-container>
                 </ng-container>
             </div>
         </ng-Container>
     </ng-container>
 </div>
-<div class="flex flex-row-reverse pt-3 gap-2 pr-6 pb-3">
-    <button pButton class="p-button-primary" (click)="filter()" (keydown.enter)="filter()">Filter</button>
-    <button pButton pRipple class="p-button-outlined p-button-secondary" (click)="clear()">Clear</button>
+<div class="flex flex-row-reverse pt-5 gap-2 pr-6 pb-3">
+    <button pButton pRipple class="p-button-outlined p-button-secondary" (click)="clear()">{{ClearButtonText}}</button>
+    <button pButton class="p-button-primary" (click)="filter()" (keydown.enter)="filter()">{{filterButtonText}}</button>
 </div>

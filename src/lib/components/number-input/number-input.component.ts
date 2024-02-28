@@ -39,18 +39,22 @@ export class NumberInputComponent implements OnInit, OnChanges {
   }
 
   ngModelChange() {
-    if ((this.numberRangeValuesForm.controls['from'].value && this.numberRangeValuesForm.controls['to'].value) && this.numberRangeValuesForm.controls['from'].value > this.numberRangeValuesForm.controls['to'].value) {
+    if (this.numberRangeValuesForm.controls['to'].value != null && +this.numberRangeValuesForm.controls['from'].value > +this.numberRangeValuesForm.controls['to'].value) {
       this.numberRangeValuesForm.setErrors({ invalidValues: 'Invalid values' });
       this.form.controls[this.numberColumnConfig.name].setErrors({ invalidValues: 'Invalid values' })
     } else {
-      this.form.controls[this.numberColumnConfig.name].setErrors(null)
-      this.form.controls[this.numberColumnConfig.name].setValue(`${(this.numberRangeValuesForm.controls['from'].value != null || this.numberRangeValuesForm.controls['from'].value === 0)
-        ? this.numberRangeValuesForm.controls['from'].value
-        : Number.MIN_VALUE
-        },${(this.numberRangeValuesForm.controls['to'].value !== null || this.numberRangeValuesForm.controls['to'].value === 0)
-          ? this.numberRangeValuesForm.controls['to'].value
-          : Number.MAX_VALUE
-        }`);
+      this.form.controls[this.numberColumnConfig.name].setErrors(null);
+      if ((this.numberRangeValuesForm.controls['from'].value === Number.MIN_VALUE || this.numberRangeValuesForm.controls['from'].value == null) && (this.numberRangeValuesForm.controls['to'].value === Number.MAX_VALUE || this.numberRangeValuesForm.controls['to'].value == null)) {
+        this.form.controls[this.numberColumnConfig.name].setValue(null)
+      } else {
+        this.form.controls[this.numberColumnConfig.name].setValue(`${(this.numberRangeValuesForm.controls['from'].value != null || this.numberRangeValuesForm.controls['from'].value === 0)
+          ? this.numberRangeValuesForm.controls['from'].value
+          : Number.MIN_VALUE
+          },${(this.numberRangeValuesForm.controls['to'].value !== null || this.numberRangeValuesForm.controls['to'].value === 0)
+            ? this.numberRangeValuesForm.controls['to'].value
+            : Number.MAX_VALUE
+          }`);
+      }
     }
   }
 }

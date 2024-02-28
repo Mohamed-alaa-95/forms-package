@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { ExportPackageService } from '@khaznatech/export-package';
 import { Papa } from 'ngx-papaparse';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-file-filter',
   templateUrl: './file-filter.component.html',
@@ -10,7 +11,7 @@ import { Papa } from 'ngx-papaparse';
 })
 export class FileFilterComponent implements OnChanges {
 
-  constructor(private papa: Papa, private exportPackage: ExportPackageService) { }
+  constructor(private papa: Papa, private exportPackage: ExportPackageService, private messageService: MessageService) { }
   @Input() columnConfig: any;
   @Input() form: FormGroup = new FormGroup({});
   @Input() onClearFilter = new EventEmitter();
@@ -18,7 +19,7 @@ export class FileFilterComponent implements OnChanges {
   fileFilterForm: FormGroup = new FormGroup({
     selectedFile: new FormControl()
   })
-
+  
   ngOnChanges(): void {
     this.onClearFilter.subscribe((res) => {
       if (res['key'] == 'clear all') {
@@ -29,26 +30,24 @@ export class FileFilterComponent implements OnChanges {
   }
 
   onSelectFile(event: any) {
-    if (event.target.files[0].type !== this.columnConfig.control.fileType) {
-      this.fileFilterForm.controls['selectedFile'].setValue(null)
+    if (event.target?.files[0]?.type !== this.columnConfig.control.fileType && event.target?.files[0]?.size > this.columnConfig.control.maxFileSize) {
+      this.fileFilterForm.controls['selectedFile'].setValue(null);
+      // this.messageService.add({ key: 'bc', severity: 'error', summary: 'Invalid File' });
+    } else {
+      const toUploadedFile = event.target?.files[0];
+      this.fileName = toUploadedFile.name;
+      this.papa.parse(toUploadedFile, {
+        header: false,
+        skipEmptyLines: true,
+        complete: (result: any) => {
+          if (result.data.flat()[0] === this.columnConfig.control.fileConfig[0].label) {
+            const csvData = result.data.slice(1).flatMap((el: any) => el[0]).filter((el: any) => el.match(this.columnConfig.control.fileConfig[0].regex));
+            this.form.controls[this.columnConfig.control.name].setValue(csvData);
+          } else this.form.controls[this.columnConfig.control.name].setValue([]);
+          this.fileFilterForm.controls['selectedFile'].setValue(null)
+        }
+      })
     }
-    if (event.target.files[0].size > this.columnConfig.control.maxFileSize) {
-      this.fileFilterForm.controls['selectedFile'].setValue(null)
-    }
-
-    const toUploadedFile = event.target.files[0];
-    this.fileName = toUploadedFile.name;
-    this.papa.parse(toUploadedFile, {
-      header: false,
-      skipEmptyLines: true,
-      complete: (result: any) => {
-        if (result.data.flat()[0] === this.columnConfig.control.fileConfig[0].label) {
-          const csvData = result.data.slice(1).flatMap((el: any) => el[0]).filter((el: any) => el.match(this.columnConfig.control.fileConfig[0].regex));
-          this.form.controls[this.columnConfig.control.name].setValue(csvData);
-        } else this.form.controls[this.columnConfig.control.name].setValue([]);
-        this.fileFilterForm.controls['selectedFile'].setValue(null)
-      }
-    })
   }
 
   downloadSample(columnConfig: any) {
@@ -56,7 +55,7 @@ export class FileFilterComponent implements OnChanges {
       previous[key.label] = key['sample'];
       return previous;
     }, {});
-    const columns = Object.keys(sampleData).map(col => { return { type: 'string', control: { name: col, label: col } } })
+    const columns = Object.keys(sampleData).map(col => { return { type: 'string', control: { name: col, label: col } } });
     this.exportPackage.exportData({ sampleData: [sampleData] }, { sampleData: columns }, columnConfig.control.fileType, columnConfig.control.fileTitle, [])
   }
 
@@ -64,5 +63,6 @@ export class FileFilterComponent implements OnChanges {
     this.fileFilterForm.controls['selectedFile'].setValue(null);
     this.fileFilterForm.controls['selectedFile'].updateValueAndValidity();
     this.fileName = 'Missing File';
+    this.form.controls[this.columnConfig.control.name].setValue(null);
   }
 }

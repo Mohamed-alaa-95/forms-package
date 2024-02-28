@@ -39,6 +39,8 @@ import { InputFieldComponent } from './components/input-field/input-field.compon
 import { NumberInputComponent } from './components/number-input/number-input.component';
 import { DateFieldComponent } from './components/date-field/date-field.component';
 import { ExportPackageModule, ExportPackageService } from '@khaznatech/export-package';
+import { CheckboxComponent } from './components/checkbox-field/checkbox.component';
+import {CheckboxModule} from 'primeng/checkbox';
 const primeModules = [
   SliderModule,
   DialogModule,
@@ -60,6 +62,7 @@ const primeModules = [
   CardModule,
   PanelModule,
   AutoCompleteModule,
+  CheckboxModule
 ];
 @NgModule({
   declarations: [
@@ -81,7 +84,8 @@ const primeModules = [
     FileFilterComponent,
     FilterComponentsComponent,
     InputFieldComponent,
-    DateFieldComponent
+    DateFieldComponent,
+    CheckboxComponent
   ],
   imports: [
     CommonModule,
