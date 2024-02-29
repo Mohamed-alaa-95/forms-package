@@ -26,7 +26,12 @@ export class AutoCompleteComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.autoCompleteColumnConfig = this.columnConfig.control as AutoCompleteConfig;
     this.oldOptions = JSON.parse(JSON.stringify(this.autoCompleteColumnConfig?.options));
+    if (this.form.value[this.autoCompleteColumnConfig.name]) {
+      this.form.value[this.autoCompleteColumnConfig.name].forEach((value: string) => this.autoCompleteColumnConfig.options.find((option: any) => option[this.autoCompleteColumnConfig.optionValue ? this.autoCompleteColumnConfig.optionValue : 'name'] === value)['selected'] = true);
+      this.sortSelectedValue();
+    }
   }
+
 
   ngOnChanges(changes: SimpleChanges): void {
     this.onClear.subscribe((res) => {
@@ -61,14 +66,12 @@ export class AutoCompleteComponent implements OnInit, OnChanges {
       return x === -1
     })
     this.autoCompleteColumnConfig.options = [...selected, ...oldDropDown];
-    this.autoCompleteDpMultiple.options = [...selected, ...oldDropDown];
 
   }
 
   sortOptions() {
     this.autoCompleteColumnConfig.options.forEach((r: any) => r.selected = false);
     this.autoCompleteColumnConfig.options = [...this.oldOptions];
-    this.autoCompleteDpMultiple.options = [...this.oldOptions];
     this.autoCompleteDpMultiple.resetFilter();
   }
 
