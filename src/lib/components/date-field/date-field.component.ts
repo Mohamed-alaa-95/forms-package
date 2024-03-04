@@ -57,7 +57,7 @@ export class DateFieldComponent implements OnInit, OnChanges {
       }
       const date = [
         value[0] ? new Date(value[0])?.getTime() : -1,
-        value[1] ? value[0]?.getTime() === value[1]?.getTime() ? new Date(new Date(value[1])?.setHours(23, 59, 59))?.getTime() + 86399000 : new Date(value[1])?.getTime() : -1,
+        value[1] ? value[0]?.getTime() === value[1]?.getTime() ? new Date(new Date(value[1]))?.getTime() + 86399000 : new Date(value[1])?.getTime() : -1,
       ]
       this.form.controls[key].setValue(`${date}`);
     } else {
