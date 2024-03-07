@@ -39,7 +39,7 @@ export class FilterTableComponent implements OnChanges {
   @Input() hasData = true;
   @Input() queryParams!: { [key: string]: any };
   @Input() title!: string;
-  @Input() rows = 10;
+  @Input() rows = 20;
   @Input() actions: HeaderAction | any = {
     Actions: [
       {

@@ -5,9 +5,8 @@
   <p-table [rows]="rows" [first]="first" [filterDelay]="100000" [sortField]="sortField" [sortOrder]="sortOrder"
     [defaultSortOrder]="sortOrder" [value]="data" [lazy]="isConnected"
     (onLazyLoad)="isConnected ? loadData($event) : getConnectionError()" dataKey="id" [selection]="selectedRows"
-    (selectionChange)="onSelectionChange($event)" [paginator]="hasData" [rows]="10"
-    [totalRecords]="totalRecords ? totalRecords : 0" [rowsPerPageOptions]="[10, 50, 100, 500]"
-    [globalFilterFields]="globalFilterFields" [autoLayout]="true" [ngClass]="{
+    (selectionChange)="onSelectionChange($event)" [paginator]="hasData" [totalRecords]="totalRecords ? totalRecords : 0"
+    [rowsPerPageOptions]="[20, 50, 100, 500]" [globalFilterFields]="globalFilterFields" [autoLayout]="true" [ngClass]="{
       englishStyle: dir === 'ltr',
       arabicStyle: dir === 'rtl'
     }" [resizableColumns]="true" responsiveLayout="scroll" columnResizeMode="expand" [lazyLoadOnInit]="false"
