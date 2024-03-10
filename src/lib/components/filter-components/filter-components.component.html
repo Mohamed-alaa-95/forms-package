@@ -19,14 +19,16 @@
                             [dependValue]="dependValue" [columnConfig]="column"></app-drop-down>
                     </ng-container>
                     <ng-container *ngSwitchCase="'auto_complete'">
-                        <app-auto-complete [form]="form" [onClear]="onClear" [columnConfig]="column"></app-auto-complete>
+                        <app-auto-complete [form]="form" [onClear]="onClear"
+                            [columnConfig]="column"></app-auto-complete>
                     </ng-container>
                     <ng-container *ngSwitchCase="'file'">
                         <app-file-filter [onClearFilter]="onClear" [form]="form"
                             [columnConfig]="column"></app-file-filter>
                     </ng-container>
                     <ng-container *ngSwitchCase="'checkbox'">
-                        <app-checkbox [form]="form" [columnConfig]="column" [onClear]="onClear"></app-checkbox>
+                        <app-checkbox [form]="form" [onClearFilter]="onClear" [columnConfig]="column"
+                            [onClear]="onClear"></app-checkbox>
                     </ng-container>
                 </ng-container>
             </div>

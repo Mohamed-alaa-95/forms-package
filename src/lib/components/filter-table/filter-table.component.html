@@ -2,11 +2,12 @@
   <header-actions (onClickAction)="handleActionClick($event)" [actions]="actions" [title]="title" [dir]="dir"
     [ngClass]="{ hasTableActions: actions.length > 0 }"></header-actions>
 
-  <p-table [rows]="rows" [first]="first" [filterDelay]="100000" [sortField]="sortField" [sortOrder]="sortOrder"
-    [defaultSortOrder]="sortOrder" [value]="data" [lazy]="isConnected"
-    (onLazyLoad)="isConnected ? loadData($event) : getConnectionError()" dataKey="id" [selection]="selectedRows"
-    (selectionChange)="onSelectionChange($event)" [paginator]="hasData" [totalRecords]="totalRecords ? totalRecords : 0"
-    [rowsPerPageOptions]="[20, 50, 100, 500]" [globalFilterFields]="globalFilterFields" [autoLayout]="true" [ngClass]="{
+  <p-table scrollDirection="both" [scrollable]="true" scrollHeight="800px" [rows]="rows" [first]="first ? first : 0"
+    [filterDelay]="100000" [sortField]="sortField" [sortOrder]="sortOrder" [defaultSortOrder]="sortOrder" [value]="data"
+    [lazy]="isConnected" (onLazyLoad)="isConnected ? loadData($event) : getConnectionError()" dataKey="id"
+    [selection]="selectedRows" (selectionChange)="onSelectionChange($event)" [paginator]="hasData"
+    [totalRecords]="totalRecords ? totalRecords : 0" [rowsPerPageOptions]="rowsPerPageOptions"
+    [globalFilterFields]="globalFilterFields" [autoLayout]="true" [ngClass]="{
       englishStyle: dir === 'ltr',
       arabicStyle: dir === 'rtl'
     }" [resizableColumns]="true" responsiveLayout="scroll" columnResizeMode="expand" [lazyLoadOnInit]="false"
@@ -33,7 +34,7 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 3rem" *ngIf="allowSelection" class="headerCell">
+        <th pFrozenColumn alignFrozen="left" style="width: 3rem" *ngIf="allowSelection" class="headerCell">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
         <th *ngFor="let col of columns" class="headerCell" [ngClass]="{ normal_col: !col.control.sortable }"
@@ -41,7 +42,7 @@
           {{ col.control.label }}
           <p-sortIcon *ngIf="col.control.sortable" field="{{ col.control.name }}"></p-sortIcon>
         </th>
-        <th *ngIf="tableActions && isTableActionsAccessible" class="headerCell">
+        <th pFrozenColumn alignFrozen="right" *ngIf="tableActions && isTableActionsAccessible" class="headerCell">
         </th>
       </tr>
       <tr *ngIf="allowFilter">
@@ -82,8 +83,8 @@
     </ng-template>
     <ng-template pTemplate="body" let-row>
       <tr>
-        <td [style]="{ width: '5%' }" [ngClass]="{ selected: row.selected }" *ngIf="allowSelection"
-          class="tableColumnCell">
+        <td pFrozenColumn alignFrozen="left" [style]="{ width: '5%' }" [ngClass]="{ selected: row.selected }"
+          *ngIf="allowSelection" class="tableColumnCell">
           <p-tableCheckbox [value]="row"></p-tableCheckbox>
         </td>
         <td [ngClass]="{ selected: row.selected }" *ngFor="let col of columns" class="tableColumnCell" pTooltip="{{
@@ -153,8 +154,8 @@
             </div>
           </ng-container>
         </td>
-        <td [ngClass]="{ selected: row.selected }" *ngIf="tableActions && isTableActionsAccessible"
-          class="tableColumnCell">
+        <td pFrozenColumn alignFrozen="right" [ngClass]="{ selected: row.selected }"
+          *ngIf="tableActions && isTableActionsAccessible" class="tableColumnCell">
           <div class="action">
             <ng-container *ngFor="let tableAction of tableActions">
               <div [style.visibility]="
@@ -162,7 +163,7 @@
                     ? 'hidden'
                     : 'visible'
                 " *ngIf="tableAction.isIcon; else link" (click)="clickTableAction(tableAction, row)"
-                class="tableAction icon p-mr-1 p-mt-1" [pTooltip]="tableAction.text" tooltipPosition="left">
+                class="tableAction icon p-mr-1 p-mt-1" [pTooltip]="tableAction.text" tooltipPosition="top">
                 <button pButton [icon]="tableAction.icon" [ngClass]="tableAction.class"></button>
               </div>
 

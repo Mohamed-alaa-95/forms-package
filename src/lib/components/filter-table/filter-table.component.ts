@@ -9,13 +9,14 @@ import {
   EventEmitter,
   OnChanges,
   ViewChild,
+  SimpleChanges,
 } from '@angular/core';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { IAction } from '../../models/IAction.model';
 import { Direction } from '@angular/cdk/bidi';
 import { ConnectionService } from 'ng-connection-service';
-
+import { single } from 'rxjs/operators';
 @Component({
   selector: 'filter-table',
   templateUrl: './filter-table.component.html',
@@ -40,6 +41,7 @@ export class FilterTableComponent implements OnChanges {
   @Input() queryParams!: { [key: string]: any };
   @Input() title!: string;
   @Input() rows = 20;
+  @Input() onFilter = new EventEmitter<any>();
   @Input() actions: HeaderAction | any = {
     Actions: [
       {
@@ -115,12 +117,14 @@ export class FilterTableComponent implements OnChanges {
       isVisible: true,
     },
   };
+  @Input() rowsPerPageOptions = [10, 50, 100, 500];
   @Output() onDataChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() onClickTableAction: EventEmitter<any> = new EventEmitter<any>();
   @Output() onSelectAction: EventEmitter<any> = new EventEmitter<any>();
   @Output() onDependValue: EventEmitter<any> = new EventEmitter<any>();
   @Output() onClear = new EventEmitter();
   @Output() onActionClicked = new EventEmitter();
+  @Input() onClearTableFilter = new EventEmitter();
   // @Input() selection = []
   type = 'dropDown';
   selectedRows: any[] = [];
@@ -129,7 +133,7 @@ export class FilterTableComponent implements OnChanges {
   globalFilterFields!: any;
   firstValue: number | undefined;
   @ViewChild('dt') table: Table | undefined;
-  @Input() first: number = 0;
+  @Input() first: number;
   isConnected = true;
   constructor(
     private messagerService: MessageService,
@@ -275,7 +279,7 @@ export class FilterTableComponent implements OnChanges {
     this.onClickTableAction.emit({ action: action, row: row });
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges) {
     this.onUpdateSelectedRows.subscribe((rows) => {
       this.selectedRows = rows;
       this.backupSelection = rows;

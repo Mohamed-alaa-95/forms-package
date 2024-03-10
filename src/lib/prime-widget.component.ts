@@ -33,8 +33,9 @@ export class PrimeWidgetComponent implements OnChanges {
   @Input() sortOrder: number = -1;
   @Input() defaultSortOrder = -1;
   @Input() isTableActionsAccessible = false;
-  @Input() first: number = 0;
+  @Input() first: number;
   @Input() rows = 10;
+  @Input() rowsPerPageOptions = [10, 50, 100, 500];
   @Input() tableActions: Array<IAction> = [
     {
       text: 'Edit Merchant',
@@ -257,11 +258,14 @@ export class PrimeWidgetComponent implements OnChanges {
     },
   ];
   @Input() title!: string;
+  @Input() onClearTableFilter = new EventEmitter();
   constructor(@Optional() public config: DynamicDialogConfig) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.onUpdateSelectedRows.next(this.selectedRows);
   }
+
+
 
   getData(ev: any) {
     this.dataChanged.next(ev);
