@@ -163,8 +163,9 @@
                     ? 'hidden'
                     : 'visible'
                 " *ngIf="tableAction.isIcon; else link" (click)="clickTableAction(tableAction, row)"
-                class="tableAction icon p-mr-1 p-mt-1" [pTooltip]="tableAction.text" tooltipPosition="top">
-                <button pButton [icon]="tableAction.icon" [ngClass]="tableAction.class"></button>
+                class="tableAction icon p-mr-1 p-mt-1 cursor-pointer" [ngClass]="tableAction.class"
+                [pTooltip]="tableAction.text" tooltipPosition="top" tooltipStyleClass="tooltip">
+                <i [class]="tableAction.icon"></i>
               </div>
 
               <ng-template #link>
