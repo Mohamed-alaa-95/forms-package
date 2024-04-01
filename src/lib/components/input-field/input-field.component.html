@@ -7,5 +7,8 @@
         <label
             *ngIf="form.controls[columnConfig.control.name].hasError('required') && form.controls[columnConfig.control.name].touched"
             class="text-xs error"> This field is required </label>
+        <label
+            *ngIf="form.controls[columnConfig.control.name].hasError('pattern') && form.controls[columnConfig.control.name].touched"
+            class="text-xs error">Invalid Format</label>
     </div>
 </div>

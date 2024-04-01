@@ -9,3 +9,8 @@
 ::ng-deep .p-multiselect-panel {
     z-index: 1103 !important;
 }
+
+.error {
+    color: #f44336;
+    font-size: 13px;
+}

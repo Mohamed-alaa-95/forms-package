@@ -66,7 +66,6 @@ export class AutoCompleteComponent implements OnInit, OnChanges {
       return x === -1
     })
     this.autoCompleteColumnConfig.options = [...selected, ...oldDropDown];
-
   }
 
   sortOptions() {

@@ -4,14 +4,17 @@
             <label class="font-bold	text-base text-black-alpha-80">{{autoCompleteColumnConfig?.label}}
             </label>
             <p-multiSelect #autoCompleteDpMultiple [formControlName]="autoCompleteColumnConfig.name"
-                (onClear)="sortOptions()" (onPanelHide)="onPanelHide()"
-                [id]="'autoComplete_' + '_column_' + autoCompleteColumnConfig.name" [filter]="true"
-                (onFilter)="autoCompleteSearch($event)" [options]="autoCompleteColumnConfig?.options" (onChange)="onSelectAutoComplete($event)
+                (onClear)="sortOptions()" [id]="'autoComplete_' + '_column_' + autoCompleteColumnConfig.name"
+                [filter]="true" (onFilter)="autoCompleteSearch($event)" [options]="autoCompleteColumnConfig?.options"
+                (onChange)="onSelectAutoComplete($event)
               " [showClear]="true" appendTo="body"
                 [optionLabel]="autoCompleteColumnConfig.optionLabel ?  autoCompleteColumnConfig.optionLabel : 'name'"
                 [optionValue]="autoCompleteColumnConfig.optionValue ?  autoCompleteColumnConfig.optionValue : 'name'"
                 [placeholder]="autoCompleteColumnConfig.placeholder">
             </p-multiSelect>
+            <label
+                *ngIf="form.controls[autoCompleteColumnConfig.name].hasError('required') && form.controls[autoCompleteColumnConfig.name].touched"
+                class="text-xs error"> This field is required </label>
         </div>
     </ng-container>
     <ng-template #autoComplete>
@@ -26,6 +29,9 @@
                 [optionLabel]="autoCompleteColumnConfig.optionLabel ?  autoCompleteColumnConfig.optionLabel : 'name'"
                 [optionValue]="autoCompleteColumnConfig.optionValue?  autoCompleteColumnConfig.optionValue : 'name'">
             </p-autoComplete>
+            <label
+                *ngIf="form.controls[autoCompleteColumnConfig.name].hasError('required') && form.controls[autoCompleteColumnConfig.name].touched"
+                class="text-xs error"> This field is required </label>
         </div>
     </ng-template>
 </div>
