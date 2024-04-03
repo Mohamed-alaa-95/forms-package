@@ -59,18 +59,20 @@ export class AutoCompleteComponent implements OnInit, OnChanges {
     this.autoCompleteDpMultiple._filteredOptions = [...this.columnConfig.control.options];
   }
 
-  sortSelectedValue() {
-    const selected: any[] = this.autoCompleteColumnConfig.options.filter((r: any) => r.selected == true);
+   sortSelectedValue() {
+    const selected: any[] = this.autoCompleteColumnConfig?.options?.filter((r: any) => r.selected == true);
     const oldDropDown = this.oldOptions.filter((rec: any) => {
       const x = selected.findIndex((ob: any) => ob[this.autoCompleteColumnConfig['optionValue'] ? this.autoCompleteColumnConfig['optionValue'] : 'name'] === rec[this.autoCompleteColumnConfig['optionValue'] ? this.autoCompleteColumnConfig['optionValue'] : 'name']);
       return x === -1
     })
     this.autoCompleteColumnConfig.options = [...selected, ...oldDropDown];
+    this.autoCompleteDpMultiple.options = [...selected, ...oldDropDown];
   }
 
   sortOptions() {
     this.autoCompleteColumnConfig.options.forEach((r: any) => r.selected = false);
     this.autoCompleteColumnConfig.options = [...this.oldOptions];
+    this.autoCompleteDpMultiple.options = [...this.oldOptions];
     this.autoCompleteDpMultiple.resetFilter();
   }
 
