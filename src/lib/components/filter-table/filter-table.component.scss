@@ -21,6 +21,12 @@
   border: 1px solid #ff251e;
 }
 
+.blocked {
+  color: #832d2a;
+  background: rgba(255, 37, 30, 0.1);
+  border: 1px solid #832d2a;
+}
+
 .normal_col {
   cursor: auto !important;
 }
@@ -37,7 +43,8 @@
   border: 1px solid #23ae3a;
 }
 
-.validated {
+.validated,
+.pending {
   color: #839bc8;
   background: rgba(131, 155, 200, 0.1);
   border: 1px solid #839bc8;
@@ -162,6 +169,7 @@ header-actions {
 .tableAction.icon,
 .filter {
   margin: 0 0.5rem;
+  width: 1.5rem;
 
   ::ng-deep .p-button:enabled:hover {
     background-color: #38bfa7;
@@ -171,6 +179,7 @@ header-actions {
 
 .tableColumnCell .action {
   display: flex;
+  padding-right: 1rem;
 }
 
 .noRecords {

@@ -38,6 +38,8 @@ export interface DefaultControlConfig {
   allowDecimals?: boolean;
   allowSign?: boolean;
   placeholder?: string;
+  normalNumber?: boolean;
+  showString?: boolean
 }
 
 export interface ImageControlConfig extends DefaultControlConfig {

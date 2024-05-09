@@ -41,6 +41,7 @@ import { DateFieldComponent } from './components/date-field/date-field.component
 import { ExportPackageModule, ExportPackageService } from '@khaznatech/export-package';
 import { CheckboxComponent } from './components/checkbox-field/checkbox.component';
 import {CheckboxModule} from 'primeng/checkbox';
+import { SplitButtonModule } from 'primeng/splitbutton';
 const primeModules = [
   SliderModule,
   DialogModule,
@@ -62,7 +63,8 @@ const primeModules = [
   CardModule,
   PanelModule,
   AutoCompleteModule,
-  CheckboxModule
+  CheckboxModule,
+  SplitButtonModule
 ];
 @NgModule({
   declarations: [

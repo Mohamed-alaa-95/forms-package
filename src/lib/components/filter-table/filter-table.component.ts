@@ -10,19 +10,19 @@ import {
   OnChanges,
   ViewChild,
   SimpleChanges,
+  OnInit,
 } from '@angular/core';
-import { LazyLoadEvent, MessageService } from 'primeng/api';
+import { LazyLoadEvent, MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { IAction } from '../../models/IAction.model';
 import { Direction } from '@angular/cdk/bidi';
 import { ConnectionService } from 'ng-connection-service';
-import { single } from 'rxjs/operators';
-@Component({
+ @Component({
   selector: 'filter-table',
   templateUrl: './filter-table.component.html',
   styleUrls: ['./filter-table.component.scss'],
 })
-export class FilterTableComponent implements OnChanges {
+export class FilterTableComponent implements OnChanges, OnInit {
   @Input() data: Array<any> = [];
   @Input() isTableAccessible = true;
   @Input() totalRecords: number | undefined;
@@ -117,6 +117,7 @@ export class FilterTableComponent implements OnChanges {
       isVisible: true,
     },
   };
+  @Input() isDropdownActions = false;
   @Input() rowsPerPageOptions = [10, 50, 100, 500];
   @Output() onDataChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() onClickTableAction: EventEmitter<any> = new EventEmitter<any>();
@@ -135,6 +136,8 @@ export class FilterTableComponent implements OnChanges {
   @ViewChild('dt') table: Table | undefined;
   @Input() first: number;
   isConnected = true;
+  items: MenuItem[];
+
   constructor(
     private messagerService: MessageService,
     private connectionService: ConnectionService
@@ -142,6 +145,8 @@ export class FilterTableComponent implements OnChanges {
     this.connectionService.monitor().subscribe((connection) => {
       this.isConnected = connection.hasInternetAccess && connection.hasNetworkConnection;
     });
+  }
+  ngOnInit(): void {
   }
 
   isEmptyString(value: any) {
@@ -319,5 +324,9 @@ export class FilterTableComponent implements OnChanges {
   }
   columnControl(col: field) {
     return col.control as DateControlConfig
+  }
+
+  getActionsArray(actionName: string) {
+    return this.actions[actionName] as IAction[];
   }
 }
