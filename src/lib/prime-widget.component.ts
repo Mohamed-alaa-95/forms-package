@@ -141,6 +141,7 @@ export class PrimeWidgetComponent implements OnChanges {
       isVisible: true,
     },
   };
+  @Input() applySelectedClass = true;
   @Input() allowFilter = true;
   @Input() queryParams!: { [key: string]: any };
   @Input() totalRecords: number = 10;

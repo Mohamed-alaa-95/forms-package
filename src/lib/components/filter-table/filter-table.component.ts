@@ -17,7 +17,7 @@ import { Table } from 'primeng/table';
 import { IAction } from '../../models/IAction.model';
 import { Direction } from '@angular/cdk/bidi';
 import { ConnectionService } from 'ng-connection-service';
- @Component({
+@Component({
   selector: 'filter-table',
   templateUrl: './filter-table.component.html',
   styleUrls: ['./filter-table.component.scss'],
@@ -119,6 +119,7 @@ export class FilterTableComponent implements OnChanges, OnInit {
   };
   @Input() isDropdownActions = false;
   @Input() rowsPerPageOptions = [10, 50, 100, 500];
+  @Input() applySelectedClass = true;
   @Output() onDataChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() onClickTableAction: EventEmitter<any> = new EventEmitter<any>();
   @Output() onSelectAction: EventEmitter<any> = new EventEmitter<any>();
@@ -128,6 +129,7 @@ export class FilterTableComponent implements OnChanges, OnInit {
   @Input() onClearTableFilter = new EventEmitter();
   // @Input() selection = []
   type = 'dropDown';
+
   selectedRows: any[] = [];
   backupSelection: any[] = [];
   dependValu: { [key: string]: any } = {};
@@ -137,7 +139,7 @@ export class FilterTableComponent implements OnChanges, OnInit {
   @Input() first: number;
   isConnected = true;
   items: MenuItem[];
-
+  public all: any = [];
   constructor(
     private messagerService: MessageService,
     private connectionService: ConnectionService
@@ -147,6 +149,10 @@ export class FilterTableComponent implements OnChanges, OnInit {
     });
   }
   ngOnInit(): void {
+    const checkBoxColumns = this.columns
+      .filter((colm: any) => colm.control.show == true)
+      .filter((colm) => colm.type == 'checkbox');
+    this.prepareObject(checkBoxColumns);
   }
 
   isEmptyString(value: any) {
@@ -328,5 +334,104 @@ export class FilterTableComponent implements OnChanges, OnInit {
 
   getActionsArray(actionName: string) {
     return this.actions[actionName] as IAction[];
+  }
+
+  public Checkall(event: any, columnn?: any) {
+    this.all[columnn] = false;
+    const toBedeletedItems = [];
+    toBedeletedItems.push(
+      ...this.selectedRows.filter((row) => row.columnName == columnn)
+    );
+    toBedeletedItems.forEach((item) => {
+      const index = this.selectedRows.findIndex(
+        (selectedRow) => selectedRow == item
+      );
+      if (index > -1) {
+        this.selectedRows.splice(index, 1);
+      }
+    });
+    if (event.checked) {
+      this.data.forEach((singleRow: any) => {
+        this.selectedRows.push({
+          id: singleRow.id,
+          columnName: columnn,
+          record: singleRow,
+        });
+      });
+
+      this.all[columnn] = true;
+    }
+    this.onUpdateSelectedRows.emit(this.selectedRows);
+  }
+
+
+  public checkIfSelected(id: any, columnName: any) {
+    if (
+      this.selectedRows.filter((row) => row.columnName == columnName).length ==
+      this.data.length
+    )
+      this.all[columnName] = true;
+    else this.all[columnName] = false;
+
+    return this.selectedRows.find(
+      (singleSelection) =>
+        singleSelection.id == id && singleSelection.columnName == columnName
+    );
+  }
+
+  public CheckAndAdd(event: any, id: any, columnName: any, record?: any) {
+    this.all[columnName] = false;
+    if (event.checked) {
+      if (
+        !this.selectedRows.find(
+          (singleSelection) =>
+            singleSelection.id == id && singleSelection.columnName == columnName
+        )
+      ) {
+        this.selectedRows.push({
+          id: record.id,
+          columnName: columnName,
+          record: record,
+        });
+      }
+    } else {
+      const i = this.selectedRows.filter(row => row.columnName).findIndex(
+        (s) => s.record.id == id && s.columnName == columnName
+      );
+      if (i > -1) {
+        this.selectedRows.splice(i, 1);
+      }
+    }
+    this.onUpdateSelectedRows.emit(this.selectedRows);
+  }
+
+  public prepareObject(checkBoxColumns: any) {
+    checkBoxColumns.forEach((e: any) => {
+      this.all[e.name] = false
+    });
+  }
+
+  public convertJsonData(jsonObject: any) {
+    if (jsonObject) {
+      let keys = Object.keys(jsonObject);
+      let data = keys.map((key) => {
+        let rowKey = '';
+        let valueKey = '-';
+        if (key)
+          rowKey =
+            key.toString().indexOf('_') > 0
+              ? key.toString().split('_').join(' ')
+              : key;
+        if (jsonObject[key])
+          valueKey =
+            jsonObject[key].toString().indexOf('_') > 0
+              ? jsonObject[key].toString().split('_').join(' ')
+              : jsonObject[key];
+
+        return rowKey + ' : ' + valueKey;
+      });
+      return data.toString().split(',').join('<br />');
+    }
+    return null;
   }
 }

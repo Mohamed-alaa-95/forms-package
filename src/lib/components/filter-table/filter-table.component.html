@@ -41,8 +41,14 @@
           [pSortableColumn]="col.control.sortable ? col.control.name : ''">
           {{ col.control.label }}
           <p-sortIcon *ngIf="col.control.sortable" field="{{ col.control.name }}"></p-sortIcon>
+          <!-- <p-checkbox *ngIf="col.type === 'checkbox'" [(ngModel)]="all[col.control.name]" [binary]="true"
+            (onChange)="Checkall($event , col.control.name)"></p-checkbox> -->
+
         </th>
-        <th pFrozenColumn alignFrozen="right" *ngIf="tableActions && isTableActionsAccessible" class="headerCell">
+        <th pFrozenColumn alignFrozen="right" *ngIf="tableActions && isTableActionsAccessible"
+          style="border-left : 1px solid #D5D8E4;box-shadow: -4px 0px 4px 0px rgba(53, 52, 52, 0.21);
+          ;"
+          class=" headerCell">
         </th>
       </tr>
       <tr *ngIf="allowFilter">
@@ -83,11 +89,12 @@
     </ng-template>
     <ng-template pTemplate="body" let-row>
       <tr>
-        <td pFrozenColumn alignFrozen="left" [style]="{ width: '5%' }" [ngClass]="{ selected: row.selected }"
-          *ngIf="allowSelection" class="tableColumnCell">
+        <td pFrozenColumn alignFrozen="left" [style]="{ width: '5%' }"
+          [ngClass]="{ selected: row.selected && applySelectedClass }" *ngIf="allowSelection" class="tableColumnCell">
           <p-tableCheckbox [value]="row"></p-tableCheckbox>
         </td>
-        <td [ngClass]="{ selected: row.selected }" *ngFor="let col of columns" class="tableColumnCell" pTooltip="{{
+        <td [ngClass]="{ selected: row.selected && applySelectedClass }" *ngFor="let col of columns"
+          class="tableColumnCell" pTooltip="{{
             checkLength(col, row[col.control.name])
               ? row[col.control.name]
               : null
@@ -155,6 +162,17 @@
               </ng-template>
 
             </ng-container>
+
+            <ng-container *ngSwitchCase="'checkbox'">
+              <p-checkbox *ngIf="col.type === 'checkbox'" [checked]="checkIfSelected(row.id, col.control.name)"
+                [binary]="true" (onChange)="CheckAndAdd($event,row.id,col.control.name,row)"></p-checkbox>
+              {{row[col.control.name]}}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'json'">
+              <span [innerHTML]="convertJsonData(row[col.control.name])"></span>
+            </ng-container>
+
             <div *ngSwitchDefault style="line-break: anywhere">
               <ng-container *ngIf="col.control.isStatus; else normal">
                 <span class="status-column" [ngClass]="row[col.control.name]?.toLowerCase()">
@@ -168,8 +186,9 @@
             </div>
           </ng-container>
         </td>
-        <td pFrozenColumn alignFrozen="right" [ngClass]="{ selected: row.selected }"
-          *ngIf="tableActions && isTableActionsAccessible" class="tableColumnCell">
+        <td pFrozenColumn alignFrozen="right" [ngClass]="{ selected: row.selected && applySelectedClass}"
+          *ngIf="tableActions && isTableActionsAccessible" class="tableColumnCell" style="border-left : 1px solid #D5D8E4;box-shadow: -4px 0px 4px 0px rgba(53, 52, 52, 0.21);
+          ">
           <div class="action">
             <ng-container *ngFor="let tableAction of tableActions">
               <div [style.visibility]="

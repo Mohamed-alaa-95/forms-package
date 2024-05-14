@@ -42,6 +42,7 @@ import { ExportPackageModule, ExportPackageService } from '@khaznatech/export-pa
 import { CheckboxComponent } from './components/checkbox-field/checkbox.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import { SplitButtonModule } from 'primeng/splitbutton';
+ 
 const primeModules = [
   SliderModule,
   DialogModule,
@@ -64,8 +65,8 @@ const primeModules = [
   PanelModule,
   AutoCompleteModule,
   CheckboxModule,
-  SplitButtonModule
-];
+  SplitButtonModule,
+ ];
 @NgModule({
   declarations: [
     FilterTableComponent,

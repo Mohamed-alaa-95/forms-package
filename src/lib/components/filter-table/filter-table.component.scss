@@ -4,6 +4,7 @@
   padding: 0.5rem !important;
   color: white !important;
   border-radius: 1rem !important;
+  z-index: 1100 !important;
 }
 
 ::ng-deep p-datatable .p-datatable-tbody>tr>td {
@@ -17,14 +18,12 @@
 .failed,
 .cancelled {
   color: #ff251e;
-  background: rgba(255, 37, 30, 0.1);
-  border: 1px solid #ff251e;
+  background: rgba(255, 37, 30, 0.01);
 }
 
 .blocked {
   color: #832d2a;
-  background: rgba(255, 37, 30, 0.1);
-  border: 1px solid #832d2a;
+  background: rgba(255, 37, 30, 0.01);
 }
 
 .normal_col {
@@ -39,29 +38,25 @@
 .active,
 .completed {
   color: #23ae3a;
-  background: rgba(35, 174, 58, 0.1);
-  border: 1px solid #23ae3a;
+  background: rgba(35, 174, 58, 0.01);
 }
 
 .validated,
 .pending {
   color: #839bc8;
-  background: rgba(131, 155, 200, 0.1);
-  border: 1px solid #839bc8;
+  background: rgba(131, 155, 200, 0.01);
 }
 
 .under,
 .ready {
   color: #ff9d0f;
-  background: rgba(255, 157, 15, 0.1);
-  border: 1px solid #ff9d0f;
+  background: rgba(255, 157, 15, 0.01);
 }
 
 .finished,
 .created {
   color: #51e6c4;
-  background: rgba(81, 230, 196, 0.1);
-  border: 1px solid #51e6c4;
+  background: rgba(81, 230, 196, 0.01);
 }
 
 .status-column {
@@ -179,7 +174,8 @@ header-actions {
 
 .tableColumnCell .action {
   display: flex;
-  padding-right: 1rem;
+  padding-right: 2.5rem;
+  gap: 2rem;
 }
 
 .noRecords {
