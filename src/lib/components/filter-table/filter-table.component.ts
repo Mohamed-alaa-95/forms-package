@@ -117,6 +117,7 @@ export class FilterTableComponent implements OnChanges, OnInit {
       isVisible: true,
     },
   };
+  @Input() showActionsAsDropdown = false;
   @Input() isDropdownActions = false;
   @Input() rowsPerPageOptions = [10, 50, 100, 500];
   @Input() applySelectedClass = true;
@@ -145,7 +146,8 @@ export class FilterTableComponent implements OnChanges, OnInit {
     private connectionService: ConnectionService
   ) {
     this.connectionService.monitor().subscribe((connection) => {
-      this.isConnected = connection.hasInternetAccess && connection.hasNetworkConnection;
+      this.isConnected =
+        connection.hasInternetAccess && connection.hasNetworkConnection;
     });
   }
   ngOnInit(): void {
@@ -156,15 +158,15 @@ export class FilterTableComponent implements OnChanges, OnInit {
   }
 
   isEmptyString(value: any) {
-    return value === '' || value === null
+    return value === '' || value === null;
   }
 
   isColumnRequired(col: any) {
-    return col?.control?.required
+    return col?.control?.required;
   }
 
   hasMinValueError(row: any, col: any) {
-    return +row[col?.control?.name] < +col?.control?.minValue
+    return +row[col?.control?.name] < +col?.control?.minValue;
   }
 
   getMiddle() {
@@ -252,7 +254,9 @@ export class FilterTableComponent implements OnChanges, OnInit {
   setSelectedClass() {
     this.data?.forEach((row: any) => (row.selected = false));
     this.data
-      ?.filter((row: any) => this.selectedRows?.some((o2) => row?.id === o2?.id))
+      ?.filter((row: any) =>
+        this.selectedRows?.some((o2) => row?.id === o2?.id)
+      )
       ?.forEach((row: any) => (row.selected = true));
   }
 
@@ -305,12 +309,12 @@ export class FilterTableComponent implements OnChanges, OnInit {
     if (action.rowValidations) {
       Object.keys(action.rowValidations).forEach(
         (key) =>
-        (valid =
-          valid &&
-          action.rowValidations[key].some((validateValue: any) => {
-            if (!validateValue && !row[key]) return false;
-            return validateValue ? validateValue == row[key] : true;
-          }))
+          (valid =
+            valid &&
+            action.rowValidations[key].some((validateValue: any) => {
+              if (!validateValue && !row[key]) return false;
+              return validateValue ? validateValue == row[key] : true;
+            }))
       );
     }
     return valid;
@@ -329,7 +333,7 @@ export class FilterTableComponent implements OnChanges, OnInit {
     });
   }
   columnControl(col: field) {
-    return col.control as DateControlConfig
+    return col.control as DateControlConfig;
   }
 
   getActionsArray(actionName: string) {
@@ -364,7 +368,6 @@ export class FilterTableComponent implements OnChanges, OnInit {
     this.onUpdateSelectedRows.emit(this.selectedRows);
   }
 
-
   public checkIfSelected(id: any, columnName: any) {
     if (
       this.selectedRows.filter((row) => row.columnName == columnName).length ==
@@ -395,9 +398,9 @@ export class FilterTableComponent implements OnChanges, OnInit {
         });
       }
     } else {
-      const i = this.selectedRows.filter(row => row.columnName).findIndex(
-        (s) => s.record.id == id && s.columnName == columnName
-      );
+      const i = this.selectedRows
+        .filter((row) => row.columnName)
+        .findIndex((s) => s.record.id == id && s.columnName == columnName);
       if (i > -1) {
         this.selectedRows.splice(i, 1);
       }
@@ -407,7 +410,7 @@ export class FilterTableComponent implements OnChanges, OnInit {
 
   public prepareObject(checkBoxColumns: any) {
     checkBoxColumns.forEach((e: any) => {
-      this.all[e.name] = false
+      this.all[e.name] = false;
     });
   }
 

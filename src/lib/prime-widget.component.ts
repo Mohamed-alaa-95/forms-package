@@ -66,6 +66,7 @@ export class PrimeWidgetComponent implements OnChanges {
     },
   ];
   @Input() allowSelection: boolean = false;
+  @Input() showActionsAsDropdown = false;
   @Input() actions: HeaderAction | any = {
     Actions: [
       {
@@ -260,13 +261,11 @@ export class PrimeWidgetComponent implements OnChanges {
   ];
   @Input() title!: string;
   @Input() onClearTableFilter = new EventEmitter();
-  constructor(@Optional() public config: DynamicDialogConfig) { }
+  constructor(@Optional() public config: DynamicDialogConfig) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.onUpdateSelectedRows.next(this.selectedRows);
   }
-
-
 
   getData(ev: any) {
     this.dataChanged.next(ev);
