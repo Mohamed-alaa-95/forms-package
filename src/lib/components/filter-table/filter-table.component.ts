@@ -340,13 +340,13 @@ export class FilterTableComponent implements OnChanges, OnInit {
     return this.actions[actionName] as IAction[];
   }
 
-  public Checkall(event: any, columnn?: any) {
-    this.all[columnn] = false;
-    const toBedeletedItems = [];
-    toBedeletedItems.push(
-      ...this.selectedRows.filter((row) => row.columnName == columnn)
+  public CheckAll(event: any, column?: any) {
+    this.all[column] = false;
+    const toBeDeletedItems = [];
+    toBeDeletedItems.push(
+      ...this.selectedRows.filter((row) => row.columnName == column)
     );
-    toBedeletedItems.forEach((item) => {
+    toBeDeletedItems.forEach((item) => {
       const index = this.selectedRows.findIndex(
         (selectedRow) => selectedRow == item
       );
@@ -358,12 +358,12 @@ export class FilterTableComponent implements OnChanges, OnInit {
       this.data.forEach((singleRow: any) => {
         this.selectedRows.push({
           id: singleRow.id,
-          columnName: columnn,
+          columnName: column,
           record: singleRow,
         });
       });
 
-      this.all[columnn] = true;
+      this.all[column] = true;
     }
     this.onUpdateSelectedRows.emit(this.selectedRows);
   }
@@ -375,8 +375,7 @@ export class FilterTableComponent implements OnChanges, OnInit {
     )
       this.all[columnName] = true;
     else this.all[columnName] = false;
-
-    return this.selectedRows.find(
+    return !!this.selectedRows.find(
       (singleSelection) =>
         singleSelection.id == id && singleSelection.columnName == columnName
     );
@@ -436,5 +435,12 @@ export class FilterTableComponent implements OnChanges, OnInit {
       return data.toString().split(',').join('<br />');
     }
     return null;
+  }
+
+  getTableActions(row: any) {
+    this.tableActions.forEach((action) => {
+      action.isVisible = action.isVisible && this.rowActionCheck(action, row);
+    });
+    return this.tableActions.filter((action) => action.isVisible);
   }
 }

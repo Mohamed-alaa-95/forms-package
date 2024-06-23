@@ -204,3 +204,10 @@ header-actions {
   width: 10rem !important;
   align-items: center;
 }
+
+.actionList {
+  border-bottom: none !important;
+  ::ng-deep .p-dropdown {
+    border-bottom: none !important;
+  }
+}

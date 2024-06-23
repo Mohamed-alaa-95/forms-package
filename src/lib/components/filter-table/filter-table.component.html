@@ -84,13 +84,19 @@
           [ngClass]="{ normal_col: !col.control.sortable }"
           [pSortableColumn]="col.control.sortable ? col.control.name : ''"
         >
+          <p-checkbox
+            *ngIf="col.type === 'checkbox'"
+            [(ngModel)]="all[col.control.name]"
+            [binary]="true"
+            (onChange)="CheckAll($event, col.control.name)"
+          ></p-checkbox>
+
           {{ col.control.label }}
+
           <p-sortIcon
             *ngIf="col.control.sortable"
             field="{{ col.control.name }}"
           ></p-sortIcon>
-          <!-- <p-checkbox *ngIf="col.type === 'checkbox'" [(ngModel)]="all[col.control.name]" [binary]="true"
-            (onChange)="Checkall($event , col.control.name)"></p-checkbox> -->
         </th>
         <th
           pFrozenColumn
@@ -98,7 +104,7 @@
           *ngIf="tableActions && isTableActionsAccessible"
           style="box-shadow: -4px 0px 4px 0px rgba(53, 52, 52, 0.21)"
           class="headerCell"
-        ></th>
+        >Actions</th>
       </tr>
       <tr *ngIf="allowFilter">
         <th
@@ -289,12 +295,17 @@
             </ng-container>
 
             <ng-container *ngSwitchCase="'checkbox'">
-              <p-checkbox
-                *ngIf="col.type === 'checkbox'"
+              <input
+                type="checkbox"
+                (onChange)="CheckAndAdd($event, row.id, col.control.name, row)"
                 [checked]="checkIfSelected(row.id, col.control.name)"
+              />
+              <!-- <p-checkbox
+                *ngIf="col.type === 'checkbox'"
+                [(ngModel)]="selectedRows[col.control.name][row.id]"
                 [binary]="true"
                 (onChange)="CheckAndAdd($event, row.id, col.control.name, row)"
-              ></p-checkbox>
+              ></p-checkbox> -->
               {{ row[col.control.name] }}
             </ng-container>
 
@@ -333,7 +344,7 @@
           <ng-container *ngIf="showActionsAsDropdown; else showNormal">
             <p-dropdown
               class="actionList"
-              [options]="tableActions"
+              [options]="getTableActions(row)"
               placeholder=""
               [showClear]="false"
               [optionLabel]="'text'"
