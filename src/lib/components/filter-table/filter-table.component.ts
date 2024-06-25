@@ -11,6 +11,7 @@ import {
   ViewChild,
   SimpleChanges,
   OnInit,
+  AfterViewInit,
 } from '@angular/core';
 import { LazyLoadEvent, MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -150,6 +151,7 @@ export class FilterTableComponent implements OnChanges, OnInit {
         connection.hasInternetAccess && connection.hasNetworkConnection;
     });
   }
+
   ngOnInit(): void {
     const checkBoxColumns = this.columns
       .filter((colm: any) => colm.control.show == true)
@@ -319,6 +321,7 @@ export class FilterTableComponent implements OnChanges, OnInit {
     }
     return valid;
   }
+
   onSelectDateChange(
     ev: any,
     dt: { filters: { [x: string]: { value: any } } | any }
@@ -383,7 +386,7 @@ export class FilterTableComponent implements OnChanges, OnInit {
 
   public CheckAndAdd(event: any, id: any, columnName: any, record?: any) {
     this.all[columnName] = false;
-    if (event.checked) {
+    if (event.target.checked) {
       if (
         !this.selectedRows.find(
           (singleSelection) =>
@@ -438,9 +441,8 @@ export class FilterTableComponent implements OnChanges, OnInit {
   }
 
   getTableActions(row: any) {
-    this.tableActions.forEach((action) => {
-      action.isVisible = action.isVisible && this.rowActionCheck(action, row);
-    });
-    return this.tableActions.filter((action) => action.isVisible);
+    return this.tableActions.filter(
+      (action) => action.isVisible && this.rowActionCheck(action, row)
+    );
   }
 }

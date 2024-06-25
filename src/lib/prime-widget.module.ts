@@ -38,11 +38,13 @@ import { FilterComponentsComponent } from './components/filter-components/filter
 import { InputFieldComponent } from './components/input-field/input-field.component';
 import { NumberInputComponent } from './components/number-input/number-input.component';
 import { DateFieldComponent } from './components/date-field/date-field.component';
-import { ExportPackageModule, ExportPackageService } from '@khaznatech/export-package';
+import {
+  ExportPackageModule,
+  ExportPackageService,
+} from '@khaznatech/export-package';
 import { CheckboxComponent } from './components/checkbox-field/checkbox.component';
-import {CheckboxModule} from 'primeng/checkbox';
+import { CheckboxModule } from 'primeng/checkbox';
 import { SplitButtonModule } from 'primeng/splitbutton';
- 
 const primeModules = [
   SliderModule,
   DialogModule,
@@ -66,7 +68,7 @@ const primeModules = [
   AutoCompleteModule,
   CheckboxModule,
   SplitButtonModule,
- ];
+];
 @NgModule({
   declarations: [
     FilterTableComponent,
@@ -88,14 +90,14 @@ const primeModules = [
     FilterComponentsComponent,
     InputFieldComponent,
     DateFieldComponent,
-    CheckboxComponent
+    CheckboxComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     ...primeModules,
-    ExportPackageModule
+    ExportPackageModule,
   ],
   providers: [ConfirmationService, MessageService, ExportPackageService],
   exports: [
@@ -118,10 +120,10 @@ const primeModules = [
     FileFilterComponent,
     FilterComponentsComponent,
     InputFieldComponent,
-    DateFieldComponent
+    DateFieldComponent,
   ],
-  schemas: [NO_ERRORS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class PrimeWidgetModule {
-  constructor() { }
+  constructor() {}
 }

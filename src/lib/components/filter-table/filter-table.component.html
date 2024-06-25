@@ -11,7 +11,7 @@
     scrollDirection="both"
     [scrollable]="true"
     scrollHeight="800px"
-    [rows]="rows"
+    [(rows)]="rows"
     [first]="first ? first : 0"
     [filterDelay]="100000"
     [sortField]="sortField"
@@ -104,7 +104,9 @@
           *ngIf="tableActions && isTableActionsAccessible"
           style="box-shadow: -4px 0px 4px 0px rgba(53, 52, 52, 0.21)"
           class="headerCell"
-        >Actions</th>
+        >
+          Actions
+        </th>
       </tr>
       <tr *ngIf="allowFilter">
         <th
@@ -297,15 +299,9 @@
             <ng-container *ngSwitchCase="'checkbox'">
               <input
                 type="checkbox"
-                (onChange)="CheckAndAdd($event, row.id, col.control.name, row)"
+                (change)="CheckAndAdd($event, row.id, col.control.name, row)"
                 [checked]="checkIfSelected(row.id, col.control.name)"
               />
-              <!-- <p-checkbox
-                *ngIf="col.type === 'checkbox'"
-                [(ngModel)]="selectedRows[col.control.name][row.id]"
-                [binary]="true"
-                (onChange)="CheckAndAdd($event, row.id, col.control.name, row)"
-              ></p-checkbox> -->
               {{ row[col.control.name] }}
             </ng-container>
 
@@ -342,35 +338,43 @@
           "
         >
           <ng-container *ngIf="showActionsAsDropdown; else showNormal">
-            <p-dropdown
-              class="actionList"
-              [options]="getTableActions(row)"
-              placeholder=""
-              [showClear]="false"
-              [optionLabel]="'text'"
-              appendTo="body"
-              [dropdownIcon]="'pi pi-cog'"
-            >
-              <ng-template let-action pTemplate="action">
-                <div
-                  class="actionsContainer"
-                  (click)="clickTableAction(action, row)"
-                >
-                  <button
-                    pButton
-                    pRipple
-                    type="button"
-                    label="Primary"
-                    class="p-button-text p-mr-2 p-mb-2"
-                    *ngIf="action.isVisible"
-                    [ngClass]="action.class"
-                    [label]="action.text"
-                    [disabled]="action.isDisabled"
-                    icon="{{ action.icon }}"
-                  ></button>
-                </div>
-              </ng-template>
-            </p-dropdown>
+            <div *ngIf="getTableActions(row).length > 0">
+              <p-dropdown
+                class="actionList"
+                [options]="getTableActions(row)"
+                placeholder=""
+                [showClear]="false"
+                [optionLabel]="'text'"
+                appendTo="body"
+                [dropdownIcon]="'pi pi-cog'"
+              >
+                <ng-template let-action pTemplate="action">
+                  <div
+                    *ngIf="action.isVisible && rowActionCheck(action, row)"
+                    class="actionsContainer"
+                    (click)="clickTableAction(action, row)"
+                    [style.visibility]="
+                      !(action.isVisible && rowActionCheck(action, row))
+                        ? 'hidden'
+                        : 'visible'
+                    "
+                  >
+                    <button
+                      pButton
+                      pRipple
+                      type="button"
+                      label="Primary"
+                      class="p-button-text p-mr-2 p-mb-2"
+                      *ngIf="action.isVisible"
+                      [ngClass]="action.class"
+                      [label]="action.text"
+                      [disabled]="action.isDisabled"
+                      icon="{{ action.icon }}"
+                    ></button>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </div>
           </ng-container>
           <ng-template #showNormal>
             <div class="action">
