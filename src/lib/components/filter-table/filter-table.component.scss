@@ -210,4 +210,9 @@ header-actions {
   ::ng-deep .p-dropdown {
     border-bottom: none !important;
   }
+
+  ::ng-deep.p-dropdown .p-dropdown-label {
+    display: none !important;
+    border-bottom: none !important;
+  }
 }

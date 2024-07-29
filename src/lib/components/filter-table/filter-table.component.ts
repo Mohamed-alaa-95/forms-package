@@ -129,9 +129,9 @@ export class FilterTableComponent implements OnChanges, OnInit {
   @Output() onClear = new EventEmitter();
   @Output() onActionClicked = new EventEmitter();
   @Input() onClearTableFilter = new EventEmitter();
+  @Input() isLogs = false;
   // @Input() selection = []
   type = 'dropDown';
-
   selectedRows: any[] = [];
   backupSelection: any[] = [];
   dependValu: { [key: string]: any } = {};

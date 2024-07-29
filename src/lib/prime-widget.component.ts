@@ -67,6 +67,7 @@ export class PrimeWidgetComponent implements OnChanges {
   ];
   @Input() allowSelection: boolean = false;
   @Input() showActionsAsDropdown = false;
+  @Input() isLogs = false;
   @Input() actions: HeaderAction | any = {
     Actions: [
       {

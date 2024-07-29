@@ -193,7 +193,7 @@
           *ngFor="let col of columns"
           class="tableColumnCell"
           pTooltip="{{
-            checkLength(col, row[col.control.name])
+            checkLength(col, row[col.control.name]) && !isLogs
               ? row[col.control.name]
               : null
           }}"
@@ -319,8 +319,11 @@
                 >
               </ng-container>
               <ng-template #normal>
-                <div>
-                  {{ getRowData(row[col.control.name]) }}
+                <div *ngIf="row[col.control.name] != 0">
+                  <div *ngIf="isLogs">{{ row[col.control.name] }}</div>
+                  <div *ngIf="!isLogs">
+                    {{ getRowData(row[col.control.name]) }}
+                  </div>
                 </div>
               </ng-template>
             </div>
