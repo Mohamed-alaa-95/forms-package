@@ -19,9 +19,13 @@
         <div [formGroup]="form" class="p-field p-fluid">
             <label class="font-bold	text-base text-black-alpha-80 mr-3">{{columnConfig?.control?.label }}
             </label>
-            <p-inputNumber [useGrouping]="false" [min]="numberColumnConfig.min" [max]="numberColumnConfig.max"
-                [placeholder]="columnConfig.control.placeholder"
+            <p-inputNumber [useGrouping]="false"
+                [min]="numberColumnConfig.min && columnConfig?.control['showErrorMsg'] ? null :  numberColumnConfig.min"
+                [max]="numberColumnConfig.max" [placeholder]="columnConfig.control.placeholder"
                 [formControlName]="columnConfig?.control?.name"></p-inputNumber>
+            <label *ngIf="form.controls[numberColumnConfig.name].hasError('min')" class="text-xs error">Invalid
+                Value
+            </label>
         </div>
     </ng-template>
 </div>

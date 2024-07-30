@@ -49,6 +49,7 @@ export interface ImageControlConfig extends DefaultControlConfig {
 export interface NumberControlConfig extends DefaultControlConfig {
   range: boolean;
   acceptNegative: boolean;
+  showErrorMsg?: boolean
 }
 
 export interface SelectControlConfig extends DefaultControlConfig {

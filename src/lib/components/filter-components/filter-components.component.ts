@@ -84,11 +84,14 @@ export class FilterComponentsComponent implements OnInit, OnChanges {
     let validations = [];
     if (column.control?.required) validations.push(Validators.required);
     if (column.control?.minLength)
+      
       validations.push(Validators.minLength(column.control.minLength));
     if (column.control?.maxLength)
       validations.push(Validators.maxLength(column.control.maxLength));
     if (column.control?.pattern)
       validations.push(Validators.pattern(column.control.pattern));
+    if (column.control?.min)
+      validations.push(Validators.min(column.control.min));
     return validations;
   }
 
