@@ -4,8 +4,8 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Code scaffolding
 
-Run `ng generate component component-name --project khazna-elements-package` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project khazna-elements-package`.
-> Note: Don't forget to add `--project khazna-elements-package` or else it will be added to the default project in your `angular.json` file. 
+Run `ng generate component component-name --project khazna-table-package` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project khazna-table-package`.
+> Note: Don't forget to add `--project khazna-table-package` or else it will be added to the default project in your `angular.json` file. 
 
 ## Build
 
@@ -13,11 +13,11 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 
 ## Publishing
 
-After building your library with `ng build khazna-elements-package`, go to the dist folder `cd dist/khazna-elements-package` and run `npm run publish`.
+After building your library with `ng build khazna-table-package`, go to the dist folder `cd dist/khazna-table-package` and run `npm run publish`.
 
 ## Running unit tests
 
-Run `ng test khazna-elements-package` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test khazna-table-package` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Further help
 

@@ -10,11 +10,11 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "paths": {
-      "@khaznatech/khazna-elements-package": [
-        "dist/khazna-elements-package"
+      "@khaznatech/khazna-table-package": [
+        "dist/khazna-table-package"
       ],
-      "@khaznatech/khazna-elements-package/*": [
-        "dist/khazna-elements-package/*"
+      "@khaznatech/khazna-table-package/*": [
+        "dist/khazna-table-package/*"
       ]
     },
     "noImplicitReturns": true,

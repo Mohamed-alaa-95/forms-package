@@ -6,9 +6,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "khazna-elements-package": {
+    "khazna-table-package": {
       "projectType": "library",
-      "root": "khazna-elements-package",
+      "root": "khazna-table-package",
       "sourceRoot": "src",
       "prefix": "lib",
       "architect": {

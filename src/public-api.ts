@@ -1,0 +1,1 @@
+export * from './lib/khazna-table-package/khazna-table-package.component';
