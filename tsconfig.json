@@ -7,7 +7,6 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "strictNullChecks": false,
-    "suppressImplicitAnyIndexErrors": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "paths": {
@@ -39,6 +38,7 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "enableStandalone": true
   },
 }

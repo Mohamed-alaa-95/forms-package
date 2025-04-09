@@ -1,20 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DateTimeComponent } from './date-time.component';
+import { KhaznaKsaTableComponent } from './khazna-ksa-table.component';
 
-describe('DateTimeComponent', () => {
-  let component: DateTimeComponent;
-  let fixture: ComponentFixture<DateTimeComponent>;
+describe('KhaznaKsaTableComponent', () => {
+  let component: KhaznaKsaTableComponent;
+  let fixture: ComponentFixture<KhaznaKsaTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DateTimeComponent ]
+      imports: [KhaznaKsaTableComponent]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DateTimeComponent);
+    fixture = TestBed.createComponent(KhaznaKsaTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
