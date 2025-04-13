@@ -1,0 +1,151 @@
+<!-- generic-table.component.html -->
+<div class="generic-table-container">
+  @if (title) {
+  <div class="table-header">
+    <h2>{{ title }}</h2>
+  </div>
+}
+
+  <p-table
+    #table
+    [value]="data"
+    [columns]="visibleColumns"
+    [loading]="loading"
+    [paginator]="paginator"
+    [rows]="rows"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    [globalFilterFields]="globalFilterFields"
+    [selectionMode]="selectionMode"
+    [(selection)]="selectedItems"
+    [responsive]="responsive"
+    [resizableColumns]="resizableColumns"
+    [reorderableColumns]="reorderableColumns"
+    styleClass="p-datatable-gridlines custom-table"
+    [rowHover]="true"
+    [lazy]="true"
+    (onRowSelect)="onRowSelect($event)"
+    (onRowUnselect)="onRowUnselect($event)"
+    (onPage)="onPage($event)"
+    (onSort)="onSort($event)"
+    (onFilter)="onFilter($event)"
+    [totalRecords]="totalRecords"
+    (onLazyLoad)="onLazyLoad($event)"
+    dataKey="id"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} - {last} of {totalRecords}"
+    [showPageLinks]="true"
+    [pageLinks]="3"
+    [paginatorDropdownAppendTo]="'body'"
+    [rowTrackBy]="rowTrackByFunction"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th
+          *ngFor="let col of visibleColumns"
+          [pSortableColumn]="
+            col.control.sortable ? col.control.name : undefined
+          "
+        >
+          {{ col.control.label }}
+          @if (col.control.sortable) {
+            <p-sortIcon
+              [field]="col.control.name"
+            ></p-sortIcon>
+          }
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowData>
+      <tr [pSelectableRow]="rowData">
+        <td *ngFor="let col of visibleColumns">
+          <!-- Handle different column types -->
+          <ng-container [ngSwitch]="col.type">
+            <!-- Text type (default) -->
+            @switch (col.type) {
+            @case ('text') {
+              @if (col.control.isStatus) {
+                <span class="status-cell">
+                  <span class="status-badge" [ngClass]="rowData[col.control.name]?.toLowerCase()">
+                    {{ rowData[col.control.name] }}
+                  </span>
+                </span>
+              } @else {
+                @if (col.control.showBold) {
+                  <span class="bold-text">{{ rowData[col.control.name] }}</span>
+                } @else {
+                  <span>{{ rowData[col.control.name] }}</span>
+                }
+              }
+            }
+            
+            @case ('date') {
+              {{
+                rowData[col.control.name]
+                  | date  
+              }}
+            }
+            
+            @case ('number') {
+              {{
+                rowData[col.control.name]
+                  | number  
+              }}
+            }
+            
+            @default {
+              {{ rowData[col.control.name] }}
+            }
+          }
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td [attr.colspan]="visibleColumns.length" class="text-center">
+          {{ emptyMessage }}
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="loadingbody" let-columns>
+      <tr>
+        <td><p-skeleton /></td>
+        <td><p-skeleton /></td>
+        <td><p-skeleton /></td>
+        <td><p-skeleton /></td>
+    </tr>
+    </ng-template>
+
+    <!-- Custom paginator templates -->
+    <ng-template pTemplate="paginatorleft">
+      <button type="button" 
+              class="p-paginator-prev p-paginator-element custom-pagination-button"
+              [disabled]="table.first === 0" 
+              (click)="table.onPageChange({first: table.first - table.rows, rows: table.rows})">
+        <span class="p-paginator-icon">
+          <i class="pi pi-angle-left"></i> Previous
+        </span>
+      </button>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorcenter">
+      <div class="current-page-report">
+        Showing {{ table.first + 1 }} - {{ Math.min(table.first + table.rows, table.totalRecords) }} of {{ table.totalRecords }}
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorright">
+      <button type="button" 
+              class="p-paginator-next p-paginator-element custom-pagination-button"
+              [disabled]="table.first + table.rows >= table.totalRecords" 
+              (click)="table.onPageChange({first: table.first + table.rows, rows: table.rows})">
+        <span class="p-paginator-icon">
+          Next <i class="pi pi-angle-right"></i>
+        </span>
+      </button>
+    </ng-template>
+  </p-table>
+</div>
