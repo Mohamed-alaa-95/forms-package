@@ -1,0 +1,62 @@
+<div (keyup.enter)="sumbitForm()" class="flex flex-row gap-5 flex-wrap">
+  <ng-container *ngFor="let column of columns">
+    <ng-container>
+      <div>
+        <ng-container [ngSwitch]="column.type">
+          <ng-container *ngSwitchCase="'number'">
+            <app-number-input
+              [form]="form"
+              [onClearFilter]="onClear"
+              [columnConfig]="column"
+            ></app-number-input>
+          </ng-container>
+          <ng-container *ngSwitchCase="'text'">
+            <app-text-input
+              [form]="form"
+              [columnConfig]="column"
+            ></app-text-input>
+          </ng-container>
+          <ng-container *ngSwitchCase="'date'">
+            <app-date-field
+              [onClearFilter]="onClear"
+              [form]="form"
+              [columnConfig]="column"
+            ></app-date-field>
+          </ng-container>
+          <ng-container *ngSwitchCase="'dropdown'">
+            <app-drop-down
+              (onSelect)="onChangeDropdown($event)"
+              [form]="form"
+              [onClear]="onClear"
+              [columnConfig]="column"
+            ></app-drop-down>
+          </ng-container>
+          <ng-container *ngSwitchCase="'auto_complete'">
+            <app-auto-complete
+              [form]="form"
+              [onClear]="onClear"
+              [columnConfig]="column"
+            ></app-auto-complete>
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+
+<div class="mt-6 flex flex-row-reverse gap-2 pb-4">
+  <p-button
+  [label]="ClearButtonText"
+  variant="text"
+  [raised]="true"
+  (click)="clear()"
+  severity="secondary"
+  />
+  <p-button
+    [label]="filterButtonText"
+    (click)="sumbitForm()"
+    (keydown.enter)="sumbitForm()"
+    [raised]="true"
+    severity="primary"
+  />
+</div>

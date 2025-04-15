@@ -1,0 +1,65 @@
+<ng-container *ngIf="columnConfig?.control?.multiple; else single">
+  <div [formGroup]="form" class="flex flex-column gap-2">
+    <label class="font-bold text-sm text-black-alpha-80 mr-3">
+      {{ columnConfig?.control?.label }}
+    </label>
+    <p-multiSelect
+      class="custom-width"
+      (onChange)="onChangeDropdownSelectedValue($event)"
+      #dp_multiple
+      [id]="'dropdown_' + '_column_' + columnConfig?.control?.name"
+      [filter]="columnConfig?.control?.filter"
+      [options]="columnConfig?.control?.options"
+      [optionValue]="
+        columnConfig?.control?.optionValue ? columnConfig?.control?.optionValue : 'name'
+      "
+      appendTo="body"
+      [placeholder]="columnConfig?.control?.placeholder"
+      [showClear]="true"
+      [optionLabel]="
+        columnConfig?.control?.optionLabel ? columnConfig?.control?.optionLabel : 'name'
+      "
+      [formControlName]="
+        columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name
+      "
+      (onClear)="onChangeDropdownSelectedValue($event)"
+    >
+    </p-multiSelect>
+  </div>
+</ng-container>
+
+<ng-template #single>
+  <div [formGroup]="form" class="flex flex-column gap-2">
+    <label class="font-bold text-sm text-black-alpha-80 mr-3"
+      >{{ columnConfig?.control?.label }}
+    </label>
+    <p-dropdown
+      #dp
+      class="custom-width"
+      [placeholder]="columnConfig?.control?.placeholder"
+      [id]="'dropdown_' + '_column_' + columnConfig?.control?.name"
+      [options]="columnConfig?.control?.options"
+      [filter]="columnConfig?.control?.filter"
+      [optionLabel]="
+        columnConfig?.control?.optionLabel ? columnConfig?.control?.optionLabel : 'name'
+      "
+      [formControlName]="
+        columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name
+      "
+      (onChange)="updateStatus($event.value)"
+      [optionValue]="
+        columnConfig?.control?.optionValue ? columnConfig?.control?.optionValue : 'name'
+      "
+      [showClear]="false"
+      [showClear]="dp.selectedOption"
+      appendTo="body"
+    >
+    </p-dropdown>
+    <label
+      *ngIf="form.controls[columnConfig?.control?.name]?.hasError('required')"
+      class="text-xs error"
+    >
+      This field is required
+    </label>
+  </div>
+</ng-template>

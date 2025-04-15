@@ -1,0 +1,5 @@
+.custom-width {
+    ::ng-deep .p-datepicker-input {
+        width: 10.5rem;
+    }
+}

@@ -1,10 +1,10 @@
 {
-  "name": "@khaznatech/khazna-table-package",
-  "version": "0.0.17-alpha",
+  "name": "@khaznatech/khazna-forms-package",
+  "version": "0.0.39-alpha",
   "scripts": {
     "build": "ng build",
-    "pack": "cd dist/khazna-table-package && npm pack",
-    "publish": "cd dist/khazna-table-package && npm publish"
+    "pack": "cd dist/khazna-forms-package && npm pack",
+    "publish": "cd dist/khazna-forms-package && npm publish"
   },
   "peerDependencies": {
     "@angular/animations": "^19.0.0",

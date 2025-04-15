@@ -1,0 +1,32 @@
+<div [formGroup]="dateForm" class="flex flex-column gap-2">
+  <label class="font-bold text-sm text-black-alpha-80">{{
+    columnConfig?.control?.label
+  }}</label>
+  <p-datepicker
+    class="custom-width"
+    #rangeCalendar
+    [readonlyInput]="true"
+    [hourFormat]="columnConfig?.control?.hourFormat"
+    [showButtonBar]="true"
+    (onClearClick)="
+      onClearRange(columnConfig?.control?.name, rangeCalendar.value)
+    "
+    (onClear)="onClearRange(columnConfig?.control?.name, rangeCalendar.value)"
+    formControlName="date"
+    (onSelect)="
+      onSelectRangeValue(columnConfig?.control?.name, rangeCalendar.value)
+    "
+    [dateFormat]="
+      columnConfig?.control?.dateFormate
+        ? columnConfig?.control?.dateFormate
+        : 'dd/mm/yy'
+    "
+    [view]="columnConfig?.control?.view ? columnConfig?.control?.view : 'date'"
+    [selectionMode]="columnConfig?.control?.range ? 'range' : 'single'"
+    [placeholder]="columnConfig?.control?.placeholder"
+    [appendTo]="'body'"
+    [showTime]="columnConfig?.control?.showTime"
+    [showIcon]="true"
+    [defaultDate]="defaultDate"
+  ></p-datepicker>
+</div>

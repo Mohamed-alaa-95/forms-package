@@ -1,0 +1,31 @@
+<ng-container *ngIf="columnConfig?.control?.range; else single">
+    <div [formGroup]="numberRangeValuesForm" class="flex flex-column gap-2">
+        <label class="font-bold	text-sm text-black-alpha-80 mr-3">{{columnConfig?.control?.label }}
+        </label>
+        <div class="flex flex-row gap-3">
+            <p-inputNumber [useGrouping]="false" formControlName="from" [min]="columnConfig?.control?.min"
+                [max]="columnConfig?.control?.max" (ngModelChange)="ngModelChange()" placeholder="From"></p-inputNumber>
+            <p-inputNumber [useGrouping]="false" formControlName="to" [min]="columnConfig?.control?.min" [max]="columnConfig?.control?.max"
+                (ngModelChange)="ngModelChange()" placeholder="To"></p-inputNumber>
+        </div>
+        <label *ngIf="numberRangeValuesForm.hasError('invalidValues')" class="text-xs error">Invalid
+            Values
+        </label>
+    </div>
+</ng-container>
+
+<ng-template #single>
+    <div [formGroup]="form" class="flex flex-column gap-2">
+        <label class="font-bold	text-sm text-black-alpha-80 mr-3">{{columnConfig?.control?.label }}
+        </label>
+        <p-inputNumber class="custom-width" [useGrouping]="false"
+            [min]="columnConfig.min && columnConfig['showErrorMsg'] ? null :  columnConfig.min" [max]="columnConfig?.control?.max"
+            [placeholder]="columnConfig?.control?.placeholder"
+            [formControlName]="columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey :columnConfig?.control?.name"></p-inputNumber>
+        <label
+            *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey :columnConfig?.control?.name].hasError('min')"
+            class="text-xs error">Invalid
+            Value
+        </label>
+    </div>
+</ng-template>

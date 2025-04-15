@@ -1,0 +1,108 @@
+<ng-container
+  *ngIf="columnConfig?.control?.multiple; else autoComplete"
+>
+  <div [formGroup]="form" class="flex flex-column gap-2">
+    <label class="font-bold text-sm text-black-alpha-80"
+      >{{ columnConfig?.control?.label }}
+    </label>
+    <p-multiSelect
+      #autoCompleteDpMultiple
+      class="custom-width"
+      [formControlName]="
+        columnConfig?.control?.filterKey
+          ? columnConfig?.control?.filterKey
+          : columnConfig?.control?.name
+      "
+      [id]="'autoComplete_' + '_column_' + columnConfig?.control?.name"
+      [filter]="true"
+      (onFilter)="autoCompleteSearch($event)"
+      [options]="columnConfig?.control?.options"
+      (onChange)="onSelectAutoComplete($event)"
+      [showClear]="true"
+      appendTo="body"
+      [optionLabel]="
+        columnConfig?.control?.optionLabel
+          ? columnConfig?.control?.optionLabel
+          : 'name'
+      "
+      [optionValue]="
+        columnConfig?.control?.optionValue
+          ? columnConfig?.control?.optionValue
+          : 'name'
+      "
+      [placeholder]="columnConfig?.control?.placeholder"
+    >
+    </p-multiSelect>
+    <label
+      *ngIf="
+        form.controls[
+          columnConfig?.control?.filterKey
+            ? columnConfig?.control?.filterKey
+            : columnConfig?.control?.name
+        ].hasError('required') &&
+        form.controls[
+          columnConfig?.control?.filterKey
+            ? columnConfig?.control?.filterKey
+            : columnConfig?.control?.name
+        ].touched
+      "
+      class="text-xs error"
+    >
+      This field is required
+    </label>
+  </div>
+</ng-container>
+<ng-template #autoComplete>
+  <div [formGroup]="form" class="flex flex-column gap-2">
+    <label class="font-bold text-sm text-black-alpha-80"
+      >{{ columnConfig?.control?.label }}
+    </label>
+    <p-autoComplete
+      #autoCompleteDp
+      [formControlName]="
+        columnConfig?.control?.filterKey
+          ? columnConfig?.control?.filterKey
+          : columnConfig?.control?.name
+      "
+      [placeholder]="columnConfig?.control?.placeholder"
+      [suggestions]="autoCompleteResult"
+      (completeMethod)="autoCompleteSearch($event)"
+      field="value"
+      (onUnselect)="onSelectAutoComplete($event)"
+      (onSelect)="onSelectAutoComplete($event)"
+      (onClear)="onSelectAutoComplete($event)"
+      [suggestions]="columnConfig?.control?.options"
+      appendTo="body"
+      [multiple]="columnConfig?.control?.multiple"
+      [showEmptyMessage]="true"
+      [optionLabel]="
+        columnConfig?.control?.optionLabel
+          ? columnConfig?.control?.optionLabel
+          : 'name'
+      "
+      [optionValue]="
+        columnConfig?.control?.optionValue
+          ? columnConfig?.control?.optionValue
+          : 'name'
+      "
+    >
+    </p-autoComplete>
+    <label
+      *ngIf="
+        form.controls[
+          columnConfig?.control?.filterKey
+            ? columnConfig?.control?.filterKey
+            : columnConfig?.control?.name
+        ].hasError('required') &&
+        form.controls[
+          columnConfig?.control?.filterKey
+            ? columnConfig?.control?.filterKey
+            : columnConfig?.control?.name
+        ].touched
+      "
+      class="text-xs error"
+    >
+      This field is required
+    </label>
+  </div>
+</ng-template>

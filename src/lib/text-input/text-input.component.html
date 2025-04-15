@@ -1,0 +1,12 @@
+<div [formGroup]="form" class="flex flex-column gap-2 custom-width">
+    <label class="font-bold	text-sm text-black-alpha-80 mr-3">{{columnConfig?.control?.label }}
+    </label>
+    <input [formControlName]="columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name"
+        [placeholder]="columnConfig.placeholder" [type]="columnConfig?.type" pInputText style="width: 100%;" />
+    <label
+        *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name].hasError('required') && form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name].touched"
+        class="text-xs error"> This field is required </label>
+    <label
+        *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name].hasError('pattern') && form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name].touched"
+        class="text-xs error">Invalid Format</label>
+</div>

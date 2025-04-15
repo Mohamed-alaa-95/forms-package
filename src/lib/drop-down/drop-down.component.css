@@ -1,0 +1,16 @@
+.error {
+    color: #f44336;
+    font-size: 13px;
+}
+
+.custom-width {
+    ::ng-deep .p-multiselect-label {
+        width: 11rem !important;
+        max-width: 10.5rem !important;
+    }
+
+    ::ng-deep .p-select-label{
+        width: 11rem !important;
+        max-width: 10.5rem !important;
+    }
+}

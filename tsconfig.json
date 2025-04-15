@@ -10,11 +10,11 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "paths": {
-      "@khaznatech/khazna-table-package": [
-        "dist/khazna-table-package"
+      "@khaznatech/khazna-forms-package": [
+        "dist/khazna-forms-package"
       ],
-      "@khaznatech/khazna-table-package/*": [
-        "dist/khazna-table-package/*"
+      "@khaznatech/khazna-forms-package/*": [
+        "dist/khazna-forms-package/*"
       ]
     },
     "noImplicitReturns": true,

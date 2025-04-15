@@ -1,0 +1,10 @@
+.error {
+    color: #f44336;
+    font-size: 13px;
+}
+
+.custom-width {
+    ::ng-deep .p-inputtext {
+      width: 13rem !important;
+    }
+  }
