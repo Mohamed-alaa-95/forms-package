@@ -14,6 +14,7 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Dropdown, DropdownModule } from 'primeng/dropdown';
 import { MultiSelect } from 'primeng/multiselect';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-drop-down',
@@ -26,6 +27,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     FormsModule,
     DropdownModule,
     MultiSelectModule,
+    SelectModule
   ],
 })
 export class DropDownComponent implements OnChanges {

@@ -2,13 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { NumberOnlyDirective } from '../number-only.directive';
 
 @Component({
   selector: 'app-number-input',
   templateUrl: './number-input.component.html',
   styleUrls: ['./number-input.component.css'],
   
-  imports: [CommonModule, InputNumberModule, ReactiveFormsModule]
+  imports: [CommonModule, InputNumberModule, ReactiveFormsModule , InputTextModule,NumberOnlyDirective]
 })
 export class NumberInputComponent implements OnInit, OnChanges {
   @Input() columnConfig: any;

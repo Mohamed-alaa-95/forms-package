@@ -45,9 +45,11 @@ export class DateFieldComponent implements OnInit, OnChanges {
 
   onSelectRangeValue(key: any, value: any) {
     if (value) {
-      console.log(value);
-      const date = value?.getTime();
-      this.form.controls[key].setValue(`${date}`);
+      const inputDate = new Date(value);
+      const isoString = inputDate.toDateString();
+      console.log('isoString', isoString);
+      
+      this.form.controls[key].setValue(`${isoString}`);
     } else {
       this.form.controls[key].setValue(null);
     }

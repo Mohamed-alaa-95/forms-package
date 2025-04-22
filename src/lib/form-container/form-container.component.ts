@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ButtonModule } from 'primeng/button';  
+import { ButtonModule } from 'primeng/button';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NumberInputComponent } from '../number-input/number-input.component';
 import { DropDownComponent } from '../drop-down/drop-down.component';
@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
     AutoCompleteComponent,
     TextInputComponent,
     ButtonModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './form-container.component.html',
   styleUrl: './form-container.component.css',
@@ -49,7 +49,9 @@ export class FormContainerComponent {
         col?.control?.filterKey ? col?.control?.filterKey : col?.control?.name,
         new FormControl(null, [...this.prepareValidations(col)])
       );
-      if (col?.control?.disabled) this.form.controls[col?.control?.name].disable();
+
+      if (col?.control?.disabled)
+        this.form.controls[col?.control?.name].disable();
     });
   }
 
@@ -58,18 +60,20 @@ export class FormContainerComponent {
     if (column?.control?.required) validations.push(Validators.required);
     if (column?.control?.minLength)
       validations.push(Validators.minLength(column.control.minLength));
-    if (column?.control?.maxLength)
+    if (column?.control?.maxLength) {
       validations.push(Validators.maxLength(column.control.maxLength));
+    }
     if (column?.control?.pattern)
       validations.push(Validators.pattern(column.control.pattern));
-    if (column?.control?.min) validations.push(Validators.min(column.control.min));
+    if (column?.control?.min)
+      validations.push(Validators.min(column.control.min));
+    if (column?.control?.max)
+      validations.push(Validators.max(column.control.max));
     return validations;
   }
 
   sumbitForm() {
-    if (this.form.valid) {
-      this.onFilter.emit(this.form.value);
-    }
+    this.onFilter.emit(this.form.value);
   }
 
   clear() {

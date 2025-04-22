@@ -33,7 +33,7 @@
     <label class="font-bold text-sm text-black-alpha-80 mr-3"
       >{{ columnConfig?.control?.label }}
     </label>
-    <p-dropdown
+    <p-select
       #dp
       class="custom-width"
       [placeholder]="columnConfig?.control?.placeholder"
@@ -54,7 +54,7 @@
       [showClear]="dp.selectedOption"
       appendTo="body"
     >
-    </p-dropdown>
+    </p-select>
     <label
       *ngIf="form.controls[columnConfig?.control?.name]?.hasError('required')"
       class="text-xs error"

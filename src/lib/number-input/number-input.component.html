@@ -15,17 +15,21 @@
 </ng-container>
 
 <ng-template #single>
-    <div [formGroup]="form" class="flex flex-column gap-2">
+    <div [formGroup]="form" class="flex flex-column gap-2 h-4rem custom-width">
         <label class="font-bold	text-sm text-black-alpha-80 mr-3">{{columnConfig?.control?.label }}
         </label>
-        <p-inputNumber class="custom-width" [useGrouping]="false"
-            [min]="columnConfig.min && columnConfig['showErrorMsg'] ? null :  columnConfig.min" [max]="columnConfig?.control?.max"
-            [placeholder]="columnConfig?.control?.placeholder"
-            [formControlName]="columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey :columnConfig?.control?.name"></p-inputNumber>
+        <input numberOnly type="text" [formControlName]="columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name"
+        [placeholder]="columnConfig.control?.placeholder" pInputText style="width: 100%;" />
         <label
-            *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey :columnConfig?.control?.name].hasError('min')"
+            *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey :columnConfig?.control?.name].hasError('maxlength')"
             class="text-xs error">Invalid
-            Value
+            Values
         </label>
+
+        <label
+        *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey :columnConfig?.control?.name].hasError('max')"
+        class="text-xs error">Invalid
+        Values
+    </label>
     </div>
 </ng-template>
