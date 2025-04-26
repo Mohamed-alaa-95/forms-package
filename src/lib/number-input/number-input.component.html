@@ -22,8 +22,7 @@
         [placeholder]="columnConfig.control?.placeholder" pInputText style="width: 100%;" />
         <label
             *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey :columnConfig?.control?.name].hasError('maxlength')"
-            class="text-xs error">Invalid
-            Values
+            class="text-xs error">Maximum length is {{columnConfig?.control?.maxLength}}
         </label>
 
         <label

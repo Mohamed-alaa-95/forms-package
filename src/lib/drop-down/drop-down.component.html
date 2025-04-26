@@ -4,6 +4,7 @@
       {{ columnConfig?.control?.label }}
     </label>
     <p-multiSelect
+    [showToggleAll]="false"
       class="custom-width"
       (onChange)="onChangeDropdownSelectedValue($event)"
       #dp_multiple

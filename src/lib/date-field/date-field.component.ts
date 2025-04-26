@@ -18,8 +18,8 @@ import { DatePickerModule } from 'primeng/datepicker';
   imports: [CommonModule, DatePickerModule, ReactiveFormsModule, FormsModule],
 })
 export class DateFieldComponent implements OnInit, OnChanges {
-  @Input() columnConfig: any;
   @ViewChild('rangeCalendar') public rangeCalendar: any;
+  @Input() columnConfig: any;
   @Input() form: FormGroup = new FormGroup({});
   @Input() onClearFilter = new EventEmitter();
   defaultDate: Date = new Date(new Date().setHours(0, 0, 0, 0));
@@ -46,10 +46,12 @@ export class DateFieldComponent implements OnInit, OnChanges {
   onSelectRangeValue(key: any, value: any) {
     if (value) {
       const inputDate = new Date(value);
-      const isoString = inputDate.toDateString();
-      console.log('isoString', isoString);
-      
-      this.form.controls[key].setValue(`${isoString}`);
+      const year = inputDate.getFullYear();
+      const month = String(inputDate.getMonth() + 1).padStart(2, '0');
+      const day = String(inputDate.getDate()).padStart(2, '0');
+      const formattedDate = `${year}-${month}-${day}`;
+      console.log('formattedDate', formattedDate);
+      this.form.controls[key].setValue(`${formattedDate}`);
     } else {
       this.form.controls[key].setValue(null);
     }

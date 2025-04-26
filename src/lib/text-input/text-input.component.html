@@ -12,5 +12,5 @@
 
         <label
         *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name].hasError('maxlength') && form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name].touched"
-        class="text-xs error">Invalid Value</label>
+        class="text-xs error">Maximum length is {{columnConfig?.control?.maxLength}}</label>
 </div>
