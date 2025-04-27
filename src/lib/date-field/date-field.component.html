@@ -1,4 +1,4 @@
-<div [formGroup]="dateForm" class="flex flex-column gap-2">
+<div [formGroup]="dateForm" class="flex flex-column gap-2 calendar-left-icon">
   <label class="font-bold text-sm text-black-alpha-80">{{
     columnConfig?.control?.label
   }}</label>
@@ -7,6 +7,7 @@
     #rangeCalendar
     [readonlyInput]="true"
     [hourFormat]="columnConfig?.control?.hourFormat"
+    
     [showButtonBar]="true"
     (onClearClick)="
       onClearRange(columnConfig?.control?.name, rangeCalendar.value)
@@ -27,6 +28,7 @@
     [appendTo]="'body'"
     [showTime]="columnConfig?.control?.showTime"
     [showIcon]="true"
+    [iconDisplay]="'input'"
     [defaultDate]="defaultDate"
   ></p-datepicker>
 </div>
