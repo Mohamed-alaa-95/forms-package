@@ -44,16 +44,63 @@ export class DateFieldComponent implements OnInit, OnChanges {
   }
 
   onSelectRangeValue(key: any, value: any) {
-    if (value) {
-      const inputDate = new Date(value);
-      const year = inputDate.getFullYear();
-      const month = String(inputDate.getMonth() + 1).padStart(2, '0');
-      const day = String(inputDate.getDate()).padStart(2, '0');
-      const formattedDate = `${year}-${month}-${day}`;
-      console.log('formattedDate', formattedDate);
-      this.form.controls[key].setValue(`${formattedDate}`);
+    console.log(value);
+    if (this.columnConfig.control?.range) {
+      if (value && Array.isArray(value)) {
+        const formattedDates = [];
+        
+        // Handle start date
+        if (value[0]) {
+          const startDate = new Date(value[0]);
+          const startYear = startDate.getFullYear();
+          const startMonth = String(startDate.getMonth() + 1).padStart(2, '0');
+          const startDay = String(startDate.getDate()).padStart(2, '0');
+          formattedDates[0] = `${startYear}-${startMonth}-${startDay}`;
+        } else {
+          formattedDates[0] = -1;
+        }
+        
+        // Handle end date
+        if (value[1]) {
+          const endDate = new Date(value[1]);
+          const endYear = endDate.getFullYear();
+          const endMonth = String(endDate.getMonth() + 1).padStart(2, '0');
+          const endDay = String(endDate.getDate()).padStart(2, '0');
+          
+          // If start and end dates are the same, add time to end (similar to your current logic)
+          if (value[0] && value[0].getTime() === value[1].getTime()) {
+            // Add a day in the formatted string instead of milliseconds
+            const nextDay = new Date(endDate);
+            nextDay.setDate(nextDay.getDate() + 1);
+            const nextYear = nextDay.getFullYear();
+            const nextMonth = String(nextDay.getMonth() + 1).padStart(2, '0');
+            const nextDayStr = String(nextDay.getDate()).padStart(2, '0');
+            formattedDates[1] = `${nextYear}-${nextMonth}-${nextDayStr}`;
+          } else {
+            formattedDates[1] = `${endYear}-${endMonth}-${endDay}`;
+          }
+        } else {
+          formattedDates[1] = -1;
+        }
+        console.log(formattedDates);
+        
+        this.form.controls[key].setValue(formattedDates);
+      } else {
+        this.form.controls[key].setValue(null);
+      }
     } else {
-      this.form.controls[key].setValue(null);
+      // Single date logic (unchanged)
+      if (value) {
+        const inputDate = new Date(value);
+        const year = inputDate.getFullYear();
+        const month = String(inputDate.getMonth() + 1).padStart(2, '0');
+        const day = String(inputDate.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+        console.log('formattedDate', formattedDate);
+        this.form.controls[key].setValue(`${formattedDate}`);
+      } else {
+        this.form.controls[key].setValue(null);
+      }
     }
   }
 

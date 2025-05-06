@@ -31,6 +31,15 @@
               [columnConfig]="column"
             ></app-drop-down>
           </ng-container>
+
+          <ng-container *ngSwitchCase="'boolean'">
+            <lib-boolean-dropdown
+              (onSelect)="onChangeDropdown($event)"
+              [form]="form"
+              [onClear]="onClear"
+              [columnConfig]="column"
+            ></lib-boolean-dropdown>
+          </ng-container>
           <ng-container *ngSwitchCase="'auto_complete'">
             <app-auto-complete
               [form]="form"

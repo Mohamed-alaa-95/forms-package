@@ -7,6 +7,7 @@ import { DateFieldComponent } from '../date-field/date-field.component';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { TextInputComponent } from '../text-input/text-input.component';
 import { CommonModule } from '@angular/common';
+import { BooleanDropdownComponent } from '../boolean-dropdown/boolean-dropdown.component';
 
 @Component({
   selector: 'lib-form-container',
@@ -18,6 +19,7 @@ import { CommonModule } from '@angular/common';
     TextInputComponent,
     ButtonModule,
     CommonModule,
+    BooleanDropdownComponent
   ],
   templateUrl: './form-container.component.html',
   styleUrl: './form-container.component.css',
