@@ -4,6 +4,9 @@
   }}</label>
   <p-datepicker
     class="custom-width"
+    [ngClass]="{
+      'bigger-width': columnConfig?.control?.range
+    }"
     #rangeCalendar
     [readonlyInput]="true"
     [hourFormat]="columnConfig?.control?.hourFormat"

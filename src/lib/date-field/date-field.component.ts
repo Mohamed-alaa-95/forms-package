@@ -29,9 +29,25 @@ export class DateFieldComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     if (this.form?.controls[this.columnConfig?.control?.name]?.value) {
-      this.dateForm.controls['date'].setValue(
-        new Date(+this.form?.controls[this.columnConfig?.control?.name]?.value)
-      );
+      if (this.columnConfig?.control?.range) {
+        const dateValue =
+          this.form?.controls[this.columnConfig?.control?.name]?.value;
+
+        if (Array.isArray(dateValue) && dateValue.length === 2) {
+          const startDate = new Date(dateValue[0]);
+          let endDate = null;
+          if (dateValue[0] !== -1) endDate = new Date(dateValue[1]);
+
+          this.dateForm.controls['date'].setValue([startDate, endDate]);
+        }
+      } else {
+        const dateValue =
+          this.form?.controls[this.columnConfig?.control?.name]?.value;
+        if (dateValue) {
+          const inputDate = new Date(dateValue);
+          this.dateForm.controls['date'].setValue(inputDate);
+        }
+      }
     }
   }
 
@@ -44,11 +60,10 @@ export class DateFieldComponent implements OnInit, OnChanges {
   }
 
   onSelectRangeValue(key: any, value: any) {
-    console.log(value);
     if (this.columnConfig.control?.range) {
       if (value && Array.isArray(value)) {
         const formattedDates = [];
-        
+  
         // Handle start date
         if (value[0]) {
           const startDate = new Date(value[0]);
@@ -59,7 +74,7 @@ export class DateFieldComponent implements OnInit, OnChanges {
         } else {
           formattedDates[0] = -1;
         }
-        
+  
         // Handle end date
         if (value[1]) {
           const endDate = new Date(value[1]);
@@ -67,23 +82,12 @@ export class DateFieldComponent implements OnInit, OnChanges {
           const endMonth = String(endDate.getMonth() + 1).padStart(2, '0');
           const endDay = String(endDate.getDate()).padStart(2, '0');
           
-          // If start and end dates are the same, add time to end (similar to your current logic)
-          if (value[0] && value[0].getTime() === value[1].getTime()) {
-            // Add a day in the formatted string instead of milliseconds
-            const nextDay = new Date(endDate);
-            nextDay.setDate(nextDay.getDate() + 1);
-            const nextYear = nextDay.getFullYear();
-            const nextMonth = String(nextDay.getMonth() + 1).padStart(2, '0');
-            const nextDayStr = String(nextDay.getDate()).padStart(2, '0');
-            formattedDates[1] = `${nextYear}-${nextMonth}-${nextDayStr}`;
-          } else {
-            formattedDates[1] = `${endYear}-${endMonth}-${endDay}`;
-          }
+          // Use the exact same date instead of adding a day
+          formattedDates[1] = `${endYear}-${endMonth}-${endDay}`;
         } else {
           formattedDates[1] = -1;
         }
-        console.log(formattedDates);
-        
+  
         this.form.controls[key].setValue(formattedDates);
       } else {
         this.form.controls[key].setValue(null);

@@ -15,3 +15,9 @@
     background-color: transparent;
     z-index: 1;
   }
+
+  .bigger-width{
+    ::ng-deep .p-datepicker-input {
+        width: 21rem !important;
+    }
+  }
