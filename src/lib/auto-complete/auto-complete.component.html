@@ -68,7 +68,6 @@
       [placeholder]="columnConfig?.control?.placeholder"
       [suggestions]="autoCompleteResult"
       (completeMethod)="autoCompleteSearch($event)"
-      field="value"
       (onUnselect)="onSelectAutoComplete($event)"
       (onSelect)="onSelectAutoComplete($event)"
       (onClear)="onSelectAutoComplete($event)"
@@ -86,6 +85,7 @@
           ? columnConfig?.control?.optionValue
           : 'name'
       "
+      [dropdown]="true"
     >
     </p-autoComplete>
     <label

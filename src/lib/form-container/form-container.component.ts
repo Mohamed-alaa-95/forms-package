@@ -28,13 +28,14 @@ export class FormContainerComponent {
   dependValue: any = {};
   @Input() columns: any;
   @Input() form: FormGroup = new FormGroup({});
+  @Input() filterButtonText = 'Filter';
+  @Input() ClearButtonText = 'Clear';
+  @Input() showFormActions = true
   @Output() onFilter: EventEmitter<any> = new EventEmitter<{
     [key: string]: any;
   }>();
   @Output() onClear = new EventEmitter();
   @Output() onChangeDependValue: EventEmitter<any> = new EventEmitter<any>();
-  @Input() filterButtonText = 'Filter';
-  @Input() ClearButtonText = 'Clear';
   ngOnInit(): void {
     this.initColumns();
   }

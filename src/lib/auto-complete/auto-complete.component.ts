@@ -7,7 +7,7 @@ import { MultiSelect, MultiSelectModule } from 'primeng/multiselect';
 @Component({
   selector: 'app-auto-complete',
   templateUrl: './auto-complete.component.html',
-  styleUrls: ['./auto-complete.component.css'],
+  styleUrls: ['./auto-complete.component.scss'],
   
   imports: [AutoCompleteModule, CommonModule, ReactiveFormsModule, FormsModule, MultiSelectModule]
 })
@@ -16,7 +16,7 @@ export class AutoCompleteComponent implements OnInit {
   constructor() { }
   @Input() columnConfig: any;
   @Input() dependValue: any;
-  @Input() form: FormGroup = new FormGroup({});;
+  @Input() form: FormGroup = new FormGroup({});
   multipleResult: any = [];
   autoCompleteResult: any = [];
   selectedItems: any;
@@ -58,7 +58,7 @@ export class AutoCompleteComponent implements OnInit {
       const value = event.value?.map((val: any) => val);
       this.form.controls[this.columnConfig?.control?.filterKey ? this.columnConfig?.control?.filterKey : this.columnConfig?.control?.name].setValue(value);
     } else {
-      const value = event.id;
+      const value = event?.value;
       this.form.controls[this.columnConfig?.control?.filterKey ? this.columnConfig?.control?.filterKey : this.columnConfig?.control?.name].setValue(value);
     }
   }

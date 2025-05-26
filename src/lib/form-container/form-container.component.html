@@ -53,19 +53,21 @@
   </ng-container>
 </div>
 
-<div class="mt-6 flex flex-row-reverse gap-2 pb-4">
-  <p-button
-  [label]="ClearButtonText"
-  variant="text"
-  [raised]="true"
-  (click)="clear()"
-  severity="secondary"
-  />
-  <p-button
-    [label]="filterButtonText"
-    (click)="sumbitForm()"
-    (keydown.enter)="sumbitForm()"
+@if(showFormActions){
+  <div class="mt-6 flex flex-row-reverse gap-2 pb-4">
+    <p-button
+    [label]="ClearButtonText"
+    variant="text"
     [raised]="true"
-    severity="primary"
-  />
-</div>
+    (click)="clear()"
+    severity="secondary"
+    />
+    <p-button
+      [label]="filterButtonText"
+      (click)="sumbitForm()"
+      (keydown.enter)="sumbitForm()"
+      [raised]="true"
+      severity="primary"
+    />
+  </div>
+}
