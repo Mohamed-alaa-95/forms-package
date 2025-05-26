@@ -13,7 +13,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 @Component({
   selector: 'app-date-field',
   templateUrl: './date-field.component.html',
-  styleUrls: ['./date-field.component.css'],
+  styleUrls: ['./date-field.component.scss'],
 
   imports: [CommonModule, DatePickerModule, ReactiveFormsModule, FormsModule],
 })
@@ -63,7 +63,7 @@ export class DateFieldComponent implements OnInit, OnChanges {
     if (this.columnConfig.control?.range) {
       if (value && Array.isArray(value)) {
         const formattedDates = [];
-  
+
         // Handle start date
         if (value[0]) {
           const startDate = new Date(value[0]);
@@ -74,20 +74,20 @@ export class DateFieldComponent implements OnInit, OnChanges {
         } else {
           formattedDates[0] = -1;
         }
-  
+
         // Handle end date
         if (value[1]) {
           const endDate = new Date(value[1]);
           const endYear = endDate.getFullYear();
           const endMonth = String(endDate.getMonth() + 1).padStart(2, '0');
           const endDay = String(endDate.getDate()).padStart(2, '0');
-          
+
           // Use the exact same date instead of adding a day
           formattedDates[1] = `${endYear}-${endMonth}-${endDay}`;
         } else {
           formattedDates[1] = -1;
         }
-  
+
         this.form.controls[key].setValue(formattedDates);
       } else {
         this.form.controls[key].setValue(null);
@@ -99,7 +99,11 @@ export class DateFieldComponent implements OnInit, OnChanges {
         const year = inputDate.getFullYear();
         const month = String(inputDate.getMonth() + 1).padStart(2, '0');
         const day = String(inputDate.getDate()).padStart(2, '0');
-        const formattedDate = `${year}-${month}-${day}`;
+        let formattedDate;
+        this.columnConfig.control?.view &&
+        this.columnConfig.control?.view === 'month'
+          ? (formattedDate = `${year}-${month}`)
+          : (formattedDate = `${year}-${month}-${day}`);
         console.log('formattedDate', formattedDate);
         this.form.controls[key].setValue(`${formattedDate}`);
       } else {
