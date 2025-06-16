@@ -1,6 +1,6 @@
 {
   "name": "@khaznatech/khazna-forms-package",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "scripts": {
     "build": "ng build",
     "pack": "cd dist/khazna-forms-package && npm pack",

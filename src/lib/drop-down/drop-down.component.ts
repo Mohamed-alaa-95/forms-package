@@ -63,7 +63,7 @@ export class DropDownComponent implements OnChanges {
         ? this.columnConfig?.control?.filterKey
         : this.columnConfig?.control?.name]: event?.value?.length
         ? event?.value
-        : [],
+        : undefined,
     });
   }
 
