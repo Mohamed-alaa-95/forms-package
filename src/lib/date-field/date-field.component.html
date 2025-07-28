@@ -5,12 +5,12 @@
   <p-datepicker
     class="custom-width"
     [ngClass]="{
-      'bigger-width': columnConfig?.control?.range
+      'bigger-width':
+        columnConfig?.control?.range
     }"
     #rangeCalendar
     [readonlyInput]="true"
     [hourFormat]="columnConfig?.control?.hourFormat"
-    
     [showButtonBar]="true"
     (onClearClick)="
       onClearRange(columnConfig?.control?.name, rangeCalendar.value)
