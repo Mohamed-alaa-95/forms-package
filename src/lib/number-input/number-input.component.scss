@@ -8,3 +8,11 @@
     width: 13rem !important;
   }
 }
+
+
+.invalid-input {
+  ::ng-deep .p-inputtext{
+    border-color: #e74c3c !important;
+    border-width: 1px !important;
+  }
+}

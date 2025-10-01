@@ -1,34 +1,79 @@
 <ng-container *ngIf="columnConfig?.control?.range; else single">
-    <div [formGroup]="numberRangeValuesForm" class="flex flex-column gap-2">
-        <label class="font-bold	text-sm text-black-alpha-80 mr-3">{{columnConfig?.control?.label }}
-        </label>
-        <div class="flex flex-row gap-3">
-            <p-inputNumber [useGrouping]="false" formControlName="from" [min]="columnConfig?.control?.min"
-                [max]="columnConfig?.control?.max" (ngModelChange)="ngModelChange()" placeholder="From"></p-inputNumber>
-            <p-inputNumber [useGrouping]="false" formControlName="to" [min]="columnConfig?.control?.min" [max]="columnConfig?.control?.max"
-                (ngModelChange)="ngModelChange()" placeholder="To"></p-inputNumber>
-        </div>
-        <label *ngIf="numberRangeValuesForm.hasError('invalidValues')" class="text-xs error">Invalid
-            Values
-        </label>
+  <div [formGroup]="numberRangeValuesForm" class="flex flex-column gap-2">
+    <label class="font-bold text-sm text-black-alpha-80 mr-3"
+      >{{ columnConfig?.control?.label }}
+    </label>
+    <div class="flex flex-row gap-3">
+      <p-inputNumber
+        [useGrouping]="false"
+        formControlName="from"
+        [min]="columnConfig?.control?.min"
+        [max]="columnConfig?.control?.max"
+        (ngModelChange)="ngModelChange()"
+        placeholder="From"
+        [ngClass]="{
+          'invalid-input': numberRangeValuesForm.hasError('invalidValues')
+        }"
+      ></p-inputNumber>
+      <p-inputNumber
+        [useGrouping]="false"
+        formControlName="to"
+        [min]="columnConfig?.control?.min"
+        [max]="columnConfig?.control?.max"
+        (ngModelChange)="ngModelChange()"
+        placeholder="To"
+        [ngClass]="{
+          'invalid-input': numberRangeValuesForm.hasError('invalidValues')
+        }"
+      ></p-inputNumber>
     </div>
+    <label
+      *ngIf="numberRangeValuesForm.hasError('invalidValues')"
+      class="text-xs error"
+      >From value must be less than or equal to To value
+    </label>
+  </div>
 </ng-container>
 
 <ng-template #single>
-    <div [formGroup]="form" class="flex flex-column gap-2 h-4rem custom-width">
-        <label class="font-bold	text-sm text-black-alpha-80 mr-3">{{columnConfig?.control?.label }}
-        </label>
-        <input numberOnly type="text" [formControlName]="columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name"
-        [placeholder]="columnConfig.control?.placeholder" pInputText style="width: 100%;" />
-        <label
-            *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey :columnConfig?.control?.name].hasError('maxlength')"
-            class="text-xs error">Maximum length is {{columnConfig?.control?.maxLength}}
-        </label>
-
-        <label
-        *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey :columnConfig?.control?.name].hasError('max')"
-        class="text-xs error">Invalid
-        Values
+  <div [formGroup]="form" class="flex flex-column gap-2 h-4rem custom-width">
+    <label class="font-bold text-sm text-black-alpha-80 mr-3"
+      >{{ columnConfig?.control?.label }}
     </label>
-    </div>
+    <input
+      numberOnly
+      type="text"
+      [formControlName]="
+        columnConfig?.control?.filterKey
+          ? columnConfig?.control?.filterKey
+          : columnConfig?.control?.name
+      "
+      [placeholder]="columnConfig.control?.placeholder"
+      pInputText
+      style="width: 100%"
+    />
+    <label
+      *ngIf="
+        form.controls[
+          columnConfig?.control?.filterKey
+            ? columnConfig?.control?.filterKey
+            : columnConfig?.control?.name
+        ].hasError('maxlength')
+      "
+      class="text-xs error"
+      >Maximum length is {{ columnConfig?.control?.maxLength }}
+    </label>
+
+    <label
+      *ngIf="
+        form.controls[
+          columnConfig?.control?.filterKey
+            ? columnConfig?.control?.filterKey
+            : columnConfig?.control?.name
+        ].hasError('max')
+      "
+      class="text-xs error"
+      >Invalid Values
+    </label>
+  </div>
 </ng-template>
