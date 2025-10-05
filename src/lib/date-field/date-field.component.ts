@@ -26,6 +26,7 @@ export class DateFieldComponent implements OnInit, OnChanges {
   dateForm: FormGroup = new FormGroup({
     date: new FormControl(null),
   });
+  dividedRangedValues: any = {};
 
   ngOnInit(): void {
     if (this.form?.controls[this.columnConfig?.control?.name]?.value) {
@@ -55,6 +56,10 @@ export class DateFieldComponent implements OnInit, OnChanges {
     this.onClearFilter.subscribe((res) => {
       if (res['key'] == 'clear all') {
         this.dateForm.get('date')?.setValue(null);
+        this.dividedRangedValues = {};
+        if (this.rangeCalendar) {
+          this.rangeCalendar.overlayVisible = false;
+        }
       }
     });
   }
@@ -93,7 +98,6 @@ export class DateFieldComponent implements OnInit, OnChanges {
         this.form.controls[key].setValue(null);
       }
     } else {
-      // Single date logic (unchanged)
       if (value) {
         const inputDate = new Date(value);
         const year = inputDate.getFullYear();
@@ -104,7 +108,6 @@ export class DateFieldComponent implements OnInit, OnChanges {
         this.columnConfig.control?.view === 'month'
           ? (formattedDate = `${year}-${month}`)
           : (formattedDate = `${year}-${month}-${day}`);
-        console.log('formattedDate', formattedDate);
         this.form.controls[key].setValue(`${formattedDate}`);
       } else {
         this.form.controls[key].setValue(null);
@@ -115,5 +118,36 @@ export class DateFieldComponent implements OnInit, OnChanges {
   onClearRange(key: any, value: any) {
     this.dateForm.reset();
     this.onSelectRangeValue(key, value);
+  }
+
+  onSelectDividedFields() {
+    const fromValue = this.dividedRangedValues['from'];
+    const toValue = this.dividedRangedValues['to'];
+
+    if (fromValue || toValue) {
+      const formattedDates = [];
+
+      // Handle start date
+      if (fromValue) {
+        const startDate = new Date(fromValue);
+        const startYear = startDate.getFullYear();
+        const startMonth = String(startDate.getMonth() + 1).padStart(2, '0');
+        const startDay = String(startDate.getDate()).padStart(2, '0');
+        formattedDates[0] = `${startYear}-${startMonth}-${startDay}`;
+      } else formattedDates[0] = -1;
+
+      // Handle end date
+      if (toValue) {
+        const endDate = new Date(toValue);
+        const endYear = endDate.getFullYear();
+        const endMonth = String(endDate.getMonth() + 1).padStart(2, '0');
+        const endDay = String(endDate.getDate()).padStart(2, '0');
+        formattedDates[1] = `${endYear}-${endMonth}-${endDay}`;
+      } else formattedDates[1] = -1;
+
+      this.form.controls[this.columnConfig.control.name].setValue(
+        formattedDates
+      );
+    } else this.form.controls[this.columnConfig.control.name].setValue(null);
   }
 }

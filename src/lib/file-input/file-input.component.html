@@ -1,0 +1,17 @@
+<div class="flex flex-column gap-4">
+  <label class="block text-gray-700 text-sm font-bold"
+    >{{ columnConfig.control.label }}
+  </label>
+  <p-fileupload
+    mode="basic"
+    name="demo[]"
+    chooseIcon="pi pi-upload"
+    [maxFileSize]="columnConfig.control.maxFileSize || 1000000"
+    (onUpload)="onUpload($event)"
+    [auto]="true"
+    chooseLabel="Browse"
+  />
+  <div>
+    <small>{{ columnConfig.control.helperText }}</small>
+  </div>
+</div>

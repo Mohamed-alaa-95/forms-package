@@ -1,3 +1,75 @@
+@if(columnConfig?.control?.divided){
+<ng-container>
+  <div class="flex flex-column">
+    <label class="font-bold text-base text-black-alpha-80">{{
+      columnConfig?.control?.label
+    }}</label>
+    <div class="flex flex-row gap-3 calendar-left-icon">
+      <p-datepicker
+        #calendarFrom
+        class="custom-width"
+        [readonlyInput]="true"
+        [placeholder]="
+          columnConfig?.control?.fromPlaceholder
+            ? columnConfig?.control?.fromPlaceholder
+            : 'From'
+        "
+        [showButtonBar]="true"
+        (onClearClick)="onSelectDividedFields()"
+        (onClear)="onSelectDividedFields()"
+        [(ngModel)]="dividedRangedValues.from"
+        (onSelect)="onSelectDividedFields()"
+        [dateFormat]="
+          columnConfig.control?.dateFormate
+            ? columnConfig.control?.dateFormate
+            : 'dd/mm/yy'
+        "
+        [view]="
+          columnConfig.control?.view ? columnConfig.control?.view : 'date'
+        "
+        appendTo="body"
+        [showTime]="columnConfig.control.showTime"
+        [showIcon]="true"
+        [maxDate]="dividedRangedValues.to"
+         [showIcon]="true"
+        [defaultDate]="defaultDate"
+        [iconDisplay]="'input'"
+      ></p-datepicker>
+
+      <p-datepicker
+        class="custom-width"
+        #calendarTo
+        [hourFormat]="columnConfig.control.hourFormat"
+        [readonlyInput]="true"
+        [placeholder]="
+          columnConfig?.control?.toPlaceholder
+            ? columnConfig?.control?.toPlaceholder
+            : 'To'
+        "
+        [showButtonBar]="true"
+        (onClearClick)="onSelectDividedFields()"
+        (onClear)="onSelectDividedFields()"
+        [(ngModel)]="dividedRangedValues.to"
+        (onSelect)="onSelectDividedFields()"
+        [dateFormat]="
+          columnConfig.control?.dateFormate
+            ? columnConfig.control?.dateFormate
+            : 'dd/mm/yy'
+        "
+        [view]="
+          columnConfig.control?.view ? columnConfig.control?.view : 'date'
+        "
+        [appendTo]="'body'"
+        [minDate]="dividedRangedValues.from"
+        [showTime]="columnConfig.control.showTime"
+        [showIcon]="true"
+        [defaultDate]="defaultDate"
+        [iconDisplay]="'input'"
+      ></p-datepicker>
+    </div>
+  </div>
+</ng-container>
+}@else {
 <div [formGroup]="dateForm" class="flex flex-column gap-2 calendar-left-icon">
   <label class="font-bold text-sm text-black-alpha-80">{{
     columnConfig?.control?.label
@@ -5,8 +77,7 @@
   <p-datepicker
     class="custom-width"
     [ngClass]="{
-      'bigger-width':
-        columnConfig?.control?.range
+      'bigger-width': columnConfig?.control?.range
     }"
     #rangeCalendar
     [readonlyInput]="true"
@@ -35,3 +106,4 @@
     [defaultDate]="defaultDate"
   ></p-datepicker>
 </div>
+}

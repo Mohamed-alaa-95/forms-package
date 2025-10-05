@@ -31,7 +31,14 @@
               [columnConfig]="column"
             ></app-date-field>
           </ng-container>
-          
+
+          <ng-container *ngSwitchCase="'file'">
+            <lib-file-input
+              [form]="form"
+              [columnConfig]="column"
+            ></lib-file-input>
+          </ng-container>
+
           <ng-container *ngSwitchCase="'dropdown'">
             <app-drop-down
               (onSelect)="onChangeDropdown($event)"
@@ -49,7 +56,7 @@
               [columnConfig]="column"
             ></lib-boolean-dropdown>
           </ng-container>
-          
+
           <ng-container *ngSwitchCase="'auto_complete'">
             <app-auto-complete
               [form]="form"

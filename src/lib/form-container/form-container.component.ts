@@ -8,6 +8,7 @@ import { AutoCompleteComponent } from '../auto-complete/auto-complete.component'
 import { TextInputComponent } from '../text-input/text-input.component';
 import { CommonModule } from '@angular/common';
 import { BooleanDropdownComponent } from '../boolean-dropdown/boolean-dropdown.component';
+import { FileInputComponent } from '../file-input/file-input.component';
 
 @Component({
   selector: 'lib-form-container',
@@ -19,7 +20,8 @@ import { BooleanDropdownComponent } from '../boolean-dropdown/boolean-dropdown.c
     TextInputComponent,
     ButtonModule,
     CommonModule,
-    BooleanDropdownComponent
+    BooleanDropdownComponent,
+    FileInputComponent,
   ],
   templateUrl: './form-container.component.html',
   styleUrl: './form-container.component.css',
@@ -30,13 +32,13 @@ export class FormContainerComponent {
   @Input() form: FormGroup = new FormGroup({});
   @Input() filterButtonText = 'Filter';
   @Input() ClearButtonText = 'Clear';
-  @Input() showFormActions = true
+  @Input() showFormActions = true;
   @Output() onFilter: EventEmitter<any> = new EventEmitter<{
     [key: string]: any;
   }>();
   @Output() onClear = new EventEmitter();
   @Output() onChangeDependValue: EventEmitter<any> = new EventEmitter<any>();
-  
+
   ngOnInit(): void {
     this.initColumns();
   }
