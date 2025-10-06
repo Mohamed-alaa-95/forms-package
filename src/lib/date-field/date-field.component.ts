@@ -37,7 +37,7 @@ export class DateFieldComponent implements OnInit, OnChanges {
         if (Array.isArray(dateValue) && dateValue.length === 2) {
           const startDate = new Date(dateValue[0]);
           let endDate = null;
-          if (dateValue[0] !== -1) endDate = new Date(dateValue[1]);
+          if (dateValue[0] !== '-1') endDate = new Date(dateValue[1]);
 
           this.dateForm.controls['date'].setValue([startDate, endDate]);
         }
@@ -77,7 +77,7 @@ export class DateFieldComponent implements OnInit, OnChanges {
           const startDay = String(startDate.getDate()).padStart(2, '0');
           formattedDates[0] = `${startYear}-${startMonth}-${startDay}`;
         } else {
-          formattedDates[0] = -1;
+          formattedDates[0] = '-1';
         }
 
         // Handle end date
@@ -90,7 +90,7 @@ export class DateFieldComponent implements OnInit, OnChanges {
           // Use the exact same date instead of adding a day
           formattedDates[1] = `${endYear}-${endMonth}-${endDay}`;
         } else {
-          formattedDates[1] = -1;
+          formattedDates[1] = '-1';
         }
 
         this.form.controls[key].setValue(formattedDates);
@@ -134,7 +134,7 @@ export class DateFieldComponent implements OnInit, OnChanges {
         const startMonth = String(startDate.getMonth() + 1).padStart(2, '0');
         const startDay = String(startDate.getDate()).padStart(2, '0');
         formattedDates[0] = `${startYear}-${startMonth}-${startDay}`;
-      } else formattedDates[0] = -1;
+      } else formattedDates[0] = '-1';
 
       // Handle end date
       if (toValue) {
@@ -143,7 +143,7 @@ export class DateFieldComponent implements OnInit, OnChanges {
         const endMonth = String(endDate.getMonth() + 1).padStart(2, '0');
         const endDay = String(endDate.getDate()).padStart(2, '0');
         formattedDates[1] = `${endYear}-${endMonth}-${endDay}`;
-      } else formattedDates[1] = -1;
+      } else formattedDates[1] = '-1';
 
       this.form.controls[this.columnConfig.control.name].setValue(
         formattedDates

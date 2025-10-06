@@ -10,6 +10,7 @@
     (onUpload)="onUpload($event)"
     [auto]="true"
     chooseLabel="Browse"
+    [accept]="columnConfig?.control?.accept || ''"
   />
   <div>
     <small>{{ columnConfig.control.helperText }}</small>

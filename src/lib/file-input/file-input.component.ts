@@ -13,6 +13,7 @@ export class FileInputComponent {
   @Input() columnConfig: any;
   @Input() onClearFilter = new EventEmitter();
   @Input() label: string;
+
   onUpload(event: any) {
     console.log(event);
   }
