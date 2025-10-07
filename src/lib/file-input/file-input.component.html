@@ -1,34 +1,35 @@
-<div class="flex flex-column gap-2">
-  <div>
+<div class="flex flex-column gap-2 w-12rem">
+  <div class="flex flex-column gap-2 w-12rem">
     <label class="block text-gray-700 text-sm font-bold"
       >{{ columnConfig.control.label }}
     </label>
     @if(fileSelected){
-      <div class="flex flex-row align-items-center gap-2">
-        <label>{{ selectedFile?.name }}</label>
-        <i class="pi pi-times cursor-pointer" (click)="onClearSelectedFile()" ></i>
+    <div class="flex flex-row align-items-center gap-2">
+      <label class="text-blue-500 text-sm"
+        >{{ selectedFile?.name.toString().substring(0, 20)
+        }}{{ selectedFile?.name.length > 20 ? "..." : "" }}</label
+      >
+      <i class="pi pi-times cursor-pointer" (click)="onClearSelectedFile()"></i>
     </div>
     }@else {
-      <p-fileupload
-        #fileUploader
-        mode="basic"
-        name="demo[]"
-        chooseIcon="pi pi-upload"
-        [maxFileSize]="columnConfig.control.maxFileSize || 1000000"
-        (onSelect)="onUpload($event, fileUploader)"
-        [auto]="true"
-        chooseLabel="Browse"
-        [accept]="columnConfig?.control?.accept || ''"
-      />
+    <p-fileupload
+      #fileUploader
+      mode="basic"
+      name="demo[]"
+      chooseIcon="pi pi-upload"
+      [maxFileSize]="columnConfig.control.maxFileSize || 1000000"
+      (onSelect)="onUpload($event, fileUploader)"
+      [auto]="true"
+      chooseLabel="Browse"
+      [accept]="columnConfig?.control?.accept || ''"
+    />
     }
   </div>
   <div>
-    <p-button
-      [label]="columnConfig.control.helperText || 'sample'"
-      variant="text"
-      [raised]="true"
+    <label
       (click)="downloadSample()"
-      severity="secondary"
-    />
+      class="text-blue-500 text-sm cursor-pointer"
+      >{{ columnConfig.control.helperText || "sample" }}</label
+    >
   </div>
 </div>
