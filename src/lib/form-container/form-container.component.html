@@ -36,6 +36,8 @@
             <lib-file-input
               [form]="form"
               [columnConfig]="column"
+              (onClickDownloadSample)="handleDownloadSample($event)"
+              (onSelectFile)="handleSelectFile($event)"
             ></lib-file-input>
           </ng-container>
 

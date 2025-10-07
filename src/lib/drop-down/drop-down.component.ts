@@ -11,10 +11,9 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Dropdown, DropdownModule } from 'primeng/dropdown';
 import { MultiSelect } from 'primeng/multiselect';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { SelectModule } from 'primeng/select';
+import { Select, SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-drop-down',
@@ -25,15 +24,14 @@ import { SelectModule } from 'primeng/select';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    DropdownModule,
     MultiSelectModule,
-    SelectModule
+    SelectModule,
   ],
 })
 export class DropDownComponent implements OnChanges {
   constructor() {}
   @Input() columnConfig: any;
-  @ViewChild('dp') dropdown!: Dropdown;
+  @ViewChild('dp') dropdown!: Select;
   @ViewChildren('dp_multiple') dropdownMultipleComponents:
     | QueryList<MultiSelect>
     | any;

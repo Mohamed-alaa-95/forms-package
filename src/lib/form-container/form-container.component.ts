@@ -38,7 +38,8 @@ export class FormContainerComponent {
   }>();
   @Output() onClear = new EventEmitter();
   @Output() onChangeDependValue: EventEmitter<any> = new EventEmitter<any>();
-
+  @Output() onClickDownloadSample = new EventEmitter<any>();
+  @Output() onSelectFile = new EventEmitter<any>();
   ngOnInit(): void {
     this.initColumns();
   }
@@ -86,5 +87,13 @@ export class FormContainerComponent {
     this.onFilter.emit({});
     this.onClear.emit({ key: 'clear all', form: this.form });
     this.form.reset();
+  }
+
+  handleDownloadSample(event: any) {
+    this.onClickDownloadSample.emit(event);
+  }
+
+  handleSelectFile(event: any) {
+    this.onSelectFile.emit(event);
   }
 }

@@ -11,9 +11,8 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Dropdown, DropdownModule } from 'primeng/dropdown';
-import { MultiSelect, MultiSelectModule } from 'primeng/multiselect';
-import { SelectModule } from 'primeng/select';
+import { MultiSelect } from 'primeng/multiselect';
+import { Select } from 'primeng/select';
 
 @Component({
   selector: 'lib-boolean-dropdown',
@@ -21,9 +20,8 @@ import { SelectModule } from 'primeng/select';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    DropdownModule,
-    MultiSelectModule,
-    SelectModule,
+    MultiSelect,
+    Select,
   ],
   templateUrl: './boolean-dropdown.component.html',
   styleUrl: './boolean-dropdown.component.css',
@@ -37,7 +35,7 @@ export class BooleanDropdownComponent implements OnInit {
     ];
   }
   @Input() columnConfig: any;
-  @ViewChild('dp') dropdown!: Dropdown;
+  @ViewChild('dp') dropdown!: Select;
   @ViewChildren('dp_multiple') dropdownMultipleComponents:
     | QueryList<MultiSelect>
     | any;
