@@ -5,7 +5,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'lib-textarea',
   templateUrl: './textarea.component.html',
-  styleUrls: ['./textarea.component.css'],
+  styleUrls: ['./textarea.component.scss'],
   imports: [CommonModule, ReactiveFormsModule],
 })
 export class TextareaComponent {

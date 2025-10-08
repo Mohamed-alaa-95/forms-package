@@ -35,6 +35,7 @@ export class FormContainerComponent {
   @Input() filterButtonText = 'Filter';
   @Input() ClearButtonText = 'Clear';
   @Input() showFormActions = true;
+  @Input() flexDirection: 'row' | 'column' = 'row';
   @Output() onFilter: EventEmitter<any> = new EventEmitter<{
     [key: string]: any;
   }>();

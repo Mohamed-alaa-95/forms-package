@@ -1,4 +1,4 @@
-<div (keyup.enter)="sumbitForm()" class="flex flex-row gap-5 flex-wrap">
+<div (keyup.enter)="sumbitForm()" class="flex  gap-5 flex-wrap" ngClass="{'flex-column': flexDirection}">
   <ng-container *ngFor="let column of columns">
     <ng-container>
       <div>
