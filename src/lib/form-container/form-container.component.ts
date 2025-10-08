@@ -9,6 +9,7 @@ import { TextInputComponent } from '../text-input/text-input.component';
 import { CommonModule } from '@angular/common';
 import { BooleanDropdownComponent } from '../boolean-dropdown/boolean-dropdown.component';
 import { FileInputComponent } from '../file-input/file-input.component';
+import { TextareaComponent } from '../textarea/textarea.component';
 
 @Component({
   selector: 'lib-form-container',
@@ -22,6 +23,7 @@ import { FileInputComponent } from '../file-input/file-input.component';
     CommonModule,
     BooleanDropdownComponent,
     FileInputComponent,
+    TextareaComponent,
   ],
   templateUrl: './form-container.component.html',
   styleUrl: './form-container.component.css',

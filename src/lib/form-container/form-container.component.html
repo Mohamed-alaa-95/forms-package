@@ -51,6 +51,15 @@
             ></app-drop-down>
           </ng-container>
 
+             <ng-container *ngSwitchCase="'textarea'">
+            <lib-textarea
+            
+              [form]="form"
+             
+              [columnConfig]="column"
+            ></lib-textarea>
+          </ng-container>
+
           <ng-container *ngSwitchCase="'boolean'">
             <lib-boolean-dropdown
               (onSelect)="onChangeDropdown($event)"
