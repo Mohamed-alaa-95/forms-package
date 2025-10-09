@@ -5,8 +5,9 @@
         [placeholder]="columnConfig?.control?.placeholder"
         rows="4"
         cols="30"
+        pTextarea 
         style="width: 100%;"
-        [invalid]="!value"></textarea>
+        ></textarea>
     <label
         *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name].hasError('required') && form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name].touched"
         class="text-xs error">This field is required</label>
