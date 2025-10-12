@@ -8,6 +8,9 @@
       width: 13rem !important;
     }
   }
+  .ng-invalid .p-inputtext {
+    border: 1px solid #f44336 !important;
+  }
    .invalid-input {
   ::ng-deep .p-inputtext{
     border-color: #e74c3c !important;

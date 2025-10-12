@@ -5,7 +5,7 @@
         [placeholder]="columnConfig?.control?.placeholder" [type]="columnConfig?.type" pInputText style="width: 100%;" />
     <label
         *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name].hasError('required') && form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name].touched"
-        class="text-xs error"> This field is required </label>
+        class="text-xs error"> {{errorMessage}}</label>
     <label
         *ngIf="form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name].hasError('pattern') && form.controls[columnConfig?.control?.filterKey ? columnConfig?.control?.filterKey : columnConfig?.control?.name].touched"
         class="text-xs error">Invalid Format</label>

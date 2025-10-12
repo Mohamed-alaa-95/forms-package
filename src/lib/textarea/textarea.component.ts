@@ -11,4 +11,6 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class TextareaComponent {
   @Input() form!: FormGroup;
   @Input() columnConfig: any;
+  @Input() errorMessage: string = 'This field is required';
+
 }

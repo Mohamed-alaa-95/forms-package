@@ -13,4 +13,5 @@ import { InputTextModule } from 'primeng/inputtext';
 export class TextInputComponent {
   @Input() columnConfig: any;
   @Input() form: FormGroup = new FormGroup({});
+  @Input() errorMessage: string = 'This field is required';
 }
